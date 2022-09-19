@@ -9,12 +9,12 @@ public class UsuariosXIncidencia {
     private UsuariosXIncidenciaId id;
 
     @MapsId("usuario")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-        @JoinColumn(name = "usuario", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario", nullable = false)
     private UsuariosRegistrado usuario;
 
     @MapsId("idincidencia")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "idincidencia", nullable = false)
     private Incidencia idincidencia;
 
