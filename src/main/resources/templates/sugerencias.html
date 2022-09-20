@@ -13,21 +13,22 @@
  -->
 <!-- beautify ignore:start -->
 <html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
 >
   <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <meta charset="utf-8" />
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Registro de Incidencias</title>
+    <title>Sugerencias</title>
 
     <meta name="description" content="" />
 
@@ -38,8 +39,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
     />
 
     <!-- Icons. Uncomment required icon fonts -->
@@ -97,7 +98,7 @@
 
 
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="perfil_usuario.html" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Incidencias</div>
               </a>
@@ -130,13 +131,13 @@
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
-              <a href="sugerencias.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
-                <div data-i18n="Analytics">Sugerencias</div>
-              </a>
-            </li>
 
+            <li class="menu-item">
+                <a href="sugerencias.html" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-support"></i>
+                  <div data-i18n="Analytics">Sugerencias</div>
+                </a>
+              </li>
 
 
 
@@ -144,6 +145,8 @@
 
           </ul>
         </aside>
+
+
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -151,8 +154,8 @@
           <!-- Navbar -->
 
           <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
+                  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                  id="layout-navbar"
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -193,14 +196,14 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="perfil_usuario.html">
+                      <a class="dropdown-item" href="usuariologin.html">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
 
                     <li>
-                      <a class="dropdown-item" href="usuariologin.html">
+                      <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Salir</span>
                       </a>
@@ -214,150 +217,61 @@
 
           <!-- / Navbar -->
 
+
+
+
+
+
+
+
+
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Registro de Incidencias</h4>
-
-              <div class="row">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Sugerencias /</span> </h4>
 
 
-                <!-- Registro incidencia -->
-                <div class="col-md-6">
-                  <div class="card mb-4">
-                    <h5 class="card-header">Registro de Incidencia</h5>
-                    <div class="card-body">
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Titulo</label>
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="exampleFormControlInput1"
-                          placeholder="Titulo del incidente"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Descripcion</label>
-                        <input
-                                type="text "
-                                class="form-control"
 
-                                placeholder="Describa aqui"
-                        />
-                      </div>
 
-                      <div class="mb-3">
-                        <div class="mb-3">
-                          <label for="formFile" class="form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Agregar una foto</font></font></label>
-                          <input class="form-control" type="file" id="formFile">
+              <!-- Bootstrap Table with Header - Light -->
+              <div class="card">
+                <br><br>
+                <div class="container">
+                    <h1 class="text-center">Sugerencias de Mejora</h1>
+                        <div class="form-group">
+                            <label>Ingrese la sugerencias para ser revisada por los administradores</label>
+                            <textarea class="form-control" rows="5"></textarea>
                         </div>
-                      </div>
-
-
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Zona PUCP</label>
-                        <input
-                                type="text "
-                                class="form-control"
-
-                                placeholder="Describa aqui"
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Ubicacion</label>
-
-                          <div class="mb-auto">
-                          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.622025397508!2d-77.08154788583279!3d-12.069506745608525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c912d40840a5%3A0xd7a0bfb797e5862e!2sPontificia%20Universidad%20Cat%C3%B3lica%20del%20Per%C3%BA!5e0!3m2!1ses-419!2spe!4v1663016346161!5m2!1ses-419!2spe" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                      </div>
-
-                      </div>
-
-
-                      <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Tipo de Incidencia</label>
-                        <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-
-                          <option value="1">Reporte de robos</option>
-                          <option value="2">Objetos perdidos</option>
-                          <option value="3">Infraestructura en mal estado</option>
-                          <option value="4">Ambulancia PUCP</option>
-                          <option value="5">Accidente</option>
-                          <option value="6">Otros</option>
-
-                        </select>
-
-                        <div>
-                          <label for="exampleFormControlTextarea1" class="form-label">Especifique la situacion</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <br>
+                        <div align="right">
+                        <input type="submit" class="btn btn-block btn-lg btn-primary" >
                         </div>
-                      </div>
-
-
-
-                      <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Nivel de Urgencia</label>
-                        <select class="form-select" id="exampleFormControlSelect12" aria-label="Default select example">
-
-                          <option value="1">Leve</option>
-                          <option value="2">Moderado</option>
-                          <option value="3">Critico</option>
-
-                        </select>
-                      </div>
-
-                      <button  href="lista_incidencias.html" type="submit" class="btn btn-primary">Registrar</button>
-                      <a href="lista_incidencias.html" class="btn btn-danger">Cancelar</a>
-
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4  d-lg-block">
-
-                  <div class="card mb-4">
-                    <img class="card-img-top" src="../assets/img/elements/imagen_incidencias.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <p class="card-text">
-                      Al registrar una incidencia apoyamos a nuestra comunidad PUCP.
-
-                    </p>
-                      <p class="card-text">
-                        Cientos de nuestros usuarios estan muy satisfechos con el apoyo que brinda nuestra aplicacion.
-
-                      </p>
-
-                    </div>
-                  </div>
-
-
+                    </form>
+                    <p>&nbsp;</p>
+            
                 </div>
 
 
 
-
-
-                </div>
               </div>
+              <!-- Bootstrap Table with Header - Light -->
+
+              
+
+
+
+              <hr class="my-5" />
+
+              <!-- Bootstrap Table with Header - Footer -->
+
+
             </div>
             <!-- / Content -->
 
             <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  Av. Universitaria N° 1801, San Miguel, Lima - Perú | © 2022
-
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  Pontificia Universidad Católica del Perú
-                </div>
-
-              </div>
-            </footer>
+            
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
@@ -370,7 +284,7 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -388,8 +302,6 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-
-    <script src="../assets/js/form-basic-inputs.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
