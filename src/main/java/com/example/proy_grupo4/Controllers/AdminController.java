@@ -25,7 +25,7 @@ public class AdminController {
     @Autowired
     IncidenciaRepository incidenciaRepository;
 
-    @GetMapping(value ={"", "/usuario"})
+    @GetMapping(value ={ "/usuario"})
     public String listar_usuario(Model model){
         model.addAttribute("lista_usuario",adminRepository.findAll());
         return "lista_usuario";
