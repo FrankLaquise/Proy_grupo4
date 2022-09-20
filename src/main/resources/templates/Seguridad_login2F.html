@@ -13,7 +13,7 @@
  -->
 <!-- beautify ignore:start -->
 <html
-  lang="en"
+  lang="en" xmlns:th="http://www.thymeleaf.org"
   class="light-style customizer-hide"
   dir="ltr"
   data-theme="theme-default"
@@ -75,7 +75,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+                <a href="../index.html" class="app-brand-link gap-2">
 				<center>
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
 						height="100"> </img>
@@ -87,7 +87,7 @@
               <center><h4 class="mb-2">Bienvenido</h4></center>
 
 
-              <form id="formAuthentication" class="mb-3" action="Seguridad_inicio.html" method="POST">
+              <form id="formAuthentication" class="mb-3" th:action="@{'/seguridad/inicio'}" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input
@@ -136,7 +136,7 @@
               </form>
 
               <p class="text-center">
-                <a href="auth-register-basic.html">
+                <a href="/seguridad/login2F/">
                   <span>Click aquí para reenviar Código </span>
                 </a>
               </p>
