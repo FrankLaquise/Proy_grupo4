@@ -25,7 +25,7 @@ public class IncidenciaController {
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
 
-        return "Usuario/lista_incidencias";
+        return "lista_incidencias";
 
     }
 
@@ -33,7 +33,7 @@ public class IncidenciaController {
     public String nuevoTransportistaFrm(Model model ,Incidencia incidencia ) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
 
-        return "Usuario/Registro_incidencias";
+        return "Registro_incidencias";
     }
 
 
