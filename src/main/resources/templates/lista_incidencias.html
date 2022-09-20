@@ -12,13 +12,13 @@
 =========================================================
  -->
 <!-- beautify ignore:start -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-  lang="en"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
   data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+  data-template="vertical-menu-template-free">
 >
   <head>
     <meta charset="utf-8" />
@@ -248,122 +248,16 @@
                         <th>Zona PUCP</th>
                         <th>Tipo</th>
                         <th>Destacar</th>
-                        <th>Nº </th>
+
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                       <tr th:each="inc, info : ${listaIncidencias}">
                         <td th:text="${info.index + 1}"></td>
                         <td th:text="${inc.getTitulo()}"></td>
-                        <td th:text="${inc.}"></td>
-                        <td th:text="${product.supplier.getCompanyname()}"></td>
-                        <td th:text="${product.unitprice}"></td>
-                        <td th:text="${product.unitsinstock}"></td>
-                        <td th:text="${product.discontinued?'si':'no'}"></td>
-
-
-
-                        <td >
-                          <div class="mt-3">
-                          <!-- Button trigger modal -->
-
-
-                            <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Tuberias en mal estado</a>
-
-
-                          <!-- Modal -->
-                          <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
-                            <div class="modal-dialog modal-fullscreen" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header" >
-                                  <h1 class="modal-title" id="exampleModalLabel1">Tuberias en mal estado</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-
-                                <div class="container-xxl flex-grow-1 container-p-y">
-
-
-                                  <!-- Examples -->
-                                  <div class="row mb-5">
-                                    <div class="col-md-6 col-lg-4 mb-3">
-                                      <div class="card h-100">
-                                        <img class="card-img-top" src="../assets/img/elements/venado_pucp.jpg " alt="Card image cap">
-
-                                      </div>
-                                    </div>
-                                    <div class="col-md-6  col-xl-8">
-                                      <div class="card h-100">
-                                        <div class="card-body">
-
-
-                                          <div class="card-body">
-                                            <small class="text-light fw-semibold">Informacion Adicional</small>
-                                            <dl class="row mt-2">
-                                              <dt class="col-sm-3">Detalles</dt>
-                                              <dd class="col-sm-9">Tuberias oxidadas , gotean agua.</dd>
-
-                                              <dt class="col-sm-3">Zona PUCP</dt>
-                                              <dd class="col-sm-9">
-                                                <p>Pabellon T</p>
-                                              </dd>
-
-                                              <dt class="col-sm-3">Nivel de Urgencia</dt>
-                                              <dd class="col-sm-9">Leve</dd>
-
-                                              <dt class="col-sm-3 text-truncate">Mapa</dt>
-                                              <dd class="col-sm-9">
-                                                www.asdsadasd.com
-                                              </dd>
-
-                                            </dl>
-                                          </div>
-
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                  </div>
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                </div>
-
-
-
-
-
-                              </div>
-                            </div>
-
-
-                          </div>
-
-
-                        </td>
-                        <td><span class="badge bg-label-success me-1">Leve</span></td>
-                        <td>11/09/22</td>
-                        <td>EEGGCC</td>
-                        <td>
-                          Infraestructura en mal estado
-                        </td>
-
-
-
-
+                        <td th:text="${inc.getNivel()}"></td>
+                        <td th:text="${inc.getHoraCreacion()}"></td>
+                        <td th:text="${inc.getZona().getTitulo()}"></td>
                         <td>
 
 
@@ -375,7 +269,21 @@
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                           </div>
                         </td>
-                        <td>1</td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                       </tr>
 
 
