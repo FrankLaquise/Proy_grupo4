@@ -12,7 +12,7 @@
 =========================================================
  -->
 <!-- beautify ignore:start -->
-<html
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   lang="en"
   class="light-style layout-menu-fixed"
   dir="ltr"
@@ -241,6 +241,7 @@
                   <table class="table">
                     <thead class="table-light">
                       <tr>
+                        <th>#</th>
                         <th>Titulo</th>
                         <th>Urgencia</th>
                         <th>Fecha</th>
@@ -251,10 +252,21 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td>
+                      <tr th:each="inc, info : ${listaIncidencias}">
+                        <td th:text="${info.index + 1}"></td>
+                        <td th:text="${inc.getTitulo()}"></td>
+                        <td th:text="${inc.}"></td>
+                        <td th:text="${product.supplier.getCompanyname()}"></td>
+                        <td th:text="${product.unitprice}"></td>
+                        <td th:text="${product.unitsinstock}"></td>
+                        <td th:text="${product.discontinued?'si':'no'}"></td>
+
+
+
+                        <td >
                           <div class="mt-3">
                           <!-- Button trigger modal -->
+
 
                             <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#basicModal">Tuberias en mal estado</a>
 
