@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
   lang="en"
   class="light-style layout-menu-fixed"
@@ -208,54 +196,15 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr class="table-danger">
+                      <tr class="table-info" th:each="usuario, info : ${lista_usuario}">
                         
-                        <td>20181234</td>
-                        <td>Suspendido</td>
-                        <td>3</td>
-                        <td>Alumno</td>
-						<td><a href="usuario_suspendido.html"><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></a></td>
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.estado}"></td>
+                        <td th:text="${usuario.numeroReportes}"></td>
+                        <td th:text="${usuario.rol}>Alumno</td>
+						<td><a th:href="@{'/admin/edit'+'?id='+${usuario.id}}"><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></a></td>
                       </tr>
-					  <tr class="table-info">
-                        
-                        <td>20181224</td>
-                        <td>Activo</td>
-                        <td>1</td>
-                        <td>Alumno</td>
-						<td><a href="usuario_activo.html"><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></a></td>
-                      </tr>
-                      <tr class="table-info">
-                        
-                        <td>20101334</td>
-                        <td>Activo</td>
-                        <td>-</td>
-                        <td>Jefe de Practica</td>
-						<td><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></td>
-                      </tr>
-					  <tr class="table-danger">
-                        
-                        <td>20182234</td>
-                        <td>Suspendido</td>
-                        <td>3</td>
-                        <td>Otros</td>
-						<td><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></td>
-                      </tr>
-					  <tr class="table-info">
-                        
-                        <td>20051234</td>
-                        <td>Activo</td>
-                        <td>-</td>
-                        <td>Profesor</td>
-						<td><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></td>
-                      </tr>
-                      <tr class="table-info">
-                        
-                        <td>00001234</td>
-                        <td>Activo</td>
-                        <td>-</td>
-                        <td>Seguridad</td>
-						<td><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></td>
-                      </tr>
+
                     </tbody>
                   </table>
 				  
