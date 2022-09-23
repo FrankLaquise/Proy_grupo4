@@ -25,9 +25,9 @@ public class SeguridadController {
     @PostMapping(value = {"/inicio"})
     public String SeguridadInicio(Model model){
         List<Incidencia> incidencias = incidenciaRepository.findAll();
-
         return "Seguridad_inicio";
     }
+
 
     @GetMapping(value = {"/incidencias"})
     public String Seguridadincidencias(){
