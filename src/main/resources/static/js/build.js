@@ -70,7 +70,7 @@ module.exports = (conf, srcGlob) => {
   // -------------------------------------------------------------------------------
   const buildJsTask = function (cb) {
     setTimeout(function () {
-      webpack(require('../webpack.config'), (err, stats) => {
+      webpack(require('../../webpack.config'), (err, stats) => {
         if (err) {
           log(colors.gray('Webpack error:'), colors.red(err.stack || err));
           if (err.details) log(colors.gray('Webpack error details:'), err.details);

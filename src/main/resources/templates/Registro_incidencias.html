@@ -21,6 +21,7 @@
       data-template="vertical-menu-template-free"
 >
     <head>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
         <meta charset="utf-8"/>
         <meta
                 name="viewport"
@@ -43,24 +44,31 @@
         />
 
         <!-- Icons. Uncomment required icon fonts -->
-        <link rel="stylesheet" href="../static/css/boxicons.css"/>
+        <link rel="stylesheet" th:href="@{/css/boxicons.css}"/>
 
         <!-- Core CSS -->
-        <link rel="stylesheet" href="../static/css/core.css" class="template-customizer-core-css"/>
-        <link rel="stylesheet" href="../static/css/theme-default.css" class="template-customizer-theme-css"/>
-        <link rel="stylesheet" href="../static/css/demo.css"/>
+        <link rel="stylesheet" th:href="@{/css/core.css}" class="template-customizer-core-css"/>
+        <link rel="stylesheet" th:href="@{/css/theme-default.css}" class="template-customizer-theme-css"/>
+        <link rel="stylesheet" th:href="@{/css/demo.css}"/>
+
 
         <!-- Vendors CSS -->
-        <link rel="stylesheet" href="../static/css/perfect-scrollbar.css"/>
+        <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}"/>
 
         <!-- Page CSS -->
 
         <!-- Helpers -->
-        <script src="../static/js/helpers.js"></script>
+        <script th:src="@{/js/helpers.js}"></script>
 
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-        <script src="../static/js/config.js"></script>
+        <script th:src="@{/js/config.js}"></script>
+
+        <style>
+            #map {
+                margin: 20px;
+            }
+        </style>
     </head>
 
     <body>
@@ -72,7 +80,7 @@
                 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                     <div class="app-brand demo">
 
-              <span class="app-brand-logo demo">
+              <span class="app-brand-logo demo"></span>
 
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
                        height="100"> </img>
@@ -170,7 +178,7 @@
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                        data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="../assets/img/avatars/1.png" alt
+                                            <img src="../static/img/1.png" alt
                                                  class="w-px-40 h-auto rounded-circle"/>
                                         </div>
                                     </a>
@@ -180,7 +188,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="../assets/img/avatars/1.png" alt
+                                                            <img src="../static/img/1.png" alt
                                                                  class="w-px-40 h-auto rounded-circle"/>
                                                         </div>
                                                     </div>
@@ -232,37 +240,23 @@
                                             <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
                                                 <div class="mb-3">
                                                     <label for="titulo" class="form-label">Titulo</label>
-                                                    <input type="email" class="form-control" id="titulo"
+                                                    <input type="text" class="form-control" id="titulo" name="titulo"
                                                            placeholder="Titulo del incidente"
                                                     />
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripcion</label>
                                                     <input type="text " class="form-control" id="descripcion"
+                                                           name="descripcion"
                                                            placeholder="Describa aqui"
                                                     />
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <div class="mb-3">
-                                                        <label for="formFile" class="form-label"><font
-                                                                style="vertical-align: inherit;"><font
-                                                                style="vertical-align: inherit;">Agregar una foto</font></font></label>
-                                                        <input class="form-control" type="file" id="formFile">
-                                                    </div>
+                                                    <label for="formFile" class="form-label">Imagen</label>
+                                                    <input class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
 
-
-                                                <div class="mb-3">
-                                                    <label for="exampleFormControlInput1" class="form-label">Zona
-                                                        PUCP</label>
-                                                    <input
-                                                            type="text "
-                                                            class="form-control"
-
-                                                            placeholder="Describa aqui"
-                                                    />
-                                                </div>
 
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
@@ -277,15 +271,47 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="ubicacion"
-                                                           class="form-label">Ubicacion</label>
 
-                                                    <div class="mb-auto">
-                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.622025397508!2d-77.08154788583279!3d-12.069506745608525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c912d40840a5%3A0xd7a0bfb797e5862e!2sPontificia%20Universidad%20Cat%C3%B3lica%20del%20Per%C3%BA!5e0!3m2!1ses-419!2spe!4v1663016346161!5m2!1ses-419!2spe"
-                                                                width="300" height="300" style="border:0;"
-                                                                allowfullscreen="" loading="lazy"
-                                                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                                    </div>
+                                                    <button onclick="findMe()">Mostrar ubicación</button>
+                                                    <div id="map"></div>
+
+                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYU4ftNqjBu13LOx9tCgomz-wesLY2hu8"></script>
+                                                    <script>
+                                                        function findMe() {
+                                                            var output = document.getElementById('map');
+
+                                                            // Verificar si soporta geolocalizacion
+                                                            if (navigator.geolocation) {
+                                                                output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
+                                                            } else {
+                                                                output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
+                                                            }
+
+                                                            //Obtenemos latitud y longitud
+                                                            function localizacion(posicion) {
+
+                                                                var latitude = posicion.coords.latitude;
+                                                                var longitude = posicion.coords.longitude;
+
+                                                                var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&size=600x300&markers=color:red%7C" + latitude + "," + longitude + "&key=AIzaSyCYU4ftNqjBu13LOx9tCgomz-wesLY2hu8";
+
+                                                                output.innerHTML = "<img src='" + imgURL + "'>";
+
+
+                                                            }
+
+                                                            function error() {
+                                                                output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+
+                                                            }
+
+                                                            navigator.geolocation.getCurrentPosition(localizacion, error);
+
+                                                        }
+
+
+                                                    </script>
+
 
                                                 </div>
 
@@ -306,17 +332,16 @@
                                                         <label for="exampleFormControlTextarea1" class="form-label">Especifique
                                                             la situacion</label>
                                                         <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                                  name="descripcion"
                                                                   rows="3"></textarea>
                                                     </div>
                                                 </div>
 
 
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="exampleFormControlSelect1">Nivel de
-                                                        Urgencia</label>
-                                                    <select class="form-select" id="exampleFormControlSelect12"
+                                                    <label class="form-label" for="nivel">Nivel de Urgencia</label>
+                                                    <select class="form-select" id="nivel"
                                                             aria-label="Default select example">
-
                                                         <option value="1">Leve</option>
                                                         <option value="2">Moderado</option>
                                                         <option value="3">Critico</option>
@@ -324,11 +349,11 @@
                                                     </select>
                                                 </div>
 
-                                                <button href="lista_incidencias.html" type="submit"
+                                                <button th:href="@{'/incidencia/list'}" type="submit"
                                                         class="btn btn-primary">Registrar
                                                 </button>
-                                                <a href="lista_incidencias.html" class="btn btn-danger">Cancelar</a>
-
+                                                <a th:href="@{'/incidencia/list'}" class="btn btn-danger">Cancelar</a>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -336,7 +361,7 @@
                                 <div class="col-md-6 col-lg-4  d-lg-block">
 
                                     <div class="card mb-4">
-                                        <img class="card-img-top" src="../assets/img/elements/imagen_incidencias.jpg"
+                                        <img class="card-img-top" th:src="@{/img/imagen_incidencias.jpg}"
                                              alt="Card image cap">
                                         <div class="card-body">
                                             <p class="card-text">
@@ -385,28 +410,31 @@
         </div>
 
         <!-- Overlay -->
+        <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-        <!-- / Layout wrapper -->
+
 
         <!-- Core JS -->
-        <!-- build:js assets/vendor/js/core.js -->
-        <script src="../static/js/jquery.js"></script>
-        <script src="../static/js/popper.js"></script>
-        <script src="../static/js/bootstrap.js"></script>
-        <script src="../static/js/perfect-scrollbar.js"></script>
 
-        <script src="../static/js/menu.js"></script>
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anónimo" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0"
+                nonce="RhQbcBPc"></script>
+        <!-- build:js assets/vendor/js/core.js -->
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+        <script th:src="@{/js/perfect-scrollbar.js}"></script>
+
+        <script th:src="@{/js/menu.js}"></script>
         <!-- endbuild -->
 
         <!-- Vendors JS -->
 
         <!-- Main JS -->
-        <script src="../static/js/main.js"></script>
+        <script th:src="@{/js/main.js}"></script>
 
         <!-- Page JS -->
-
-        <script src="../static/js/form-basic-inputs.js"></script>
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
