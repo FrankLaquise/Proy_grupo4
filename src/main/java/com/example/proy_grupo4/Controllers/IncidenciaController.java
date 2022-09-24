@@ -1,7 +1,9 @@
 package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Entity.Incidencia;
+import com.example.proy_grupo4.Entity.Tipo;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
+import com.example.proy_grupo4.Repository.TipoRepository;
 import com.example.proy_grupo4.Repository.ZonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ public class IncidenciaController {
 
     @Autowired
     ZonaRepository zonaRepository;
+
+    @Autowired
+    TipoRepository tipoRepository;
     @GetMapping(value = {"/list"})
     public String listarIncidencias(Model model) {
 
@@ -30,11 +35,13 @@ public class IncidenciaController {
     }
 
     @GetMapping("/new")
-    public String nuevoTransportistaFrm(Model model ,Incidencia incidencia ) {
+    public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
-
+        model.addAttribute("listaTipos",tipoRepository.findAll());
         return "Registro_incidencias";
     }
+
+
 
 
 
