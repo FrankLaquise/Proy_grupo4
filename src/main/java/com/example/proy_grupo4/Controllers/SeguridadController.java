@@ -47,9 +47,11 @@ public class SeguridadController {
     @GetMapping(value = {"/detalle"})
     public String SeguridadDetalle(Model model, @RequestParam("id") int id){
         Optional<Incidencia> optInc = incidenciaRepository.findById(id);
+        String codigoCreador = incidenciaRepository.buscarCreador(id);
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
             model.addAttribute("incidencia",incidencia);
+            model.addAttribute("codigocreador",codigoCreador);
             return "Seguridad_IncidenciaDetalle";
         }else{
             return "redirect:/seguridad/inicio";
