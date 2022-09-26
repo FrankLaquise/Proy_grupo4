@@ -15,6 +15,9 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
                     "join incidencias i where u.incidencia = i.idincidencias and creador = 1 and idincidencias = %?1%")
     String buscarCreador(int id);
 
+
+
+
 }
 
 
