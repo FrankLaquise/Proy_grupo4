@@ -58,15 +58,7 @@ public class IncidenciaController {
 
     }
 
-    @GetMapping(value = {"/mis_incidencias"})
-    public String listarIncidencias(Model model) {
 
-        List<Incidencia> lista = incidenciaRepository.findAll();
-        model.addAttribute("listaIncidencias", lista);
-
-        return "mis_incidencias";
-
-    }
 
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
