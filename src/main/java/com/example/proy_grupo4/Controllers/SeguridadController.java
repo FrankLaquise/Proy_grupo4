@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/seguridad")
@@ -22,19 +24,7 @@ public class SeguridadController {
         return "Seguridad_login2F";
     }
 
-    @PostMapping(value = {"/inicio"})
-    public String SeguridadInicio(Model model){
-        List<Incidencia> incidencias = incidenciaRepository.findAll();
-        return "Seguridad_inicio";
-    }
-
-
-    @GetMapping(value = {"/incidencias"})
-    public String Seguridadincidencias(){
-        return "Seguridad_inicio";
-    }
-
-    @GetMapping(value = {"/incidenciaslistar"})
+    @GetMapping(value = {"/inicio"})
     public String Seguridadincidenciaslistar(Model model){
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
@@ -53,6 +43,28 @@ public class SeguridadController {
     public String SeguridadMapa(){
         return "Seguridad_mapa";
     }
+
+    @GetMapping(value = {"/detalle"})
+    public String SeguridadDetalle(Model model, @RequestParam("id") int id){
+        Optional<Incidencia> optInc = incidenciaRepository.findById(id);
+        if(optInc.isPresent()){
+            Incidencia incidencia=optInc.get();
+            model.addAttribute("incidencia",incidencia);
+            return "Seguridad_IncidenciaDetalle";
+        }else{
+            return "redirect:/seguridad/inicio";
+        }
+
+    }
+
+    @GetMapping(value = {"/perfil"})
+    public String SeguridadPerfil(){
+        return "Seguridad_perfil";
+    }
+
+
+
+
 }
 
 

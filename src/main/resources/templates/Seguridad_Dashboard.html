@@ -177,12 +177,12 @@
                       </a>
                     </li>
                     <li>
-                      <a href="perfil_admin.html" class="dropdown-item">
+                      <a th:href="@{'/seguridad/perfil'}" class="dropdown-item">
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
                     <li>
-                      <a href="usuariologin.html" class="dropdown-item" >
+                      <a th:href="@{'/seguridad/login2F'}" class="dropdown-item" >
                         <span class="align-middle">Salir</span>
                       </a>
                     </li>
@@ -472,6 +472,22 @@
 
 
               </div>
+              <!-- Footer -->
+              <footer class="content-footer footer bg-footer-theme">
+                <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                  <div class="mb-2 mb-md-0">
+                    Av. Universitaria N° 1801, San Miguel, Lima - Perú | © 2022
+
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    Pontificia Universidad Católica del Perú
+                  </div>
+
+                </div>
+              </footer>
+
+              <!-- / Footer -->
             </div>
 
 
@@ -482,6 +498,7 @@
         <!-- / Layout page -->
       </div>
 
+
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
@@ -491,22 +508,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../static/js/jquery.js"></script>
-    <script src="../static/js/popper.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
-    <script src="../static/js/perfect-scrollbar.js"></script>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/perfect-scrollbar.js}"></script>
 
-    <script src="../static/js/menu.js"></script>
+    <script th:src="@{/js/menu.js}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../static/js/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="../static/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="../static/js/dashboards-analytics.js"></script>
+    <script th:src="@{/js/main.js}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

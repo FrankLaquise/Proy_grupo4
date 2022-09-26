@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<head>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  <meta charset="utf-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+  />
+
+  <title>Incidencias</title>
+
+  <meta name="description" content="" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" th:href="@{/assets/img/favicon/favicon.ico}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" th:href="@{/css/boxicons.css}" />
+  <link rel="stylesheet" th:href="@{/css/core.css}" class="template-customizer-core-css" />
+  <link rel="stylesheet" th:href="@{/css/theme-default.css}" class="template-customizer-theme-css" />
+  <link rel="stylesheet" th:href="@{/css/demo.css}" />
+  <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}" />
+
+  <!-- Page CSS -->
+  <script th:src="@{/js/helpers.js}"></script>
+
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script th:src="@{/js/config.js}"></script>
+</head>
+
+<body>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <!-- Menu -->
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <div class="app-brand demo">
+        <a href="index.html" class="app-brand-link">
+          <span class="app-brand-text demo menu-text fw-bolder ms-2"><img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150" height="100"></span>
+        </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+          <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+      </div>
+
+      <div class="menu-inner-shadow"></div>
+
+      <ul class="menu-inner py-1">
+
+        <li class="menu-item active">
+          <a th:href="@{'/seguridad/inicio'}" class="menu-link">
+            <div data-i18n="Account">Inicio</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a th:href="@{'/seguridad/exportar'}" class="menu-link">
+            <div data-i18n="Account">Exportar Reporte</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a th:href="@{'/seguridad/mapa'}" class="menu-link">
+            <div data-i18n="Account">Mapa de Incidencias</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a th:href="@{'/seguridad/dashboard'}" class="menu-link">
+            <div data-i18n="Account">Dashboard</div>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- / Menu -->
+
+    <!-- Layout container -->
+    <div class="layout-page">
+
+
+      <!-- Navbar -->
+
+      <nav
+              class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+              id="layout-navbar"
+      >
+        <!--
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+            <i class="bx bx-menu bx-sm"></i>
+          </a>
+        </div>
+        -->
+
+        <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+          <!-- Search -->
+
+          <!-- /Search -->
+
+          <h4 style="margin-top: 15px">Bienvenido @SeguridadPUCP</h4>
+
+
+          <ul class="navbar-nav flex-row align-items-center ms-auto">
+            <!-- Place this tag where you want the button to render. -->
+            <!-- STARCITO
+            <li class="nav-item lh-1 me-3">
+              <a
+                class="github-button"
+                href="https://github.com/themeselection/sneat-html-admin-template-free"
+                data-icon="octicon-star"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+                >Star</a
+              >
+            </li>
+            -->
+
+            <!-- User -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <div class="avatar avatar-online">
+                  <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0 me-3">
+                        <div class="avatar avatar-online">
+                          <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="flex-grow-1">
+                        <span class="fw-semibold d-block">Seguridad</span>
+                        <smal>PUCP</smal>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{'/seguridad/perfil'}" class="dropdown-item">
+                    <span class="align-middle">Mi Perfil</span>
+                  </a>
+                </li>
+                <li>
+                  <a th:href="@{'/seguridad/login2F'}" class="dropdown-item" >
+                    <span class="align-middle">Salir</span>
+                  </a>
+                </li>
+              </ul>
+          </ul>
+          </li>
+          <!--/ User -->
+          </ul>
+        </div>
+      </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h3 class="fw-bold py-3 mb-4">Perfil</h3>
+
+              <div class="row">
+                <div class="col-md-12">
+                
+                  <div class="card mb-4">
+                    <h3 class="card-header">Armando Paredes</h3>
+                    <!-- Account -->
+					<div class="card-body">
+                      <div class="d-flex align-items-start align-items-sm-center gap-4">
+                        <img th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <div>
+							<h3>Icono</h3>
+							<h4>----</h4>
+						</div>
+						
+					  </div>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body">
+                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">Nombre</label>
+                            <input class="form-control" type="text" id="firstName" name="firstName" value="Armando" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Apellido</label>
+                            <input class="form-control" type="text" name="lastName" id="lastName" value="Paredes" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input class="form-control" type="text" id="email" name="email" value="armando@pucp.edu.pe" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="organization" name="organization" value="86754321" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="phoneNumber">Celular</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">PE (+51)</span>
+                              <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="999999999" value="978654321">
+                            </div>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="codigo" class="form-label">Codigo PUCP</label>
+                            <input type="number" class="form-control" id="codigo" name="codigo" placeholder="88888888" value="20011234" disabled>
+                          </div>
+                        
+                         
+                         
+                        </div>
+						</form>
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
+                          <a th:href="@{'/seguridad/inicio'}"><button type="botton" class="btn btn-outline-secondary">Regresar</button></a>
+                        </div>
+                      
+                    </div>
+                   
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+
+
+              <!-- Core JS -->
+              <!-- build:js assets/vendor/js/core.js -->
+              <script th:src="@{/js/jquery.js}"></script>
+              <script th:src="@{/js/popper.js}"></script>
+              <script th:src="@{/js/bootstrap.js}"></script>
+              <script th:src="@{/js/perfect-scrollbar.js}"></script>
+
+              <script th:src="@{/js/menu.js}"></script>
+              <!-- endbuild -->
+
+              <!-- Vendors JS -->
+
+              <!-- Main JS -->
+              <script th:src="@{/js/main.js}"></script>
+
+              <!-- Page JS -->
+
+              <!-- Place this tag in your head or just before your close body tag. -->
+              <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
+
