@@ -29,6 +29,9 @@ public class SeguridadController {
     @Autowired
     ComentariosRepository comentariosRepository;
 
+    @Autowired
+    ComentariosRepository usuarioRepository;
+
     @GetMapping(value = {"/login2F"})
     public String Seguridadlogin2F(){
         return "Seguridad_login2F";
@@ -51,7 +54,7 @@ public class SeguridadController {
     }
     @GetMapping(value = {"/mapa"})
     public String SeguridadMapa(){
-        return "Seguridad_mapa";
+        return "Seguridad_MapaIncidencias";
     }
 
     @GetMapping(value = {"/detalle"})
