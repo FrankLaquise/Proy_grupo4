@@ -1,34 +1,22 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
 
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
-<html
-        lang="en"
-        class="light-style layout-menu-fixed"
-        dir="ltr"
-        data-theme="theme-default"
-        data-assets-path="../assets/"
-        data-template="vertical-menu-template-free"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
 >
   <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <meta charset="utf-8" />
     <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Incidencias Destacadas 🌟</title>
+    <title>Lista de Incidencias</title>
 
     <meta name="description" content="" />
 
@@ -39,8 +27,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
     />
 
     <!-- Icons. Uncomment required icon fonts -->
@@ -58,6 +46,8 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
+
+
     <script th:src="@{/js/helpers.js}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -74,10 +64,10 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
 
-              <span class="app-brand-logo demo"></span>
+            <span class="app-brand-logo demo"></span>
 
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
-                       height="100"> </img>
+                       height="100">
 
 
 
@@ -100,7 +90,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+
                 <div data-i18n="Account Settings">Incidencias</div>
               </a>
               <ul class="menu-sub">
@@ -142,10 +132,9 @@
 
 
 
+
           </ul>
         </aside>
-
-
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -153,8 +142,8 @@
           <!-- Navbar -->
 
           <nav
-                  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                  id="layout-navbar"
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -195,14 +184,14 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="usuariologin.html">
+                      <a class="dropdown-item" th:href="@{'/incidencia/perfil'}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
 
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="Login.html">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Salir</span>
                       </a>
@@ -229,61 +218,76 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Incidencias Destacadas 🌟</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias/ </span> Lista de incidencias</h4>
 
 
 
 
               <!-- Bootstrap Table with Header - Light -->
               <div class="card">
-                <h5 class="card-header"><Mis></Mis> Incidencias Destacadas</h5>
+                <h5 class="card-header">Lista de Incidencias</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead class="table-light">
                       <tr>
+                        <th>#</th>
                         <th>Titulo</th>
                         <th>Urgencia</th>
                         <th>Fecha</th>
                         <th>Zona PUCP</th>
                         <th>Tipo</th>
-                        <th>Estado</th>
-                        
+                        <th>Destacar</th>
+                        <th></th>
+
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                     
+                      <tr th:each="inc, info : ${listaIncidencias}">
+                        <td th:text="${info.index + 1}"></td>
+                        <td th:text="${inc.getTitulo()}"></td>
 
-                      <tr>
+
+                        <td th:text="${inc.getNivel()}"></td>
+                        <td th:text="${inc.getHoraCreacion()}"></td>
+                        <td th:text="${inc.getZona().getTitulo()}"></td>
+                        <td th:text="${inc.getTipo().getTitulo()}"></td>
+                        <td>
+                          <button type="button" class="btn btn-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                              <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"></path>
+                              <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"></path>
+                            </svg>
+                            <span class="visually-hidden">Destacar</span>
+                          </button>
+                        </td>
                         <td>
 
-                          Tuberias en mal estado
-
+<a th:href="@{'info'+'?idincidencias=' + ${inc.getId()}}">
+                          <button type="button" class="btn btn-primary" >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                                <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"></path>
+                              </svg>
+                              <span class="visually-hidden">Button</span>
+                          </button>
+</a>
                         </td>
-                        <td><span class="badge bg-label-primary me-1">Moderado</span></td>
-
-                        <td>11/09/22</td>
-                        <td>EEGGCC</td>
-                        <td>
-                          Infraestructura en mal estado
-                        </td>
 
 
 
 
-                        <td>
-                          En proceso
-                        </td>
+
+
+
+
+
+
+
+
+
 
 
                       </tr>
 
-
-
-
-
-
-
-                      
 
 
 
@@ -300,25 +304,25 @@
               <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-end">
                   <li class="page-item prev">
-                    <a class="page-link" href="#"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">1</a>
+                    <a class="page-link" href="javascript:void(0);">1</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">2</a>
+                    <a class="page-link" href="javascript:void(0);">2</a>
                   </li>
                   <li class="page-item active">
-                    <a class="page-link" href="#">3</a>
+                    <a class="page-link" href="javascript:void(0);">3</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">4</a>
+                    <a class="page-link" href="javascript:void(0);">4</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">5</a>
+                    <a class="page-link" href="javascript:void(0);">5</a>
                   </li>
                   <li class="page-item next">
-                    <a class="page-link" href="#"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
                 </ul>
               </nav>
@@ -367,7 +371,6 @@
     <script th:src="@{/js/main.js}"></script>
 
     <!-- Page JS -->
-
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

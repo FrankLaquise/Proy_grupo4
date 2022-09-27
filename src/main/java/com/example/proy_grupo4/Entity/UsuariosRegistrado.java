@@ -40,7 +40,7 @@ public class UsuariosRegistrado {
     @Column(name = "numero_reportes", nullable = false)
     private Integer numeroReportes;
 
-    @Column(name = "comentario_suspension", nullable = false, length = 80)
+    @Column(name = "comentario_suspension", nullable = true, length = 80)
     private String comentarioSuspension;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

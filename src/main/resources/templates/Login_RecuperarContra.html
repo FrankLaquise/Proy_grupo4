@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login</title>
+    <title>Olvide mi contraseña</title>
 
     <meta name="description" content="" />
 
@@ -69,13 +69,13 @@
 
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
-          <!-- Register -->
+        <div class="authentication-inner py-4">
+          <!-- Forgot Password -->
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <!--<a href="index.html" class="app-brand-link gap-2">--->
+                <div class="app-brand justify-content-center">
+                <a href="index.html" class="app-brand-link gap-2">
 				<center>
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
 						height="100"> </img>
@@ -84,67 +84,31 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <center><h4 class="mb-2">Bienvenido</h4></center>
-
-
-              <form id="formAuthentication" class="mb-3" action="lista_incidencias.html" method="POST">
+              <h4 class="mb-2">Recuperar Contraseña 🔒</h4>
+              <p class="mb-4">Se le enviará un correo indicándole su contraseña actual</p>
+              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <label for="email" class="form-label">Correo Pucp</label>
                   <input
                     type="text"
                     class="form-control"
                     id="email"
-                    name="email-username"
-                    placeholder="Ingresar correo"
+                    name="email"
+                    placeholder="Ingrese su email"
                     autofocus
                   />
                 </div>
-                <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Contraseña</label>
-                    <a href="auth-forgot-password-basic.html">
-                      <small>Olvido su contraseña?</small>
-                    </a>
-                  </div>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                    <label class="form-check-label" for="remember-me">Recordar</label>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  
-                  
-                    <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
-                  
-                </div>
-                <div class="mb-3">
-                  <button style="background-color: #dadada; color: #000000;padding-left: 100px;display:flex;align-items: center; font-weight: 600" class="btn w-100" type="submit">Ingresar con Google&nbsp;&nbsp;
-                    <img src="../../assets/img/Usable/googlelogo.png" style="float: right" alt class="w-px-40 h-auto rounded-circle" /></button>
-                </div>
+                <button class="btn btn-primary d-grid w-100">Enviar correo</button>
               </form>
-
-              <p class="text-center">
-                <span>Aun no esta registrado?</span>
-                <a href="registrousuario.html">
-                  <span>Crear una cuenta</span>
+              <div class="text-center">
+                <a href="Login.html" class="d-flex align-items-center justify-content-center">
+                  <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                  Regresar
                 </a>
-              </p>
+              </div>
             </div>
           </div>
-          <!-- /Register -->
+          <!-- /Forgot Password -->
         </div>
       </div>
     </div>
