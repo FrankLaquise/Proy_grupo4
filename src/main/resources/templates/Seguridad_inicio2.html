@@ -201,6 +201,7 @@
                     <!-- Bootstrap Table with Header - Light -->
                     <div class="card">
                         <h5 class="card-header">Lista de Incidencias</h5>
+
                         <div class="table-responsive text-nowrap">
                             <table class="table">
                                 <thead class="table-light">
@@ -228,10 +229,11 @@
                                     <td th:text="${inc.getZona().getTitulo()}"></td>
                                     <td th:text="${inc.getTipo().getTitulo()}"></td>
                                     <td th:text="${inc.getNumeroReportes}"></td>
+                                    <!--
                                     <td>
 
-                                        <select style="width: 130px;" id="Estado" class="select2 form-select" th:unless="${inc.getEstado() eq 'resuelto'}">
-                                            <option th:text="${inc.getEstado()}">Estado</option>
+                                        <select th:value="${inc.getEstado()}" style="width: 130px;" id="estado" class="select2 form-select" th:unless="${inc.getEstado() eq 'resuelto'}">
+                                            <option th:value="${inc.getEstado()}" th:text="${inc.getEstado()}">Estado</option>
                                             <option th:if="${ inc.getEstado() eq 'en proceso'}">atendido</option>
                                             <option th:if="${ inc.getEstado() eq 'en proceso'}">registrado</option>
                                             <option th:if="${ inc.getEstado() eq 'registrado'}">en proceso</option>
@@ -244,15 +246,48 @@
                                             <option selected>resuelto</option>
                                         </select>
 
+                                    </td>
+                                    -->
 
+                                    <td>
+                                        <div class="btn-group dropup">
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-primary dropdown-toggle"
+                                                    data-bs-display="static"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    th:text="${inc.getEstado()}"
+                                                    th:unless="${inc.getEstado() eq 'resuelto'}"
+
+
+                                            >
+                                                Primary
+                                            </button>
+
+                                            <button
+                                                    disabled
+                                                    type="button"
+                                                    class="btn btn-info dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    th:text="${inc.getEstado()}"
+                                                    th:if="${inc.getEstado() eq 'resuelto'}"
+                                            >
+                                                Primary
+                                            </button>
+
+                                            <ul class="dropdown-menu">
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
+                                            </ul>
+                                        </div>
                                     </td>
                                     <td>
-                                        <button th:unless="${inc.getEstado() eq 'resuelto'}"
-                                                style="display: block;margin-bottom: 5px"
-                                                class="btn btn-success">
-                                            <a th:href="@{'/seguridad/actualizar' + '?id=' + ${inc.getId()}}" style="color: #ffffff">Actualizar</a>
-                                        </button>
-
                                         <button
                                                 style="display: block;margin-bottom: 5px"
                                                 class="btn btn-danger">
@@ -260,8 +295,8 @@
                                         </button>
                                         <button
                                                 style="display: block;margin-bottom: 5px"
-                                                class="btn btn-primary">
-                                            <a th:href="@{'/seguridad/detalle'+ '?id=' + ${inc.getId()}}" style="color: #ffffff">Ver Detalle</a>
+                                                class="btn btn-success">
+                                            <a th:href="@{'/seguridad/detalle'+ '?id=' + ${inc.getId()}}" style="color: #ffffff">Ver Más</a>
                                         </button>
                                     </td>
 
