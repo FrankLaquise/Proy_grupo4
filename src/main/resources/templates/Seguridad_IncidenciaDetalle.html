@@ -191,7 +191,7 @@
                                 <div class="card mb-4">
                                     <h5 class="card-header">Detalle de Incidencia</h5>
                                     <div class="card-body">
-                                        <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
+                                        <form method="post" th:action="@{'/seguridad/actualizarest'+ '?id=' + ${incidencia.getId()}}" class="mt-2" th:object="${incidencia}">
 
                                             <div class="mb-3">
                                                 <label class="form-label">Titulo</label>
@@ -248,16 +248,20 @@
                                             </div>
                                             <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto'}">
                                                 <label for="zona" class="form-label">Actualizar estado</label>
-                                                <select class="form-select" name="zona">
-                                                    <option value="Atendido">Atendido</option>
-                                                    <option value="Atendido">En proceso</option>
+                                                <select class="form-select" name="estado" th:field="*{estado}" id="estado">
+                                                    <option value="atendido">atendido</option>
+                                                    <option value="en proceso">en proceso</option>
+                                                    <option value="registrado">registrado</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto'}">
-                                                    <label for="exampleFormControlTextarea1" class="form-label">Ingresar Comentario</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                              name="descripcion"
-                                                              rows="3"></textarea>
+                                                    <label for="comentariosRestantes" class="form-label">Comentario</label>
+                                                    <textarea class="form-control"
+                                                              name="comentariosRestantes"
+                                                              rows="3"
+                                                              th:field="*{comentariosRestantes}"
+                                                              id="comentariosRestantes"
+                                                    ></textarea>
                                             </div>
 
 
