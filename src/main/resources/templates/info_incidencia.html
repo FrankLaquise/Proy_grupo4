@@ -233,10 +233,10 @@
                     <div class="container-xxl flex-grow-1 container-p-y" >
                         <div class="col-lg-10">
                             <div class="card mb-">
-                                <h5 class="card-header">Tuberias en mal estado</h5>
+                                <h5 class="card-header" th:text="${Incidencia.getTitulo()}">Tuberias en mal estado</h5>
                                 <div class="card-body">
                                     <p class="card-text">
-                                        En esta seccion se puede observar los detalles de la incidencia
+                                        En esta seccion se puede observar los detalles de la incidencia:
                                     </p>
                                     <p class="demo-inline-spacing">
                                         <a
@@ -270,14 +270,11 @@
                                             />
                                             <span>
                             <h3>Zona PUCP:</h3>
-                                      <p>
-                                        CIA.
-                                      </p>
+                                      <span th:text="${Incidencia.getZona()()}"></span>
                                       <h3>Nivel de urgencia:</h3>
 
-                                      <p>
-                                        Leve
-                                      </p>
+
+                                      <span th:text="${Incidencia.getNivel()}"></span>
 
                           </span>
                                         </div>

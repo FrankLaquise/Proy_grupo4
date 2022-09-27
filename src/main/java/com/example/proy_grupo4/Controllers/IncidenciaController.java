@@ -50,12 +50,14 @@ public class IncidenciaController {
 
 
     @GetMapping(value = {"/info"})
-    public String IncidenciaInfo(@RequestParam("id_incidencia") String id ,Model model) {
-        int id_int=Integer.parseInt(id);
-        Optional<Incidencia> opt_incid =incidenciaRepository.findById(id_int);
-        if (opt_incid.isPresent()) {
-            Incidencia incidencia = opt_incid.get();
-            model.addAttribute("incidencia", incidencia);
+    public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
+
+        Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
+
+        if (optionalIncidencia.isPresent()) {
+            Incidencia Incidencia = optionalIncidencia.get();
+            model.addAttribute("Incidencia", Incidencia);
+
             return "info_incidencia";
         } else {
             return "redirect:/incidencia/list";

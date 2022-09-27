@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer> {
@@ -42,6 +43,10 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
     void Actualizar(int id,String estado);
 
     //Falta query para actualizar comentarios(No hay tabla comentarios en SQL)
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM incidencias where idincidencias=?1")
+    Optional<Incidencia> buscarxid(int id);
 
 }
 

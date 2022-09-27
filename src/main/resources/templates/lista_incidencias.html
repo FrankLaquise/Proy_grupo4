@@ -82,7 +82,7 @@
             <!-- Dashboard -->
             <li class="menu-item">
               <a th:href="@{'/incidencia/perfil'}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+
                 <div data-i18n="Analytics">Perfil</div>
               </a>
             </li>
@@ -90,7 +90,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+
                 <div data-i18n="Account Settings">Incidencias</div>
               </a>
               <ul class="menu-sub">
@@ -124,7 +124,7 @@
 
             <li class="menu-item">
               <a th:href="@{'/incidencia/sugerencias'}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
+
                 <div data-i18n="Analytics">Sugerencias</div>
               </a>
             </li>
@@ -262,14 +262,14 @@
                         </td>
                         <td>
 
-
-                            <button type="button" class="btn btn-primary" th:href="@{'incidencia/info?id=' + ${inc.getId()}}">
+<a th:href="@{'info'+'?idincidencias=' + ${inc.getId()}}">
+                          <button type="button" class="btn btn-primary" >
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
                                 <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"></path>
                               </svg>
                               <span class="visually-hidden">Button</span>
-                            </button>
-
+                          </button>
+</a>
                         </td>
 
 
