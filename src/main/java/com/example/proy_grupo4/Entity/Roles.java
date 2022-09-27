@@ -12,8 +12,8 @@ public class Roles {
     @Column(name = "idroles", nullable = false)
     private Integer id;
 
-    @Column(name = "tirulo", nullable = false, length = 45)
-    private String tirulo;
+    @Column(name = "titulo", nullable = false, length = 45)
+    private String titulo;
 
     public Integer getId() {
         return id;
@@ -23,12 +23,12 @@ public class Roles {
         this.id = id;
     }
 
-    public String getTirulo() {
-        return tirulo;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTirulo(String tirulo) {
-        this.tirulo = tirulo;
+    public void setTitulo(String tirulo) {
+        this.titulo = tirulo;
     }
 
 }
