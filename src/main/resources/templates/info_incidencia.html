@@ -43,24 +43,27 @@
         />
 
         <!-- Icons. Uncomment required icon fonts -->
-        <link rel="stylesheet" href="../static/css/boxicons.css" />
+        <link rel="stylesheet" th:href="@{/css/boxicons.css}" />
 
         <!-- Core CSS -->
-        <link rel="stylesheet" href="../static/css/core.css" class="template-customizer-core-css" />
-        <link rel="stylesheet" href="../static/css/theme-default.css" class="template-customizer-theme-css" />
-        <link rel="stylesheet" href="../static/css/demo.css" />
+        <link rel="stylesheet" th:href="@{/css/core.css}" class="template-customizer-core-css" />
+        <link rel="stylesheet" th:href="@{/css/theme-default.css}" class="template-customizer-theme-css" />
+        <link rel="stylesheet" th:href="@{/css/demo.css}" />
+
 
         <!-- Vendors CSS -->
-        <link rel="stylesheet" href="../static/css/perfect-scrollbar.css" />
+        <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}" />
 
         <!-- Page CSS -->
 
         <!-- Helpers -->
-        <script src="../static/js/helpers.js"></script>
+
+
+        <script th:src="@{/js/helpers.js}"></script>
 
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-        <script src="../static/js/config.js"></script>
+        <script th:src="@{/js/config.js}"></script>
     </head>
 
     <body>
@@ -71,18 +74,17 @@
 
                 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                     <div class="app-brand demo">
-                        <a  class="app-brand-link">
 
-              <span class="app-brand-logo demo">
+                        <span class="app-brand-logo demo"></span>
 
-                  <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
-                       height="100"> </img>
-
+                        <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
+                             height="100">
 
 
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
+
+                        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                        </a>
                     </div>
 
                     <div class="menu-inner-shadow"></div>
@@ -90,7 +92,7 @@
                     <ul class="menu-inner py-1">
                         <!-- Dashboard -->
                         <li class="menu-item">
-                            <a href="perfil_usuario.html" class="menu-link">
+                            <a th:href="@{'/incidencia/perfil'}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                 <div data-i18n="Analytics">Perfil</div>
                             </a>
@@ -104,34 +106,39 @@
                             </a>
                             <ul class="menu-sub">
                                 <li class="menu-item">
-                                    <a href="lista_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/list'}" class="menu-link">
                                         <div data-i18n="Account">Lista de incidencias</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="mis_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/mis_incidencias'}" class="menu-link">
                                         <div data-i18n="Notifications">Mis incidencias</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="incidencias_destacadas.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/destacadas'}" class="menu-link">
                                         <div data-i18n="Notifications">Incidencias Destacadas</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="Registro_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/new'}" class="menu-link">
                                         <div data-i18n="Connections">Registrar incidencia</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="mapa_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/mapa'}" class="menu-link">
                                         <div data-i18n="Connections">Mapa de incidencias</div>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-
+                        <li class="menu-item">
+                            <a th:href="@{'/incidencia/sugerencias'}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-support"></i>
+                                <div data-i18n="Analytics">Sugerencias</div>
+                            </a>
+                        </li>
 
 
 
@@ -139,8 +146,6 @@
 
                     </ul>
                 </aside>
-
-
                 <!-- / Menu -->
 
 
@@ -172,12 +177,10 @@
 
 
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-
                                 <!-- Place this tag where you want the button to render. -->
-                                <li class="nav-item lh-1 me-3">
 
 
-                                    <!-- User -->
+                                <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
@@ -201,7 +204,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="perfil_usuario.html">
+                                            <a class="dropdown-item" th:href="@{'/incidencia/perfil'}">
                                                 <i class="bx bx-user me-2"></i>
                                                 <span class="align-middle">Mi Perfil</span>
                                             </a>
@@ -227,7 +230,7 @@
                     <br><br><br>
                     <h5>Informacion de la Incidencia</h5>
 
-                    <div class="row">
+                    <div class="container-xxl flex-grow-1 container-p-y" >
                         <div class="col-lg-10">
                             <div class="card mb-">
                                 <h5 class="card-header">Tuberias en mal estado</h5>
@@ -292,25 +295,28 @@
                         </div>
 
 
-                            <!-- Core JS -->
-                            <!-- build:js assets/vendor/js/core.js -->
-                            <script src="../static/js/jquery.js"></script>
-                            <script src="../static/js/popper.js"></script>
-                            <script src="../static/js/bootstrap.js"></script>
-                            <script src="../static/js/perfect-scrollbar.js"></script>
 
-                            <script src="../static/js/menu.js"></script>
-                            <!-- endbuild -->
+                        <!-- Core JS -->
 
-                            <!-- Vendors JS -->
+                        <div id = "fb-root" ></div> <script async defer crossorigin = "anónimo" src = "https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce = "RhQbcBPc" ></script>
+                        <!-- build:js assets/vendor/js/core.js -->
+                        <script th:src="@{/js/jquery.js}"></script>
+                        <script th:src="@{/js/popper.js}"></script>
+                        <script th:src="@{/js/bootstrap.js}"></script>
+                        <script th:src="@{/js/perfect-scrollbar.js}"></script>
 
-                            <!-- Main JS -->
-                            <script src="../static/js/main.js"></script>
+                        <script th:src="@{/js/menu.js}"></script>
+                        <!-- endbuild -->
 
-                            <!-- Page JS -->
-                            <script src="../static/js/pages-account-settings-account.js"></script>
+                        <!-- Vendors JS -->
 
-                            <!-- Place this tag in your head or just before your close body tag. -->
-                            <script async defer src="https://buttons.github.io/buttons.js"></script>
+                        <!-- Main JS -->
+                        <script th:src="@{/js/main.js}"></script>
+
+                        <!-- Page JS -->
+
+                        <!-- Place this tag in your head or just before your close body tag. -->
+                        <script async defer src="https://buttons.github.io/buttons.js"></script>
     </body>
+
 </html>
