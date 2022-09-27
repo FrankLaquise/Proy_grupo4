@@ -40,13 +40,13 @@ public class AdminController {
     @GetMapping(value = "/usuario")
     public String listar_usuario(Model model){
         model.addAttribute("lista_usuario",adminRepository.findAll());
-        return "lista_usuario";
+        return "Admin_ListaUsuario";
     }
 
     @GetMapping(value = "/incidentes")
     public String listar_incidentes(Model model){
         model.addAttribute("lista_incidentes", incidenciaRepository.findAll());
-        return "incidencia";
+        return "Admin_ListaIncidencia";
     }
 
     @GetMapping(value = "/registrar_usuario")
@@ -54,7 +54,7 @@ public class AdminController {
         model.addAttribute("lista_usuario", adminRepository.findAll());
         model.addAttribute("roles", rolRepository.findAll());
         model.addAttribute("icono", iconoRepository.findAll());
-        return "registro";
+        return "Admin_RegistroUsuario";
     }
 
     @PostMapping("/save")
@@ -92,12 +92,12 @@ public class AdminController {
 
     @GetMapping("/perfil")
     public String perfil(){
-            return "perfil_admin";
+            return "Admin_Perfil";
 
     }
     @GetMapping(value = "/mapa")
     public String Mapa(){
-        return "mapa";
+        return "Admin_MapaIncidencias";
     }
 
 }

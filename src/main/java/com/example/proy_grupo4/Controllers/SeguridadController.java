@@ -38,7 +38,7 @@ public class SeguridadController {
     public String Seguridadincidenciaslistar(Model model){
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
-        return "Seguridad_inicio2";
+        return "Seguridad_ListaIncidencias2";
     }
 
     @GetMapping(value = {"/exportar"})
@@ -97,7 +97,7 @@ public class SeguridadController {
         if (optionalUsuariosRegistrado.isPresent()) {
             UsuariosRegistrado seguridad= optionalUsuariosRegistrado.get();
             model.addAttribute("seguridad", seguridad);
-            return "Seguridad_perfil";
+            return "Seguridad_Perfil";
         } else {
             return "redirect:/seguridad/inicio";
         }
