@@ -59,16 +59,17 @@ public class AdminController {
 
     @PostMapping("/save")
     public String Registro(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
-        if (usuariosRegistrado.getId().isEmpty()) {
             attr.addFlashAttribute("msg", "Usuario creado exitosamente");
-            usuariosRegistrado.setComentarioSuspension(" ");
             usuariosRegistrado.setEstado("activo");
             usuariosRegistrado.setContrasena(usuariosRegistrado.getId());
-            usuariosRegistrado.setComentarioSuspension(" ");
             usuariosRegistrado.setNumeroReportes(0);
-        } else {
-            attr.addFlashAttribute("msg", "Usuario actualizado exitosamente");
-        }
+        adminRepository.save(usuariosRegistrado);
+        return "redirect:/admin/usuario";
+    }
+
+    @PostMapping("/actualizar")
+    public String Actualizar(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
+
         adminRepository.save(usuariosRegistrado);
         return "redirect:/admin/usuario";
     }
