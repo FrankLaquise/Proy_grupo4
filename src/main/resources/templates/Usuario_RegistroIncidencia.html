@@ -240,6 +240,7 @@
                                         <h5 class="card-header">Registro de Incidencia</h5>
                                         <div class="card-body">
                                             <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
+
                                                 <div class="mb-3">
                                                     <label for="titulo" class="form-label">Titulo</label>
                                                     <input type="text" class="form-control" id="titulo" name="titulo"
@@ -313,7 +314,7 @@
                                                     </select>
                                                 </div>
 
-                                                <button th:href="@{'/incidencia/list'}" type="submit"
+                                                <button  type="submit"
                                                         class="btn btn-primary">Registrar
                                                 </button>
                                                 <a th:href="@{'/incidencia/list'}" class="btn btn-danger">Cancelar</a>

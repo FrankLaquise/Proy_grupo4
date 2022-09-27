@@ -30,22 +30,22 @@ public class IncidenciaController {
     TipoRepository tipoRepository;
     @GetMapping(value = {"/perfil"})
     public String Perfil(){
-        return "perfil_usuario";
+        return "Usuario_Perfil";
     }
 
 
 
     @GetMapping(value = {"/mapa"})
     public String IncidenciaMapa(){
-        return "mapa_incidencias";
+        return "Usuario_MapaIncidencias";
     }
     @GetMapping(value = {"/destacadas"})
     public String IncidenciaDestacada(){
-        return "incidencias_destacadas";
+        return "Usuario_IncidenciasDestacadas";
     }
     @GetMapping(value = {"/sugerencias"})
     public String IncidenciaSugerencias(){
-        return "sugerencias";
+        return "Usuario_Sugerencias";
     }
 
 
@@ -58,7 +58,7 @@ public class IncidenciaController {
             Incidencia Incidencia = optionalIncidencia.get();
             model.addAttribute("Incidencia", Incidencia);
 
-            return "info_incidencia";
+            return "Usuario_InfoIncidencia";
         } else {
             return "redirect:/incidencia/list";
         }
@@ -67,13 +67,13 @@ public class IncidenciaController {
 
 
 
-    @GetMapping(value = {"/list"})
+    @GetMapping(value = {"/list",""})
     public String misIncidencias(Model model) {
 
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
 
-        return "lista_incidencias";
+        return "Usuario_ListaIncidencias";
 
     }
 
@@ -84,12 +84,16 @@ public class IncidenciaController {
         model.addAttribute("listaZonas",zonaRepository.findAll());
 
         model.addAttribute("listaTipos",tipoRepository.findAll());
-        return "Registro_incidencias";
+        return "Usuario_RegistroIncidencia";
     }
 
 
 
-
+    @PostMapping("/save")
+    public String guardarProducto(Incidencia product) {
+        incidenciaRepository.save(product);
+        return "redirect:/incidencia";
+    }
 
 
 
