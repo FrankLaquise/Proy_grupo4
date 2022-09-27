@@ -28,12 +28,12 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Sugerencias</title>
+    <title>Mis Incidencias</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon"  th:type="@{image/x-icon}" href="https://cdn-icons-png.flaticon.com/512/1022/1022331.png	" />
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1022/1022331.png	" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -65,6 +65,47 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script th:src="@{/js/config.js}"></script>
+
+    <style>
+      #form {
+  width: 250px;
+  margin: 0 auto;
+  height: 250px;
+}
+
+#form p {
+  text-align: left;
+  
+}
+
+#form label {
+  font-size: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+  
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+  
+}
+    </style>
   </head>
 
   <body>
@@ -76,7 +117,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
 
-              <span class="app-brand-logo demo">
+            <span class="app-brand-logo demo"></span>
 
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
                        height="100"> </img>
@@ -94,7 +135,7 @@
             <!-- Dashboard -->
             <li class="menu-item">
               <a th:href="@{'/incidencia/perfil'}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+
                 <div data-i18n="Analytics">Perfil</div>
               </a>
             </li>
@@ -102,7 +143,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+
                 <div data-i18n="Account Settings">Incidencias</div>
               </a>
               <ul class="menu-sub">
@@ -136,7 +177,7 @@
 
             <li class="menu-item">
               <a th:href="@{'/incidencia/sugerencias'}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-support"></i>
+
                 <div data-i18n="Analytics">Sugerencias</div>
               </a>
             </li>
@@ -147,8 +188,6 @@
 
           </ul>
         </aside>
-
-
         <!-- / Menu -->
 
         <!-- Layout container -->
@@ -198,7 +237,7 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="usuariologin.html">
+                      <a class="dropdown-item" href="Login.html">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Mi Perfil</span>
                       </a>
@@ -232,35 +271,100 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Sugerencias /</span> </h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Mis incidencias</h4>
 
 
 
 
               <!-- Bootstrap Table with Header - Light -->
               <div class="card">
-                <br><br>
-                <div class="container">
-                    <h1 class="text-center">Sugerencias de Mejora</h1>
-                        <div class="form-group">
-                            <label>Ingrese la sugerencias para ser revisada por los administradores</label>
-                            <textarea class="form-control" rows="5"></textarea>
+                <h5 class="card-header">Mis Incidencias</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Titulo</th>
+                        <th>Urgencia</th>
+                        <th>Fecha</th>
+                        <th>Zona PUCP</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Comentar </th>
+                        <th>Aceptar </th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr th:each="inc, info : ${listaIncidencias}">
+                        <td th:text="${info.index + 1}"></td>
+                        <td th:text="${inc.getTitulo()}"></td>
+                        <td th:text="${inc.getNivel()}"></td>
+                        <td th:text="${inc.getHoraCreacion()}"></td>
+                        <td th:text="${inc.getZona().getTitulo()}"></td>
+
+                      </tr>
+
+                      <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel1">Comentario</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="row">
+                                <div class="col mb-3">
+                                  <label for="nameBasic" class="form-label">Agregar comentario</label>
+                                  <input type="text" id="nameBasic" class="form-control" placeholder="Escriba aquí...">
+                                </div>
+                              </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                              <button type="button" class="btn btn-primary">Enviar</button>
+                            </div>
+                          </div>
                         </div>
-                        <br>
-                        <div align="right">
-                        <input type="submit" class="btn btn-block btn-lg btn-primary" >
-                        </div>
-                    </form>
-                    <p>&nbsp;</p>
-            
+                      </div>
+
+
+                    </tbody>
+                  </table>
                 </div>
-
-
-
               </div>
-              <!-- Bootstrap Table with Header - Light -->
 
-              
+
+
+
+
+              <!-- -------------------------------->
+                          <!-- -------------------------------->     <!-- -------------------------------->     <!-- -------------------------------->
+                          <!-- -------------------------------->    <!-- -------------------------------->
+              <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item prev">
+                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">2</a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">5</a>
+                  </li>
+                  <li class="page-item next">
+                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
 
 
 
@@ -287,24 +391,21 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 
+
     <!-- Core JS -->
-
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anónimo" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0"
-            nonce="RhQbcBPc"></script>
     <!-- build:js assets/vendor/js/core.js -->
-    <script th:src="@{/js/jquery.js}"></script>
-    <script th:src="@{/js/popper.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-    <script th:src="@{/js/perfect-scrollbar.js}"></script>
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/bootstrap.js}"></script>
+        <script th:src="@{/js/perfect-scrollbar.js}"></script>
 
-    <script th:src="@{/js/menu.js}"></script>
+        <script th:src="@{/js/menu.js}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
 
     <!-- Page JS -->
 
