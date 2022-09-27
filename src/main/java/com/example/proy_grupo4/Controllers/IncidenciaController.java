@@ -49,7 +49,7 @@ public class IncidenciaController {
 
 
     @GetMapping(value = {"/list"})
-    public String listarIncidencias(Model model) {
+    public String misIncidencias(Model model) {
 
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
