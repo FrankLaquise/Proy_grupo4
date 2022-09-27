@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/incidencia")
@@ -47,6 +49,21 @@ public class IncidenciaController {
     }
 
 
+    @GetMapping(value = {"/info"})
+    public String IncidenciaInfo(@RequestParam("id_incidencia") String id ,Model model) {
+        int id_int=Integer.parseInt(id);
+        Optional<Incidencia> opt_incid =incidenciaRepository.findById(id_int);
+        if (opt_incid.isPresent()) {
+            Incidencia incidencia = opt_incid.get();
+            model.addAttribute("incidencia", incidencia);
+            return "info_incidencia";
+        } else {
+            return "redirect:/incidencia/list";
+        }
+
+    }
+
+
 
     @GetMapping(value = {"/list"})
     public String misIncidencias(Model model) {
@@ -67,11 +84,7 @@ public class IncidenciaController {
         model.addAttribute("listaTipos",tipoRepository.findAll());
         return "Registro_incidencias";
     }
-    @PostMapping("/save")
-    public String guardarProducto(Incidencia incidencia, RedirectAttributes attr) {
-        incidenciaRepository.save(incidencia);
-        return "redirect:/incidencia/list";
-    }
+
 
 
 

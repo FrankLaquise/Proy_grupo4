@@ -69,6 +69,9 @@
                 margin: 20px;
             }
         </style>
+
+
+
     </head>
 
     <body>
@@ -80,16 +83,16 @@
                 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                     <div class="app-brand demo">
 
-              <span class="app-brand-logo demo"></span>
+                        <span class="app-brand-logo demo"></span>
 
-                  <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
-                       height="100"> </img>
+                        <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
+                             height="100"> </img>
 
 
-
-            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-              <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
+                        <a href="javascript:void(0);"
+                           class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                        </a>
                     </div>
 
                     <div class="menu-inner-shadow"></div>
@@ -98,7 +101,7 @@
                         <!-- Dashboard -->
                         <li class="menu-item">
                             <a th:href="@{'/incidencia/perfil'}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+
                                 <div data-i18n="Analytics">Perfil</div>
                             </a>
                         </li>
@@ -106,7 +109,7 @@
 
                         <li class="menu-item">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+
                                 <div data-i18n="Account Settings">Incidencias</div>
                             </a>
                             <ul class="menu-sub">
@@ -140,7 +143,7 @@
 
                         <li class="menu-item">
                             <a th:href="@{'/incidencia/sugerencias'}" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-support"></i>
+
                                 <div data-i18n="Analytics">Sugerencias</div>
                             </a>
                         </li>
@@ -271,56 +274,10 @@
 
                                                 <div class="mb-3">
 
-                                                    <button onclick="findMe()">Mostrar ubicación</button>
-                                                    <div id="map"></div>
-
-                                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYU4ftNqjBu13LOx9tCgomz-wesLY2hu8"></script>
-                                                    <script>
-                                                        function findMe() {
-                                                            var output = document.getElementById('map');
-
-                                                            // Verificar si soporta geolocalizacion
-                                                            if (navigator.geolocation) {
-                                                                output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
-                                                            } else {
-                                                                output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
-                                                            }
-
-                                                            //Obtenemos latitud y longitud
-                                                            function localizacion(posicion) {
-
-                                                                var latitude = posicion.coords.latitude;
-                                                                var longitude = posicion.coords.longitude;
-
-                                                                var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&size=600x300&markers=color:red%7C" + latitude + "," + longitude + "&key=AIzaSyCYU4ftNqjBu13LOx9tCgomz-wesLY2hu8";
-
-                                                                output.innerHTML = "<img src='" + imgURL + "'>";
-
-
-                                                            }
-
-                                                            function error() {
-                                                                output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
-
-                                                            }
-
-                                                            navigator.geolocation.getCurrentPosition(localizacion, error);
-
-                                                        }
-
-
-
-                                                    </script>
-                                                    <div class="mb-3">
-                                                        <label for="descripcion" class="form-label">Latitud</label>
-                                                        <input type="text " class="form-control" id="descripcion"
-                                                               name="descripcion"
-                                                               placeholder="Describa aqui"
-                                                        />
-
-
 
                                                 </div>
+
+
 
 
                                                 <div class="mb-3">
