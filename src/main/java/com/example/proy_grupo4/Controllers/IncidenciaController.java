@@ -47,6 +47,10 @@ public class IncidenciaController {
     public String IncidenciaSugerencias(){
         return "Usuario_Sugerencias";
     }
+    @GetMapping(value = {"/mis_incidencias"})
+    public String MisIncidencias(){
+        return "Usuario_MisIncidencias";
+    }
 
 
     @GetMapping(value = {"/info"})
