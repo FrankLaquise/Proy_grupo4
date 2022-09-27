@@ -255,13 +255,21 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto'}">
-                                                    <label for="comentariosRestantes" class="form-label">Comentario</label>
+                                                <label for="idcomentarios" class="form-label">Comentario</label>
+                                                <!--
+                                                <input type="text" class="form-control" id="texto" name="texto"
+                                                       th:text="${comentario.texto[1]}" placeholder="Este es un texto"
+                                                />
+                                                -->
+
                                                     <textarea class="form-control"
-                                                              name="comentariosRestantes"
+                                                              name="idcomentarios"
                                                               rows="3"
-                                                              th:field="*{comentariosRestantes}"
-                                                              id="comentariosRestantes"
-                                                    ></textarea>
+
+                                                              id="idcomentarios"
+                                                    >Este es el comentario introducido</textarea>
+
+
                                             </div>
 
 

@@ -16,6 +16,8 @@ public interface SeguridadRepository extends JpaRepository<UsuariosRegistrado, S
             value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE codigo = \"20110000\"")
     void actualizarTelefono(String phone);
 
+
+
 }
 
 

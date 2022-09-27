@@ -1,12 +1,11 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.TodosLosUsuario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
-import com.example.proy_grupo4.Repository.AdminRepository;
+import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
-import com.example.proy_grupo4.Repository.IncidenciaRepository;
-import com.example.proy_grupo4.Repository.SeguridadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +25,9 @@ public class SeguridadController {
 
     @Autowired
     SeguridadRepository seguridadRepository;
+
+    @Autowired
+    ComentariosRepository comentariosRepository;
 
     @GetMapping(value = {"/login2F"})
     public String Seguridadlogin2F(){
@@ -56,15 +58,34 @@ public class SeguridadController {
     public String SeguridadDetalle(Model model, @RequestParam("id") int id){
         Optional<Incidencia> optInc = incidenciaRepository.findById(id);
         String codigoCreador = incidenciaRepository.buscarCreador(id);
+        //Optional<Comentario> comentop=comentariosRepository.findById(comentariosRepository.idComenarioporidInc(id));
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
             System.out.println(incidencia);
             model.addAttribute("incidencia",incidencia);
             model.addAttribute("codigocreador",codigoCreador);
+            //model.addAttribute("comentario",comentariosRepository.ComentariosporidInc(id));
             return "Seguridad_IncidenciaDetalle";
         }else{
             return "redirect:/seguridad/inicio";
         }
+
+    }
+    @PostMapping(value = {"/actualizarest"})
+    public String Actualizaresst(Model model, Incidencia incidencia, @RequestParam("id") int id){
+        Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        //Optional<Comentario> comentop=comentariosRepository.findById(comentariosRepository.idComenarioporidInc(id));
+        if(opt.isPresent()){
+            incidenciaRepository.Actualizar(id, incidencia.getEstado());
+            //model.addAttribute("comentario",comentop.get());
+            //model.addAttribute("comentario",comentariosRepository.ComentariosporidInc(id));
+            //System.out.println(comentariosRepository.ComentariosporidInc(id));
+
+
+        }
+        return  "redirect:/seguridad/inicio";
+        //Falta implementar añadir comentario en este mismo controller
+
 
     }
 
@@ -109,17 +130,7 @@ public class SeguridadController {
         return "redirect:/seguridad/inicio";
     }
 
-    @PostMapping(value = {"/actualizarest"})
-    public String Actualizaresst(Incidencia incidencia, @RequestParam("id") int id){
-        Optional<Incidencia> opt = incidenciaRepository.findById(id);
-        if(opt.isPresent()){
-            incidenciaRepository.Actualizar(id, incidencia.getEstado());
-        }
-        return  "redirect:/seguridad/inicio";
-        //Falta implementar añadir comentario en este mismo controller
 
-
-    }
 
 
 
