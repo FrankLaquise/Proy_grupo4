@@ -26,6 +26,28 @@ public class IncidenciaController {
 
     @Autowired
     TipoRepository tipoRepository;
+    @GetMapping(value = {"/perfil"})
+    public String Perfil(){
+        return "perfil_usuario";
+    }
+
+
+
+    @GetMapping(value = {"/mapa"})
+    public String IncidenciaMapa(){
+        return "mapa_incidencias";
+    }
+    @GetMapping(value = {"/destacadas"})
+    public String IncidenciaDestacada(){
+        return "incidencias_destacadas";
+    }
+    @GetMapping(value = {"/sugerencias"})
+    public String IncidenciaSugerencias(){
+        return "sugerencias";
+    }
+
+
+
     @GetMapping(value = {"/list"})
     public String listarIncidencias(Model model) {
 
@@ -35,6 +57,8 @@ public class IncidenciaController {
         return "lista_incidencias";
 
     }
+
+
 
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {

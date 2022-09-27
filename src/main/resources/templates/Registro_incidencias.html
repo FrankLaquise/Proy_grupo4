@@ -97,7 +97,7 @@
                     <ul class="menu-inner py-1">
                         <!-- Dashboard -->
                         <li class="menu-item">
-                            <a href="perfil_usuario.html" class="menu-link">
+                            <a th:href="@{'/incidencia/perfil'}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                                 <div data-i18n="Analytics">Perfil</div>
                             </a>
@@ -111,40 +111,39 @@
                             </a>
                             <ul class="menu-sub">
                                 <li class="menu-item">
-                                    <a href="lista_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/list'}" class="menu-link">
                                         <div data-i18n="Account">Lista de incidencias</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="mis_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/mis_incidencias'}" class="menu-link">
                                         <div data-i18n="Notifications">Mis incidencias</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="incidencias_destacadas.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/destacadas'}" class="menu-link">
                                         <div data-i18n="Notifications">Incidencias Destacadas</div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="Registro_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/new'}" class="menu-link">
                                         <div data-i18n="Connections">Registrar incidencia</div>
                                     </a>
                                 </li>
-
                                 <li class="menu-item">
-                                    <a href="mapa_incidencias.html" class="menu-link">
+                                    <a th:href="@{'/incidencia/mapa'}" class="menu-link">
                                         <div data-i18n="Connections">Mapa de incidencias</div>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+
                         <li class="menu-item">
-                            <a href="sugerencias.html" class="menu-link">
+                            <a th:href="@{'/incidencia/sugerencias'}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-support"></i>
                                 <div data-i18n="Analytics">Sugerencias</div>
                             </a>
                         </li>
-
 
                     </ul>
                 </aside>
