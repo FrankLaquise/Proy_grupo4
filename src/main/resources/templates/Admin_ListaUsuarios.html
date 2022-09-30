@@ -62,6 +62,7 @@
                     <div data-i18n="Account">Usuarios</div>
                   </a>
                 </li>
+            </ul>
         </aside>
         <div class="layout-page">
           <nav
@@ -150,23 +151,26 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr class="table-info" th:each="usuario, info : ${lista_usuario}">
-                        
+                      <tr class="table-info" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq 'activo'}">
                         <td th:text="${usuario.id}"></td>
                         <td th:text="${usuario.estado}"></td>
                         <td th:text="${usuario.numeroReportes}"></td>
-                        <td th:text="${usuario.rol.titulo}">Alumno</td>
+                        <td th:text="${usuario.rol.titulo}"></td>
 						<td><a  th:href="@{'/admin/edit'+'?id='+${usuario.id}}"><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></a></td>
                       </tr>
-
+                      <tr class="table-danger" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq 'suspendido'}">
+                        <td th:text="${usuario.id}"></td>
+                        <td th:text="${usuario.estado}"></td>
+                        <td th:text="${usuario.numeroReportes}"></td>
+                        <td th:text="${usuario.rol.titulo}"></td>
+                        <td><a th:href="@{'/admin/edit'+'?id='+${usuario.id}}"><button type="button" class="btn rounded-pill btn-outline-primary">Visualisar</button></a></td>
+                      </tr>
                     </tbody>
                   </table>
 				  <div class="card-body">
                   <div class="row">
                     <div class="col">
-                     
                       <div class="demo-inline-spacing">
-                      
                         <nav aria-label="Page navigation">
                           <ul class="pagination">
                             <li class="page-item prev">
@@ -194,14 +198,13 @@
                           </ul>
                         </nav>
 						<a th:href="@{'/admin/registrar_usuario'}">
-                        <button style="align-right" type="button" class="btn rounded-pill btn-outline-primary">Nuevo usuario</button>
+                        <button style="" type="button" class="btn rounded-pill btn-outline-primary">Nuevo usuario</button>
 						</a>
                         <!--/ Basic Pagination -->
                       </div>
                     </div>
                   </div>
                 </div>
-				  
                 </div>
               </div>
 			  </div>

@@ -1,15 +1,12 @@
 package com.example.proy_grupo4.Controllers;
 
 
-import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Entity.TodosLosUsuario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.AdminRepository;
 import com.example.proy_grupo4.Repository.IconoRepository;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
 import com.example.proy_grupo4.Repository.RolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +51,7 @@ public class AdminController {
         model.addAttribute("lista_usuario", adminRepository.findAll());
         model.addAttribute("roles", rolRepository.findAll());
         model.addAttribute("icono", iconoRepository.findAll());
-        return "Login_Registro";
+        return "Admin_Registro";
     }
 
     @PostMapping("/save")
@@ -68,11 +65,20 @@ public class AdminController {
     }
 
     @PostMapping("/actualizar")
-    public String Actualizar(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
-
-        adminRepository.save(usuariosRegistrado);
-        return "redirect:/admin/usuario";
-    }
+    public String Actualizar(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado) {
+        if(usuariosRegistrado.getComentarioSuspension().isEmpty()){
+            usuariosRegistrado.setComentarioSuspension("activo");
+            adminRepository.save(usuariosRegistrado);
+            return "redirect:/admin/usuario";
+        } else if (usuariosRegistrado.getComentarioSuspension().equals("activo")) {
+            adminRepository.save(usuariosRegistrado);
+            return "redirect:/admin/usuario";
+        }else{
+            usuariosRegistrado.setEstado("suspendido");
+            adminRepository.save(usuariosRegistrado);
+            return "redirect:/admin/usuario";
+        }
+        }
 
     @GetMapping("/edit")
     public String editarUsuario(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado,
@@ -83,11 +89,28 @@ public class AdminController {
             usuariosRegistrado = optionalUsuariosRegistrado.get();
             model.addAttribute("usuario", usuariosRegistrado);
             model.addAttribute("roles", rolRepository.findAll());
-            return "usuario_activo";
+            if(usuariosRegistrado.getEstado().equals("activo")){
+                return "usuario_activo";
+            }else{
+                return "usuario_suspendido";
+            }
         } else {
             return "redirect:/admin/usuario";
         }
     }
+
+    @GetMapping("/activar")
+    public String activarUsuario(@RequestParam("id") String id, Model model) {
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = adminRepository.findById(id);
+        UsuariosRegistrado usuariosRegistrado = optionalUsuariosRegistrado.get();
+        usuariosRegistrado.setEstado("activo");
+        usuariosRegistrado.setComentarioSuspension("activo");
+        adminRepository.save(usuariosRegistrado);
+        model.addAttribute("usuario", usuariosRegistrado);
+        model.addAttribute("roles", rolRepository.findAll());
+        return "usuario_activo";
+    }
+
 
 
     @GetMapping("/perfil")
