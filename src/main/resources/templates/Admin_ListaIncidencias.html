@@ -108,14 +108,14 @@
                       </a>
                     </li>
                  <li>
-                      <a th:href="@{'/admin/perfil'}" class="dropdown-item" href="#">
+                      <a th:href="@{'/admin/perfil'}" class="dropdown-item">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
                    
                     <li>
-                      <a th:href="@{'/admin/salir'}" class="dropdown-item" href="auth-login-basic.html">
+                      <a th:href="@{'/admin/salir'}" class="dropdown-item">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Salir</span>
                       </a>
@@ -150,54 +150,56 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr class="table-warning">
-                        
-                        <td>Puerta rota</td>
-                        <td>Moderado</td>
-                        <td>03/09/2022</td>
-                        <td>A408</td>
-						<td><span class="badge bg-label-warning me-1">Pendiente</span></td>
-                      </tr>
-					  <tr class="table-danger" th:each="incidente, info : ${lista_incidentes}">
+
+					  <tr class="table-danger" th:each="incidente, info : ${lista_incidentes}"
+                          th:if="${incidente.nivel eq 'crítico'}">
 
                         <td th:text="${incidente.titulo}"></td>
                         <td th:text="${incidente.nivel}"></td>
                         <td th:text="${incidente.horaCreacion}">03/09/2022</td>
                         <td th:text="${incidente.zona.titulo}">Pabello E</td>
-						<td><span class="badge bg-label-success me-1" th:text="${incidente.estado}"></span></td>
+						<td>
+                          <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'resuelto'}"></span>
+                          <span class="badge bg-label-warning me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'atendido'}"></span>
+                          <span class="badge bg-label-danger me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'registrado'}"></span>
+                        </td>
                       </tr>
-                      <tr class="table-info">
+                      <tr class="table-warning" th:each="incidente, info : ${lista_incidentes}"
+                          th:if="${incidente.nivel eq 'moderado'}">
 
-                        <td>Proyector no funciona</td>
-                        <td>Leve</td>
-                        <td>03/09/2022</td>
-                        <td>A408</td>
-						<td><span class="badge bg-label-success me-1">Atendido</span></td>
+                        <td th:text="${incidente.titulo}"></td>
+                        <td th:text="${incidente.nivel}"></td>
+                        <td th:text="${incidente.horaCreacion}">03/09/2022</td>
+                        <td th:text="${incidente.zona.titulo}">Pabello E</td>
+                        <td>
+                          <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'resuelto'}"></span>
+                          <span class="badge bg-label-warning me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'atendido'}"></span>
+                          <span class="badge bg-label-danger me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'registrado'}"></span>
+                        </td>
                       </tr>
-					  <tr class="table-danger">
+                      <tr class="table-info" th:each="incidente, info : ${lista_incidentes}"
+                          th:if="${incidente.nivel eq 'leve'}">
 
-                        <td>Ardilla herida</td>
-                        <td>Critico</td>
-                        <td>03/09/2022</td>
-                        <td>Comedor Artes</td>
-						<td><span class="badge bg-label-warning me-1">Pendiente</span></td>
+                        <td th:text="${incidente.titulo}"></td>
+                        <td th:text="${incidente.nivel}"></td>
+                        <td th:text="${incidente.horaCreacion}">03/09/2022</td>
+                        <td th:text="${incidente.zona.titulo}">Pabello E</td>
+                        <td>
+                          <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'resuelto'}"></span>
+                          <span class="badge bg-label-warning me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'atendido'}"></span>
+                          <span class="badge bg-label-danger me-1" th:text="${incidente.estado}"
+                                th:if="${incidente.estado eq 'registrado'}"></span>
+                        </td>
                       </tr>
-					  <tr class="table-warning">
 
-                        <td>Carpeta rota</td>
-                        <td>Modera</td>
-                        <td>02/09/2022</td>
-                        <td>V308</td>
-						<td><span class="badge bg-label-success me-1">Atendido</span></td>
-                      </tr>
-                      <tr class="table-info">
-
-                        <td>Piso sucio</td>
-                        <td>Leve</td>
-                        <td>03/09/2022</td>
-                        <td>A409</td>
-						<td><span class="badge bg-label-warning me-1">Pendiente</span></td>
-                      </tr>
                     </tbody>
                   </table>
 				  

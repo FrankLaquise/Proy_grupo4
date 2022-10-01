@@ -56,7 +56,7 @@
                     <div data-i18n="Account">Incidentes</div>
                   </a>
                 </li>
-                <li class="menu-item active">
+                <li class="menu-item">
                   <a th:href="@{'/admin/registrar_usuario'}" class="menu-link">
                     <div data-i18n="Notifications">Registrar</div>
                   </a>
@@ -106,21 +106,21 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Armando Paredes</span>
+                            <span class="fw-semi-bold d-block">Armando Paredes</span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
                       </a>
                     </li>
 					<li>
-                      <a th:href="@{'/admin/perfil'}" class="dropdown-item" href="#">
+                      <a th:href="@{'/admin/perfil'}" class="dropdown-item">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
                    
                     <li>
-                      <a th:href="@{'/admin/salir'}" class="dropdown-item" href="auth-login-basic.html">
+                      <a th:href="@{'/admin/salir'}" class="dropdown-item">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Salir</span>
                       </a>
@@ -200,6 +200,7 @@
                         <input th:field="*{estado}" type="hidden"/>
                         <input th:field="*{icono}" type="hidden"/>
                         <input th:field="*{numeroReportes}" type="hidden"/>
+                        <input th:if="${usuario.rol.id eq 6 or usuario.rol.id eq 7}" th:field="*{rol.id}" type="hidden"/>
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
@@ -228,12 +229,23 @@
                             <label for="id" class="form-label">Codigo PUCP</label>
                             <input type="text" class="form-control" id="id" name="id" th:field="*{id}" disabled>
                           </div>
-                        
-                          <div class="mb-3 col-md-6">
+
+                          <div class="mb-3 col-md-6" th:if="${usuario.rol.id eq 7}">
+                            <label class="form-label" for="rol1">Categoria</label>
+                            <input type="text" class="form-control" id="rol1" name="rol" th:field="*{rol.titulo}" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6" th:if="${usuario.rol.id eq 6}">
+                            <label class="form-label" for="rol2">Categoria</label>
+                            <input type="text" class="form-control" id="rol2" name="rol" th:field="*{rol.titulo}" disabled>
+                          </div>
+                          <div class="mb-3 col-md-6" th:if="${usuario.rol.id ne 6 and usuario.rol.id ne 7}">
                             <label class="form-label" for="rol">Categoria</label>
                             <select id="rol" name="rol" class="select2 form-select">
-                              <option th:each="rol : ${roles}" th:text="${rol.titulo}"
-                                      th:value="${rol.id}"></option>
+                              <option th:text="${usuario.rol.titulo}"
+                                      th:value="${usuario.rol.id}"></option>
+                              <option th:each="roles : ${roles}" th:text="${roles.titulo}"
+                                      th:value="${roles.id}"
+                                      th:if="${roles.id != 6 and roles.id != 7}"></option>
                             </select>
                           </div>
                          
