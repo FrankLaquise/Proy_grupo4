@@ -78,10 +78,7 @@ public class IncidenciaController {
         model.addAttribute("listaIncidencias", lista);
 
         return "Usuario_ListaIncidencias";
-
     }
-
-
 
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
