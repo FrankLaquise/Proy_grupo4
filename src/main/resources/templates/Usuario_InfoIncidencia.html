@@ -166,21 +166,22 @@
                                     <h3 class="card-header" th:text="${Incidencia.getTitulo()}"></h3>
                                     <!-- Account -->
                                     <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                                <h5>Descripcion: <span th:text="${Incidencia.getDescripcion()}"></span></h5>
-                                        </div>
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <h5>Estado: <span th:text="${Incidencia.getEstado()}"></span></h5>
-                                        </div>
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <h5>Nivel: <span th:text="${Incidencia.getNivel()}"></span></h5>
-                                        </div>
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4" th:if="${Incidencia.getCalificacion() ne null}">
-                                            <h5>Calificaion: <span th:text="${Incidencia.getCalificacion()}"></span></h5>
-                                        </div>
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <h5>Zona: <span th:text="${Incidencia.getZonaDetalles()}"></span></h5>
-                                        </div>
+                                        <dl class="row mt-2">
+                                        <dt class="col-sm-3">Descripcion:</dt>
+                                        <dd class="col-sm-9" th:text="${Incidencia.getDescripcion()}"></dd>
+
+                                        <dt class="col-sm-3">Estado:</dt>
+                                        <dd class="col-sm-9" th:text="${Incidencia.getEstado()}"></dd>
+
+                                        <dt class="col-sm-3">Nivel:</dt>
+                                        <dd class="col-sm-9" th:text="${Incidencia.getNivel()}"></dd>
+
+                                        <dt class="col-sm-3 text-truncate">Calificaion:</dt>
+                                        <dd class="col-sm-9" th:text="${Incidencia.getCalificacion()}"></dd>
+
+                                            <dt class="col-sm-3 text-truncate">Zona:</dt>
+                                            <dd class="col-sm-9" th:text="${Incidencia.getZonaDetalles()}"></dd>
+                                    </dl>
                                         <div class="card-body">
                                             <div class="d-grid d-sm-flex p-3 border">
                                                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d311.6981694715016!2d-77.08213774490544!3d-12.073079718910238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2spe!4v1664301471335!5m2!1ses!2spe" width="1000" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
