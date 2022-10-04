@@ -253,34 +253,36 @@
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <form id="formAccountSettings" method="POST" th:action="@{'/incidencia/cambiotel'}">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">Nombre</label>
-                            <input class="form-control" type="text" id="firstName" name="firstName" value="Armando" disabled>
+                            <input class="form-control" type="text" id="firstName" name="firstName" th:value="${usuario.nombre}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Apellido</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="Paredes" disabled>
+                            <input class="form-control" type="text" name="lastName" id="lastName" th:value="${usuario.apellido}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" value="armando@pucp.edu.pe" disabled>
+                            <input class="form-control" type="text" id="email" name="email" th:value="${usuario.correo}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">DNI</label>
-                            <input type="text" class="form-control" id="organization" name="organization" value="86754321" disabled>
+                            <input type="text" class="form-control" id="organization" name="organization" th:value="${usuario.dni}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
 
 
 
-                            <label class="form-label" for="phoneNumber">Celular</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">PE (+51)</span>
-                              <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="999999999" value="978654321">
+                            <div class="mb-3 col-md-6">
+                              <label class="form-label" for="telefono">Celular</label>
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text">PE (+51)</span>
+                                <input type="number" name="telefono" id="telefono" class="form-control" placeholder="999999999" th:value="${usuario.telefono}">
+                              </div>
                             </div>
-                          </div>
+
                           <div class="mb-3 col-md-6">
                             <label for="codigo" class="form-label">Codigo PUCP</label>
                             <input type="number" class="form-control" id="codigo" name="codigo" placeholder="88888888" value="20011234" disabled>
@@ -291,8 +293,7 @@
                         </div>
                         <div class="mt-2">
                           <button href="lista_incidencias.html" type="submit" class="btn btn-primary">Guardar</button>
-                          <a href="Usuario_Perfil.html" class="btn btn-danger">Cancelar</a>
-
+                          <a th:href="@{'/incidencia'}" class="btn btn-danger">Cancelar</a>
                         </div>
                       </form>
                     </div>

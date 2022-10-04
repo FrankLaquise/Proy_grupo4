@@ -1,9 +1,8 @@
 package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Repository.IncidenciaRepository;
-import com.example.proy_grupo4.Repository.TipoRepository;
-import com.example.proy_grupo4.Repository.ZonaRepository;
+import com.example.proy_grupo4.Entity.UsuariosRegistrado;
+import com.example.proy_grupo4.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,17 +19,34 @@ import java.util.Optional;
 public class IncidenciaController {
     @Autowired
     IncidenciaRepository incidenciaRepository;
-
+    @Autowired
+    AdminRepository adminRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
     @Autowired
     ZonaRepository zonaRepository;
 
     @Autowired
     TipoRepository tipoRepository;
-    @GetMapping(value = {"/perfil"})
-    public String Perfil(){
-        return "Usuario_Perfil";
-    }
 
+    @Autowired
+    ComentariosRepository comentariosRepository;
+
+
+
+    @GetMapping("/perfil")
+    public String perfil(Model model) {
+
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = usuarioRepository.findById("20120000");
+
+        if (optionalUsuariosRegistrado.isPresent()) {
+            UsuariosRegistrado usuario= optionalUsuariosRegistrado.get();
+            model.addAttribute("usuario", usuario);
+            return "Usuario_Perfil";
+        } else {
+            return "redirect:/incidencia";
+        }
+    }
 
 
     @GetMapping(value = {"/mapa"})
@@ -65,6 +81,9 @@ public class IncidenciaController {
             return "redirect:/incidencia/list";
         }
 
+
+
+
     }
 
 
@@ -91,6 +110,15 @@ public class IncidenciaController {
     @PostMapping("/save")
     public String guardarProducto(Incidencia product) {
         incidenciaRepository.save(product);
+        return "redirect:/incidencia";
+    }
+
+    @PostMapping(value = {"/cambiotel"})
+    public String usuariocambiotel(UsuariosRegistrado usuario){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(("20120000"));
+        if (opt.isPresent()) {
+            usuarioRepository.actualizarTelefono(usuario.getTelefono());
+        }
         return "redirect:/incidencia";
     }
 
