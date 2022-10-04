@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Entity;
 
+
 import javax.persistence.*;
 
 @Entity

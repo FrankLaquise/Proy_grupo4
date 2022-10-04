@@ -1,7 +1,6 @@
 package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Entity.Tipo;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
 import com.example.proy_grupo4.Repository.TipoRepository;
 import com.example.proy_grupo4.Repository.ZonaRepository;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;

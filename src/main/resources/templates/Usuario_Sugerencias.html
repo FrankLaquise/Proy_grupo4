@@ -13,7 +13,7 @@
  -->
 <!-- beautify ignore:start -->
 <html
-        lang="en"
+        lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"
         class="light-style layout-menu-fixed"
         dir="ltr"
         data-theme="theme-default"
@@ -166,8 +166,9 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <div class="mt-3">
-                <h4>Bienvenido Usuario</h4>
+              <div sec:authorize="isAuthenticated()" class="mt-3">
+                <h2 th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></h2>
+
               </div>
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -199,16 +200,20 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="Login.html">
-                        <i class="bx bx-user me-2"></i>
+
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
 
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Salir</span>
-                      </a>
+                      <div sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                          <input class="btn btn-link" type="submit" value="Cerrar Sesion">
+
+                        </form>
+
+
+                      </div>
                     </li>
                   </ul>
                 </li>

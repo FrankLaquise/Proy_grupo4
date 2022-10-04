@@ -1,5 +1,7 @@
 package com.example.proy_grupo4.Entity;
 
+import com.example.proy_grupo4.Entity.Incidencia;
+
 import javax.persistence.*;
 
 @Entity

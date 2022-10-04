@@ -8,58 +8,58 @@ import java.time.Instant;
 @Table(name = "incidencias")
 public class Incidencia {
     @Id
-    @Column(name = "idincidencias")
+    @Column(name = "idincidencias", nullable = false)
     private Integer id;
 
-    @Column(name = "hora_creacion")
+    @Column(name = "hora_creacion", nullable = false)
     private Instant horaCreacion;
 
-    @Column(name = "numero_reportes")
+    @Column(name = "numero_reportes", nullable = false)
     private Integer numeroReportes;
 
-    @Column(name = "estado")
+    @Column(name = "estado", nullable = false, length = 45)
     private String estado;
 
-    @Column(name = "foto")
+    @Column(name = "foto", nullable = false)
     private byte[] foto;
 
-    @ManyToOne
-    @JoinColumn(name = "icono")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "icono", nullable = false)
     private Icono icono;
 
-    @Column(name = "titulo")
+    @Column(name = "titulo", nullable = false, length = 45)
     private String titulo;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", nullable = false, length = 150)
     private String descripcion;
 
-    @Column(name = "calificacion" )
+    @Column(name = "calificacion", precision = 3, scale = 2)
     private BigDecimal calificacion;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tipo", nullable = false)
     private Tipo tipo;
 
-    @Column(name = "nivel")
+    @Column(name = "nivel", nullable = false, length = 45)
     private String nivel;
 
-    @ManyToOne
-    @JoinColumn(name = "zona")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "zona", nullable = false)
     private Zona zona;
 
-    @Column(name = "zona_detalles")
+    @Column(name = "zona_detalles", length = 80)
     private String zonaDetalles;
 
-    @Column(name = "latitud")
+    @Column(name = "latitud", nullable = false, precision = 10, scale = 8)
     private BigDecimal latitud;
 
-    @Column(name = "longitud")
+    @Column(name = "longitud", nullable = false, precision = 10, scale = 8)
     private BigDecimal longitud;
 
-    @Column(name = "comentarios_restantes")
+    @Column(name = "comentarios_restantes", nullable = false)
     private Integer comentariosRestantes;
 
-    @Column(name = "res")
+    @Column(name = "res", nullable = false)
     private Byte res;
 
     public Integer getId() {

@@ -1,8 +1,5 @@
 package com.example.proy_grupo4.Controllers;
 
-import com.example.proy_grupo4.Entity.Comentario;
-import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Entity.TodosLosUsuario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
@@ -10,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.example.proy_grupo4.Entity.Incidencia;
 
 import java.util.List;
 import java.util.Optional;

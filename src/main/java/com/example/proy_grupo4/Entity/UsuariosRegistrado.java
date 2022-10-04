@@ -1,10 +1,11 @@
 package com.example.proy_grupo4.Entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "usuarios_registrados")
-public class UsuariosRegistrado {
+public class UsuariosRegistrado implements Serializable {
     @Id
     @Column(name = "codigo", nullable = false, length = 8)
     private String id;
