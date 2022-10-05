@@ -104,7 +104,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Armando Paredes</span>
+                            <span class="fw-semibold d-block" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -139,11 +139,6 @@
           <!-- Content wrapper -->
           <div class="card">
                 <h3 class="card-header">Incidencias</h3>
-			
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar" aria-label="Search...">
-                </div>
              
                 <div class="table-responsive text-nowrap">
                   <table class="table">

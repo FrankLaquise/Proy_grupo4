@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
         lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
   class="light-style customizer-hide"
@@ -119,16 +107,9 @@
                 </div>
                 <div class="mb-3">
                   <button style="background-color: #dadada; color: #000000;padding-left: 100px;display:flex;align-items: center; font-weight: 600" class="btn w-100" type="submit">Ingresar con Google&nbsp;&nbsp;
-                    <img src="../../assets/img/Usable/googlelogo.png" style="float: right" alt class="w-px-40 h-auto rounded-circle" /></button>
+                    <img th:src="@{img/Usable/googlelogo.png}" style="float: right" alt class="w-px-40 h-auto rounded-circle" /></button>
                 </div>
               </form>
-
-              <p class="text-center">
-                <span>Aun no esta registrado?</span>
-                <a href="Admin_RegistroUsuario.html">
-                  <span>Crear una cuenta</span>
-                </a>
-              </p>
             </div>
           </div>
           <!-- /Register -->

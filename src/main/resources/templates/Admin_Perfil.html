@@ -100,7 +100,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Armando Paredes</span>
+                            <span class="fw-semibold d-block" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></span>
                             <small class="text-muted">Admin</small>
                           </div>
                         </div>
@@ -140,16 +140,15 @@
                 <div class="col-md-12">
                 
                   <div class="card mb-4">
-                    <h3 class="card-header">Armando Paredes</h3>
+                    <h3 class="card-header" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></h3>
                     <!-- Account -->
 					<div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
                         <div>
 							<h3>Icono</h3>
-							<h4>----</h4>
+                          <img src="https://png.pngtree.com/png-vector/20190916/ourlarge/pngtree-star-icon-for-your-project-png-image_1731096.jpg" alt="user-avatar" class="d-block rounded" height="50" width="50" id="uploadedAvatar">
 						</div>
-						
 					  </div>
                     </div>
                     <hr class="my-0" />
@@ -158,30 +157,30 @@
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">Nombre</label>
-                            <input class="form-control" type="text" id="firstName" name="firstName" value="Armando" disabled>
+                            <input class="form-control" type="text" id="firstName" name="firstName" th:value="${session.usuario.nombre}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Apellido</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="Paredes" disabled>
+                            <input class="form-control" type="text" name="lastName" id="lastName" th:value="${session.usuario.apellido}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" value="armando@pucp.edu.pe" disabled>
+                            <input class="form-control" type="text" id="email" name="email" th:value="${session.usuario.correo}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">DNI</label>
-                            <input type="text" class="form-control" id="organization" name="organization" value="86754321" disabled>
+                            <input type="text" class="form-control" id="organization" name="organization" th:value="${session.usuario.dni}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Celular</label>
                             <div class="input-group input-group-merge">
                               <span class="input-group-text">PE (+51)</span>
-                              <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="999999999" value="978654321">
+                              <input type="number" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="999999999" th:value="${session.usuario.telefono}">
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="codigo" class="form-label">Codigo PUCP</label>
-                            <input type="number" class="form-control" id="codigo" name="codigo" placeholder="88888888" value="20011234" disabled>
+                            <input type="number" class="form-control" id="codigo" name="codigo" placeholder="88888888" th:value="${session.usuario.id}" disabled>
                           </div>
                         
                          

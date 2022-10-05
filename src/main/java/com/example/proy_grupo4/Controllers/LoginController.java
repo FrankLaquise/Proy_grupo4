@@ -17,7 +17,7 @@ public class LoginController {
     UsuarioRepository usuarioRepository;
     @GetMapping("ventanaLogin")
     public String ventanaLogin(){
-        return "login";
+        return "Login";
     }
     @GetMapping("redireccionarPorRol")
     public String redireccionarPorRol(Authentication authentication, HttpSession session){

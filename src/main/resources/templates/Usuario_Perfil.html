@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
         lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"
   class="light-style layout-menu-fixed"
@@ -184,7 +172,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Armando Paredes</span>
+                            <span class="fw-semibold d-block" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></span>
                             <small class="text-muted">Estudiante</small>
                           </div>
                         </div>
@@ -227,7 +215,7 @@
                 <div class="col-md-12">
                 
                   <div class="card mb-4">
-                    <h3 class="card-header">Armando Paredes</h3>
+                    <h3 class="card-header" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></h3>
                     <!-- Account -->
 					<div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -236,18 +224,6 @@
 							<h4>Nivel 2</h4>
 							<img src="https://png.pngtree.com/png-vector/20190916/ourlarge/pngtree-star-icon-for-your-project-png-image_1731096.jpg" alt="user-avatar" class="d-block rounded" height="50" width="50" id="uploadedAvatar">
 						</div>
-                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                          <span class="d-none d-sm-block">Actualizar imagen</span>
-                          <i class="bx bx-upload d-block d-sm-none"></i>
-                          <input
-                                  type="file"
-                                  id="upload"
-                                  class="account-file-input"
-                                  hidden
-                                  accept="image/png, image/jpeg"
-                          />
-                        </label>
-
 
                       </div>
                     </div>
