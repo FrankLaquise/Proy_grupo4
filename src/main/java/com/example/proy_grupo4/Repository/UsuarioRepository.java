@@ -10,15 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<UsuariosRegistrado,Integer> {
+public interface UsuarioRepository extends JpaRepository<UsuariosRegistrado,String> {
 
 
     UsuariosRegistrado findByCorreo(String email);
 
-        @Transactional
-        @Modifying
-        @Query(nativeQuery = true,
-                value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE codigo = \"20120000\"")
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE codigo = \"20120000\"")
         void actualizarTelefono(String phone);
 
 

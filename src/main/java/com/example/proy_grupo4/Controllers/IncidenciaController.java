@@ -115,7 +115,7 @@ public class IncidenciaController {
 
     @PostMapping(value = {"/cambiotel"})
     public String usuariocambiotel(UsuariosRegistrado usuario){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(("20120000"));
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById("20120000");
         if (opt.isPresent()) {
             usuarioRepository.actualizarTelefono(usuario.getTelefono());
         }
