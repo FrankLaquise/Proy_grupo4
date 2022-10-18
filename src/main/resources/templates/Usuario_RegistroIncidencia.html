@@ -81,11 +81,7 @@
                                         <div data-i18n="Connections">Registrar incidencia</div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a th:href="@{'/incidencia/mapa'}" class="menu-link">
-                                        <div data-i18n="Connections">Mapa de incidencias</div>
-                                    </a>
-                                </li>
+
                             </ul>
                         </li>
                         <li class="menu-item">
@@ -234,7 +230,10 @@
                                                                   rows="3"></textarea>
                                                     </div>
                                                 </div>
-
+                                                <div class="mb-3">
+                                                    <label for="longitud" class="form-label">Longitud</label>
+                                                    <input type="datetime" name="horaCreacion"  value="<?php echo date("Y-m-d\TH-i");?>">
+                                                </div>
 
                                                 <div class="mb-3">
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
