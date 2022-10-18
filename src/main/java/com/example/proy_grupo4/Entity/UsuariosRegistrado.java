@@ -1,6 +1,8 @@
 package com.example.proy_grupo4.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -10,12 +12,15 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "codigo", nullable = false, length = 8)
     private String id;
 
+    @NotNull
     @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
 
+    @NotNull
     @Column(name = "apellido", nullable = false, length = 45)
     private String apellido;
 
+    @NotNull
     @Column(name = "dni", nullable = false, length = 45)
     private String dni;
 
@@ -41,7 +46,8 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "numero_reportes", nullable = false)
     private Integer numeroReportes;
 
-    @Column(name = "comentario_suspension", nullable = true, length = 80)
+    @Size(max = 80)
+    @Column(name = "comentario_suspension", length = 80)
     private String comentarioSuspension;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

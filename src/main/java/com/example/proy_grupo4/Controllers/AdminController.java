@@ -87,11 +87,13 @@ public class AdminController {
         Optional<UsuariosRegistrado> optionalUsuariosRegistrado = adminRepository.findById(id);
         if (optionalUsuariosRegistrado.isPresent()) {
             usuariosRegistrado = optionalUsuariosRegistrado.get();
-            model.addAttribute("usuario", usuariosRegistrado);
-            model.addAttribute("roles", rolRepository.findAll());
             if(usuariosRegistrado.getEstado().equals("activo")){
+                model.addAttribute("usuario", usuariosRegistrado);
+                model.addAttribute("roles", rolRepository.findAll());
                 return "usuario_activo";
             }else{
+                model.addAttribute("usuario", usuariosRegistrado);
+                model.addAttribute("roles", rolRepository.findAll());
                 return "usuario_suspendido";
             }
         } else {

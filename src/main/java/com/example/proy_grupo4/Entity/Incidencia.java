@@ -1,6 +1,8 @@
 package com.example.proy_grupo4.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -14,6 +16,7 @@ public class Incidencia {
     @Column(name = "hora_creacion", nullable = false)
     private Instant horaCreacion;
 
+    @Positive
     @Column(name = "numero_reportes", nullable = false)
     private Integer numeroReportes;
 
@@ -27,9 +30,11 @@ public class Incidencia {
     @JoinColumn(name = "icono", nullable = false)
     private Icono icono;
 
+    @NotNull
     @Column(name = "titulo", nullable = false, length = 45)
     private String titulo;
 
+    @NotNull
     @Column(name = "descripcion", nullable = false, length = 150)
     private String descripcion;
 
@@ -47,6 +52,7 @@ public class Incidencia {
     @JoinColumn(name = "zona", nullable = false)
     private Zona zona;
 
+    @NotNull
     @Column(name = "zona_detalles", length = 80)
     private String zonaDetalles;
 
