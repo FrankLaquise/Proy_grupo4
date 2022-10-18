@@ -180,7 +180,7 @@
 
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Imagen</label>
-                                                    <input class="form-control" type="file" id="formFile" name="foto">
+                                                    <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
 
 
@@ -196,9 +196,19 @@
                                                     </select>
                                                 </div>
 
+                                                <div id='coordenadas_lat'></div>
+                                                <div id='coordenadas_long'></div>
+
+
                                                 <div class="mb-3">
-
-
+                                                    <label for="latitud" class="form-label">Latitud</label>
+                                                    <input type="number" step="any" class="form-control" id="latitud" name="latitud"
+                                                           placeholder="Ingrese latitud de su coordenada"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="longitud" class="form-label">Longitud</label>
+                                                    <input type="number" step="any" class="form-control" id="longitud" name="longitud"
+                                                           placeholder="Ingrese longitud de su coordenada"/>
                                                 </div>
 
 
@@ -306,6 +316,37 @@
         <!-- Core JS -->
 
         <div id="fb-root"></div>
+
+        <!-- mostrar coordenadas -->
+        <script type="text/javascript">
+            var poslat;
+            var poslong;
+            poslat= document.getElementById("latitud")
+            poslong= document.getElementById("longitud")
+
+
+            if (navigator.geolocation) { //Validar si hay acceso web a la ubicación
+                navigator.geolocation.getCurrentPosition(mostrarUbicacion); //Obtiene la posición
+            } else {
+                alert("¡Error! Este navegador no soporta la Geolocalización.");
+            }
+
+            //Funcion para obtener latitud y longitud
+            function mostrarUbicacion(position) {
+                var latitud = position.coords.latitude; //Obtener latitud
+
+                var longitud = position.coords.longitude; //Obtener longitud
+                var div_lat = document.getElementById("coordenadas_lat");
+                var div_long = document.getElementById("coordenadas_long");
+
+                div_lat.textContent=`Latitud:${latitud}`;
+                div_long.textContent=`Longitud:${longitud}`;
+                //-----------------------------------------------
+
+            }
+        </script>
+        <!-- FIN- mostrar coordenadas -->
+
         <script async defer crossorigin="anónimo" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0"
                 nonce="RhQbcBPc"></script>
         <!-- build:js assets/vendor/js/core.js -->

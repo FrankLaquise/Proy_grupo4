@@ -2,7 +2,7 @@ package com.example.proy_grupo4.Entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -10,62 +10,78 @@ import java.time.Instant;
 @Table(name = "incidencias")
 public class Incidencia {
     @Id
-    @Column(name = "idincidencias", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idincidencias")
     private Integer id;
 
-    @Column(name = "hora_creacion", nullable = false)
+
+    @Column(name = "hora_creacion")
     private Instant horaCreacion;
 
-    @Positive
-    @Column(name = "numero_reportes", nullable = false)
+
+    @Column(name = "numero_reportes")
     private Integer numeroReportes;
 
-    @Column(name = "estado", nullable = false, length = 45)
+    @Size(max = 45)
+
+    @Column(name = "estado", length = 45)
     private String estado;
 
-    @Column(name = "foto", nullable = false)
+
+    @Column(name = "foto" )
     private byte[] foto;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "icono", nullable = false)
+    @JoinColumn(name = "icono")
     private Icono icono;
 
-    @NotNull
-    @Column(name = "titulo", nullable = false, length = 45)
+    @Size(max = 45)
+
+    @Column(name = "titulo", length = 45)
     private String titulo;
 
-    @NotNull
-    @Column(name = "descripcion", nullable = false, length = 150)
+    @Size(max = 150)
+
+    @Column(name = "descripcion",  length = 150)
     private String descripcion;
 
     @Column(name = "calificacion", precision = 3, scale = 2)
     private BigDecimal calificacion;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tipo", nullable = false)
+    @JoinColumn(name = "tipo")
     private Tipo tipo;
 
-    @Column(name = "nivel", nullable = false, length = 45)
+    @Size(max = 45)
+
+    @Column(name = "nivel", length = 45)
     private String nivel;
 
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zona", nullable = false)
+    @JoinColumn(name = "zona")
     private Zona zona;
 
-    @NotNull
+    @Size(max = 80)
     @Column(name = "zona_detalles", length = 80)
     private String zonaDetalles;
 
-    @Column(name = "latitud", nullable = false, precision = 10, scale = 8)
+
+    @Column(name = "latitud", precision = 10, scale = 8)
     private BigDecimal latitud;
 
-    @Column(name = "longitud", nullable = false, precision = 10, scale = 8)
+
+    @Column(name = "longitud",  precision = 10, scale = 8)
     private BigDecimal longitud;
 
-    @Column(name = "comentarios_restantes", nullable = false)
+
+    @Column(name = "comentarios_restantes")
     private Integer comentariosRestantes;
 
-    @Column(name = "res", nullable = false)
+
+    @Column(name = "res")
     private Byte res;
 
     public Integer getId() {
