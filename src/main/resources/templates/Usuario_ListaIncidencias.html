@@ -204,7 +204,7 @@
                           </button></a>
                         </td>
                       </tr>
-                      <tr class="table-info" th:each="inc, info : ${listaIncidencias}" th:if="${inc.destacado eq o}">
+                      <tr class="table-info" th:each="inc, info : ${listaIncidencias}" th:if="${inc.destacado eq 0}">
                         <td th:text="${info.index + 1}"></td>
                         <td th:text="${inc.getTitulo()}"></td>
                         <td th:text="${inc.getNivel()}"></td>
