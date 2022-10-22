@@ -257,9 +257,9 @@
                                             <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto'}">
                                                 <label for="zona" class="form-label">Actualizar estado</label>
                                                 <select class="form-select" name="estado" th:field="*{estado}" id="estado">
-                                                    <option value="atendido">atendido</option>
-                                                    <option value="en proceso">en proceso</option>
-                                                    <option value="registrado">registrado</option>
+                                                    <option value="atendido">Atendido</option>
+                                                    <option value="en proceso">En proceso</option>
+                                                    <option value="registrado">Registrado</option>
                                                 </select>
                                             </div>
                                             <div class="mt-3" th:unless="${#lists.isEmpty(comentarios)}">

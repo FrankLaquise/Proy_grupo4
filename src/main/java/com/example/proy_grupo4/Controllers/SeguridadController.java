@@ -98,6 +98,7 @@ public class SeguridadController {
             String codigoCreador = incidenciaRepository.buscarCreador(id);
             seguridadRepository.aumentarreportes(codigoCreador);
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
+            incidenciaRepository.ReportarFalsaIncidencia(id);
         }
         return  "redirect:/seguridad/inicio";
     }
