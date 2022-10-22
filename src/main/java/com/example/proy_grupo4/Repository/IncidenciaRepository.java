@@ -16,8 +16,7 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
             value = "SELECT u.usuario FROM reportpucp.`usuarios_registran/destacan_incidencias` u\n" +
                     "join incidencias i where u.incidencia = i.idincidencias and u.creador = 1 and i.idincidencias=?1")
     String buscarCreador(int id);
-
-
+    
 
     @Transactional
     @Modifying

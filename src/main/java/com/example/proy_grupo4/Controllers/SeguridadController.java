@@ -35,6 +35,7 @@ public class SeguridadController {
         return "Seguridad_login2F";
     }
 
+    //Para la vista de inicio
     @GetMapping(value = {"/inicio"})
     public String Seguridadincidenciaslistar(Model model){
         List<Incidencia> lista = incidenciaRepository.findAll();
@@ -55,46 +56,54 @@ public class SeguridadController {
         return "Seguridad_MapaIncidencias";
     }
 
+    //Para ver el detalle de las incidencias
     @GetMapping(value = {"/detalle"})
     public String SeguridadDetalle(Model model, @RequestParam("id") int id){
         Optional<Incidencia> optInc = incidenciaRepository.findById(id);
         String codigoCreador = incidenciaRepository.buscarCreador(id);
-        //Optional<Comentario> comentop=comentariosRepository.findById(comentariosRepository.idComenarioporidInc(id));
+
+        List<String> comentarios= comentariosRepository.ComentariosporidInc(id);
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
             System.out.println(incidencia);
+
+            model.addAttribute("comentarios",comentarios);
             model.addAttribute("incidencia",incidencia);
             model.addAttribute("codigocreador",codigoCreador);
-            //model.addAttribute("comentario",comentariosRepository.ComentariosporidInc(id));
             return "Seguridad_IncidenciaDetalle";
         }else{
             return "redirect:/seguridad/inicio";
         }
 
     }
+
+    //Para actualizar el estado de una incidencia(Comentarios+Estado) *Falta implementar validacion en el form
     @PostMapping(value = {"/actualizarest"})
-    public String Actualizaresst(Model model, Incidencia incidencia, @RequestParam("id") int id){
+    public String Actualizaresst(Model model, Incidencia incidencia, String comentario, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
-        //Optional<Comentario> comentop=comentariosRepository.findById(comentariosRepository.idComenarioporidInc(id));
         if(opt.isPresent()){
             incidenciaRepository.Actualizar(id, incidencia.getEstado());
-            //model.addAttribute("comentario",comentop.get());
-            //model.addAttribute("comentario",comentariosRepository.ComentariosporidInc(id));
-            //System.out.println(comentariosRepository.ComentariosporidInc(id));
-
+            if(comentario != null) comentariosRepository.IngresarComentxIdinci(comentario,id);
 
         }
+        System.out.println(comentario);
         return  "redirect:/seguridad/inicio";
-        //Falta implementar añadir comentario en este mismo controller
-
-
     }
 
+    //Para aumentar en uno el contador del reporte del usuario(En proceso)
+    @PostMapping(value = {"/aumentarreporte"})
+    public String Aumentarrep(Model model, Incidencia incidencia, @RequestParam("id") int id){
+        Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        if(opt.isPresent()){
+            incidenciaRepository.Actualizar(id, incidencia.getEstado());
+        }
+        return  "redirect:/seguridad/inicio";
+    }
+
+    //Para acceder al perfil del seguridad
     @GetMapping("/perfil")
     public String perfil(Model model) {
-
         Optional<UsuariosRegistrado> optionalUsuariosRegistrado = seguridadRepository.findById("20110000");
-
         if (optionalUsuariosRegistrado.isPresent()) {
             UsuariosRegistrado seguridad= optionalUsuariosRegistrado.get();
             model.addAttribute("seguridad", seguridad);
@@ -104,6 +113,7 @@ public class SeguridadController {
         }
     }
 
+    //Con estas funciones se actualiza el estado de la incidencia
     @GetMapping(value = {"/actualizaratendido"})
     public String SeguridadActualizar1(@RequestParam("id") int id){
         incidenciaRepository.ActualizarAtendido(id);
@@ -122,6 +132,7 @@ public class SeguridadController {
         return "redirect:/seguridad/inicio";
     }
 
+    //Para cambiar el telefono
     @PostMapping(value = {"/cambiotel"})
     public String Seguridadcambiotel(UsuariosRegistrado seguridad){
         Optional<UsuariosRegistrado> opt = seguridadRepository.findById("20110000");
@@ -130,9 +141,6 @@ public class SeguridadController {
         }
         return "redirect:/seguridad/inicio";
     }
-
-
-
 
 
 
