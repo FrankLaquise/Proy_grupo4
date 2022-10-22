@@ -22,7 +22,4 @@ public interface UsuarioRepository extends JpaRepository<UsuariosRegistrado,Stri
 
 
 
-
-
-
 }

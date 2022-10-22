@@ -91,11 +91,13 @@ public class SeguridadController {
     }
 
     //Para aumentar en uno el contador del reporte del usuario(En proceso)
-    @PostMapping(value = {"/aumentarreporte"})
+    @GetMapping(value = {"/reportar"})
     public String Aumentarrep(Model model, Incidencia incidencia, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
-            incidenciaRepository.Actualizar(id, incidencia.getEstado());
+            String codigoCreador = incidenciaRepository.buscarCreador(id);
+            seguridadRepository.aumentarreportes(codigoCreador);
+            seguridadRepository.ValidarSuspenderusuario(codigoCreador);
         }
         return  "redirect:/seguridad/inicio";
     }

@@ -31,8 +31,16 @@ public interface SeguridadRepository extends JpaRepository<UsuariosRegistrado, S
     @Transactional
     @Modifying
     @Query(nativeQuery = true,
-            value = "update reportpucp.usuarios_registrados set numero_reportes = numero_reportes + 1 where codigo=\"20110000\";")
-    void Aumentarreporte(String phone);
+            value = "update reportpucp.usuarios_registrados set numero_reportes = numero_reportes + 1 \n" +
+                    "where codigo = ?1")
+    void aumentarreportes(String codigo);
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,
+            value = "UPDATE usuarios_registrados SET estado = 0 WHERE codigo = ?1 \n" +
+                    "and numero_reportes > 2")
+    void ValidarSuspenderusuario(String codigo);
 
 }
 
