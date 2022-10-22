@@ -59,7 +59,6 @@ public class Incidencia {
     @Column(name = "nivel", length = 45)
     private String nivel;
 
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "zona")
     private Zona zona;
@@ -80,7 +79,11 @@ public class Incidencia {
     @Column(name = "comentarios_restantes")
     private Integer comentariosRestantes;
 
+    @Column(name = "usuario")
+    private String usuario;
 
+    @Column(name = "destacado")
+    private Integer destacado;
     @Column(name = "res")
     private Byte res;
 
@@ -220,4 +223,19 @@ public class Incidencia {
         this.res = res;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public Integer getDestacado() {
+        return destacado;
+    }
+
+    public void setDestacado(Integer destacado) {
+        this.destacado = destacado;
+    }
 }

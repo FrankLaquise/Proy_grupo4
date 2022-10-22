@@ -153,7 +153,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr class="table-info" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq 'activo'}">
+                      <tr class="table-info" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq '1' or usuario.estado eq 'activo'}">
                         <td th:text="${usuario.id}"></td>
                         <td th:text="${usuario.estado}"></td>
                         <td th:text="${usuario.numeroReportes}"></td>

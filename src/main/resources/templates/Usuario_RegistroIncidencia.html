@@ -81,7 +81,11 @@
                                         <div data-i18n="Connections">Registrar incidencia</div>
                                     </a>
                                 </li>
-
+                                <li class="menu-item">
+                                    <a th:href="@{'/incidencia/mapa'}" class="menu-link">
+                                        <div data-i18n="Connections">Mapa de incidencias</div>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="menu-item">
@@ -162,15 +166,18 @@
                                         <div class="card-body">
                                             <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
                                                 <div class="mb-3">
+                                                    <input type="hidden" name="usuario" th:value="${session.usuario.id}"/>
                                                     <label for="titulo" class="form-label">Titulo</label>
                                                     <input type="text" class="form-control" id="titulo" name="titulo"
-                                                           placeholder="Titulo del incidente"/>
+                                                           placeholder="Titulo del incidente"
+                                                           required = true/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripcion</label>
                                                     <input type="text " class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
+                                                           required = true
                                                     />
                                                 </div>
 
@@ -178,15 +185,12 @@
                                                     <label for="formFile" class="form-label">Imagen</label>
                                                     <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
-
-
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
-
                                                         </option>
 
                                                     </select>
@@ -194,21 +198,18 @@
 
                                                 <div id='coordenadas_lat'></div>
                                                 <div id='coordenadas_long'></div>
-
-
                                                 <div class="mb-3">
                                                     <label for="latitud" class="form-label">Latitud</label>
                                                     <input type="number" step="any" class="form-control" id="latitud" name="latitud"
-                                                           placeholder="Ingrese latitud de su coordenada"/>
+                                                           placeholder="Ingrese latitud de su coordenada"
+                                                           required = true/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="longitud" class="form-label">Longitud</label>
                                                     <input type="number" step="any" class="form-control" id="longitud" name="longitud"
-                                                           placeholder="Ingrese longitud de su coordenada"/>
+                                                           placeholder="Ingrese longitud de su coordenada"
+                                                           required = true/>
                                                 </div>
-
-
-
 
                                                 <div class="mb-3">
                                                     <label for="tipo" class="form-label">Tipo de
@@ -217,7 +218,6 @@
                                                         <option th:each="tipo:${listaTipos}"
                                                                 th:value="${tipo.getId()}"
                                                                 th:text="${tipo.getTitulo()}">
-
                                                         </option>
 
                                                     </select>
@@ -230,19 +230,14 @@
                                                                   rows="3"></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="longitud" class="form-label">Longitud</label>
-                                                    <input type="datetime" name="horaCreacion"  value="<?php echo date("Y-m-d\TH-i");?>">
-                                                </div>
 
                                                 <div class="mb-3">
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
-                                                    <select class="form-select" id="nivel"
+                                                    <select class="form-select" id="nivel" name="nivel"
                                                             aria-label="Default select example">
-                                                        <option value="1">Leve</option>
-                                                        <option value="2">Moderado</option>
-                                                        <option value="3">Critico</option>
-
+                                                        <option value="Leve">Leve</option>
+                                                        <option value="Moderado">Moderado</option>
+                                                        <option value="Critico">Critico</option>
                                                     </select>
                                                 </div>
 

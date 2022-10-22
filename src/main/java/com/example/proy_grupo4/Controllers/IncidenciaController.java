@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +56,9 @@ public class IncidenciaController {
         return "Usuario_MapaIncidencias";
     }
     @GetMapping(value = {"/destacadas"})
-    public String IncidenciaDestacada(){
+    public String IncidenciaDestacada(Model model){
+        List<Incidencia> lista = incidenciaRepository.findAll();
+        model.addAttribute("listaIncidencias", lista);
         return "Usuario_IncidenciasDestacadas";
     }
     @GetMapping(value = {"/sugerencias"})
@@ -62,34 +66,47 @@ public class IncidenciaController {
         return "Usuario_Sugerencias";
     }
     @GetMapping(value = {"/mis_incidencias"})
-    public String MisIncidencias(){
+    public String MisIncidencias(Model model){
+        List<Incidencia> lista = incidenciaRepository.findAll();
+        model.addAttribute("listaIncidencias", lista);
         return "Usuario_MisIncidencias";
     }
 
 
     @GetMapping(value = {"/info"})
     public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
-
         Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
-
-        if (optionalIncidencia.isPresent()) {
-            Incidencia Incidencia = optionalIncidencia.get();
-            model.addAttribute("Incidencia", Incidencia);
-
-            return "Usuario_InfoIncidencia";
-        } else {
-            return "redirect:/incidencia/list";
-        }
-
-
-
-
+        Incidencia incidencia = optionalIncidencia.get();
+        incidencia.setDestacado(1);
+        incidenciaRepository.save(incidencia);
+        return "redirect:/incidencia/list";
     }
 
+    @GetMapping(value = {"/destacar"})
+    public String Incidenciadestacar(@RequestParam("idincidencias") int idincidencias) {
+        Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
+        Incidencia Incidencia = optionalIncidencia.get();
+        Incidencia.setDestacado(1);
+        incidenciaRepository.save(Incidencia);
+        return "redirect:/incidencia/list";
+    }
 
+    @GetMapping(value = {"/desdestacar"})
+    public String Incidenciadesdestacar(@RequestParam("idincidencias") int idincidencias) {
+        Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
+        Incidencia Incidencia = optionalIncidencia.get();
+        Incidencia.setDestacado(0);
+        incidenciaRepository.save(Incidencia);
+        return "redirect:/incidencia/list";
+    }
 
+    @GetMapping("/comentar")
+    public String comentar(Comentario comentario) {
+        comentariosRepository.save(comentario);
+        return "redirect:/incidencia/list";
+    }
     @GetMapping(value = {"/list",""})
-    public String misIncidencias(Model model) {
+    public String Incidencias(Model model) {
 
         List<Incidencia> lista = incidenciaRepository.findAll();
         model.addAttribute("listaIncidencias", lista);
@@ -100,7 +117,6 @@ public class IncidenciaController {
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
-
         model.addAttribute("listaTipos",tipoRepository.findAll());
         return "Usuario_RegistroIncidencia";
     }
@@ -108,8 +124,12 @@ public class IncidenciaController {
 
 
     @PostMapping("/save")
-    public String guardarProducto(Incidencia product) {
-        incidenciaRepository.save(product);
+    public String guardarProducto(Incidencia incidencia) {
+        incidencia.setEstado("registrado");
+        incidencia.setNumeroReportes(1);
+        incidencia.setHoraCreacion(Instant.now());
+        incidencia.setDestacado(0);
+        incidenciaRepository.save(incidencia);
         return "redirect:/incidencia";
     }
 

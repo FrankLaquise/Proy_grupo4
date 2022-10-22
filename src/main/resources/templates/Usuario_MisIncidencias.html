@@ -227,7 +227,7 @@ input[type="radio"]:checked ~ label {
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../static/img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -261,15 +261,6 @@ input[type="radio"]:checked ~ label {
             </div>
           </nav>
 
-          <!-- / Navbar -->
-
-
-
-
-
-
-
-
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -278,61 +269,41 @@ input[type="radio"]:checked ~ label {
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Mis incidencias</h4>
 
-
-
-
-              <!-- Bootstrap Table with Header - Light -->
               <div class="card">
                 <h5 class="card-header">Mis Incidencias</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead class="table-light">
                       <tr>
+                        <th>#</th>
                         <th>Titulo</th>
                         <th>Urgencia</th>
                         <th>Fecha</th>
                         <th>Zona PUCP</th>
                         <th>Tipo</th>
                         <th>Estado</th>
-                        <th>Comentar </th>
-                        <th>Aceptar </th>
+                        <th>Detalle</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr th:each="inc, info : ${listaIncidencias}">
+                    <tr th:each="inc, info : ${listaIncidencias}"
+                        th:if="${inc.usuario eq session.usuario.id}">
                         <td th:text="${info.index + 1}"></td>
                         <td th:text="${inc.getTitulo()}"></td>
                         <td th:text="${inc.getNivel()}"></td>
                         <td th:text="${inc.getHoraCreacion()}"></td>
                         <td th:text="${inc.getZona().getTitulo()}"></td>
-
+                        <td th:text="${inc.getTipo().getTitulo()}"></td>
+                        <td th:text="${inc.getEstado()}"></td>
+                        <td><a th:href="@{'/incidencia/info'+'?idincidencias=' + ${inc.getId()}}">
+                          <button type="button" class="btn btn-primary" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                              <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"></path>
+                            </svg>
+                            <span class="visually-hidden">Button</span>
+                          </button></a>
+                        </td>
                       </tr>
-
-                      <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel1">Comentario</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="row">
-                                <div class="col mb-3">
-                                  <label for="nameBasic" class="form-label">Agregar comentario</label>
-                                  <input type="text" id="nameBasic" class="form-control" placeholder="Escriba aquí...">
-                                </div>
-                              </div>
-
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-                              <button type="button" class="btn btn-primary">Enviar</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
                     </tbody>
                   </table>
                 </div>

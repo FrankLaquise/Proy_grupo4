@@ -79,8 +79,6 @@
                   <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
                        height="100"> </img>
 
-
-
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
@@ -100,7 +98,6 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Incidencias</div>
               </a>
               <ul class="menu-sub">
@@ -134,19 +131,10 @@
                 <div data-i18n="Analytics">Sugerencias</div>
               </a>
             </li>
-
-
-
-
           </ul>
         </aside>
 
-
-        <!-- / Menu -->
-
-        <!-- Layout container -->
         <div class="layout-page">
-          <!-- Navbar -->
 
           <nav
                   class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -161,18 +149,13 @@
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <div sec:authorize="isAuthenticated()" class="mt-3">
                 <h2 th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></h2>
-
               </div>
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Place this tag where you want the button to render. -->
 
-
-                <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../static/img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -181,7 +164,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../static/img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -193,7 +176,6 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="Login.html">
-
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
@@ -215,16 +197,6 @@
             </div>
           </nav>
 
-          <!-- / Navbar -->
-
-
-
-
-
-
-
-
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -232,10 +204,6 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Incidencias Destacadas 🌟</h4>
 
-
-
-
-              <!-- Bootstrap Table with Header - Light -->
               <div class="card">
                 <h5 class="card-header"><Mis></Mis> Incidencias Destacadas</h5>
                 <div class="table-responsive text-nowrap">
@@ -248,50 +216,19 @@
                         <th>Zona PUCP</th>
                         <th>Tipo</th>
                         <th>Estado</th>
-                        
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                     
-
-                      <tr>
-                        <td>
-
-                          Tuberias en mal estado
-
-                        </td>
-                        <td><span class="badge bg-label-primary me-1">Moderado</span></td>
-
-                        <td>11/09/22</td>
-                        <td>EEGGCC</td>
-                        <td>
-                          Infraestructura en mal estado
-                        </td>
-
-
-
-
-                        <td>
-                          En proceso
-                        </td>
-
-
+                      <tr th:each="inc, info : ${listaIncidencias}" th:if="${inc.destacado eq 1}">
+                        <td th:text="${inc.getTitulo()}"></td>
+                        <td th:if="${inc.nivel eq 'Moderado'}"><span class="badge bg-label-primary me-1">Moderado</span></td>
+                        <td th:if="${inc.nivel eq 'Leve'}"><span class="badge bg-label-success me-1">Leve</span></td>
+                        <td th:if="${inc.nivel eq 'Critico'}"><span class="badge bg-label-danger me-1">Critico</span></td>
+                        <td th:text="${inc.getHoraCreacion()}"></td>
+                        <td th:text="${inc.getZona().getTitulo()}"></td>
+                        <td th:text="${inc.getTipo().getTitulo()}"></td>
+                        <td th:text="${inc.getEstado()}"></td>
                       </tr>
-
-
-
-
-
-
-
-                      
-
-
-
-
-
-
-
                     </tbody>
                   </table>
                 </div>
