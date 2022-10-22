@@ -1,17 +1,27 @@
 package com.example.proy_grupo4.Repository;
 
 import com.example.proy_grupo4.Entity.Incidencia;
+import com.example.proy_grupo4.Entity.Zona;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer> {
 
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM incidencias i join zonas z on i.zona=z.idzonas where z.titulo=?1 and i.zona is not null order by hora_creacion desc;")
+    List<Incidencia> buscarxZonaPucp(String titulo);
+
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM incidencias i join zonas z on i.zona=z.idzonas where i.titulo like %?1% and i.titulo is not null order by hora_creacion desc;")
+    List<Incidencia> busquedaParcialTitulo(String titulo);
     @Query(nativeQuery = true,
             value = "SELECT u.usuario FROM reportpucp.`usuarios_registran/destacan_incidencias` u\n" +
                     "join incidencias i where u.incidencia = i.idincidencias and u.creador = 1 and i.idincidencias=?1")

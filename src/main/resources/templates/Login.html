@@ -75,9 +75,9 @@
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
+                  <div class="form-outline form-white mb-4" >
                     <label class="form-label" for="password">Contraseña</label>
-                    <a href="Login_RecuperarContra.html">
+                    <a th:href="@{'/incidencia/recuperar_contra'}">
                       <small>Olvido su contraseña?</small>
                     </a>
                   </div>
@@ -130,5 +130,36 @@
     <script th:src="@{/js/menu.js}"></script>
     <script th:src="@{/js/main.js}"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        var contrasena = $("#contrasena");
+        var cdiv = $("#contrasenadiv");
+        var showpass = cdiv.find(".showpass");
+
+        cdiv.mousemove(function(e) {
+          let posX = showpass.offset().left
+          if( e.clientX > posX && e.clientX < posX + 15 ){
+            contrasena.css('cursor', 'pointer');
+          }else{
+            contrasena.css('cursor', 'text');
+          }
+        });
+
+        cdiv.click(function(e) {
+          let posX = showpass.offset().left
+          if( e.clientX > posX && e.clientX < posX + 15 ){
+            if(contrasena.prop('type')==='password'){
+              contrasena.prop('type','text');
+              showpass.removeClass('fa-eye-slash');
+              showpass.addClass('fa-eye');
+            }else{
+              contrasena.prop('type','password');
+              showpass.removeClass('fa-eye');
+              showpass.addClass('fa-eye-slash');
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
