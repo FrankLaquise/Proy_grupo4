@@ -58,6 +58,11 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
             value = "UPDATE incidencias SET res = 0 WHERE idincidencias = ?1")
     void ReportarFalsaIncidencia(int id);
 
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,
+            value = "UPDATE incidencias SET comentariorep = ?2 WHERE idincidencias = ?1")
+    void ReportarFalsaIncidenciacoment(int id, String comentarioreporte);
 
     @Query(nativeQuery = true,
             value = "SELECT * FROM incidencias where idincidencias=?1")

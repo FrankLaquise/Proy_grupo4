@@ -103,11 +103,14 @@ public class SeguridadController {
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
             incidenciaRepository.Actualizar(id, incidencia.getEstado());
-            if(comentario != null) comentariosRepository.IngresarComentxIdinci(comentario,id);
+            if((comentario.length() != 0) && comentario!=null) {
+                System.out.println("El comentario es:"+comentario);
+                comentariosRepository.IngresarComentxIdinci(comentario,id);
+            }
 
         }
         System.out.println(comentario);
-        return  "redirect:/seguridad/inicio";
+        return  "redirect:/seguridad/detalle?id="+id;
     }
 
     //Para aumentar en uno el contador del reporte del usuario(En proceso)
@@ -119,6 +122,20 @@ public class SeguridadController {
             seguridadRepository.aumentarreportes(codigoCreador);
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
             incidenciaRepository.ReportarFalsaIncidencia(id);
+        }
+        return  "redirect:/seguridad/inicio";
+    }
+
+    @PostMapping(value = {"/reportarinc"})
+    public String Aumentarrepp(Model model, Incidencia incidencia, String comentarioreporte,@RequestParam("id") int id){
+        Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        if(opt.isPresent()){
+            String codigoCreador = incidenciaRepository.buscarCreador(id);
+            seguridadRepository.aumentarreportes(codigoCreador);
+            seguridadRepository.ValidarSuspenderusuario(codigoCreador);
+            incidenciaRepository.ReportarFalsaIncidencia(id);
+            if(comentarioreporte != null) incidenciaRepository.ReportarFalsaIncidenciacoment(id,comentarioreporte);
+
         }
         return  "redirect:/seguridad/inicio";
     }
