@@ -18,7 +18,7 @@ public class Comentario {
     private String texto;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "incidencia", nullable = false)
     private Incidencia incidencia;
 

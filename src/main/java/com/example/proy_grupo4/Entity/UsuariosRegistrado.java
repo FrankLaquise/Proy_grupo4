@@ -27,7 +27,7 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "correo", nullable = false, length = 45)
     private String correo;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "rol", nullable = false)
     private Roles rol;
 
@@ -50,7 +50,7 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "comentario_suspension", length = 80)
     private String comentarioSuspension;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "icono", nullable = false)
     private Icono icono;
 
