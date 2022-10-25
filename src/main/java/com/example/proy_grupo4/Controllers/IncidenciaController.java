@@ -36,12 +36,8 @@ public class IncidenciaController {
 
     @Autowired
     TipoRepository tipoRepository;
-
     @Autowired
     ComentariosRepository comentariosRepository;
-
-
-
     @GetMapping("/perfil")
     public String perfil(Model model) {
 
@@ -77,15 +73,12 @@ public class IncidenciaController {
         model.addAttribute("listaIncidencias", lista);
         return "Usuario_MisIncidencias";
     }
-
-
     @GetMapping(value = {"/info"})
     public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
         Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
         Incidencia incidencia = optionalIncidencia.get();
-        incidencia.setDestacado(1);
-        incidenciaRepository.save(incidencia);
-        return "redirect:/incidencia/list";
+        model.addAttribute("Incidencia", incidencia);
+        return "Usuario_InfoIncidencia";
     }
 
     @GetMapping(value = {"/destacar"})
