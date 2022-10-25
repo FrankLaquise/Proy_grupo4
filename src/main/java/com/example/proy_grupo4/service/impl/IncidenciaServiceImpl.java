@@ -21,4 +21,5 @@ public class IncidenciaServiceImpl implements IncidenciaServiceAPI {
         return incidenciaRepository.findAll(pageable);
 
     }
+
 }
