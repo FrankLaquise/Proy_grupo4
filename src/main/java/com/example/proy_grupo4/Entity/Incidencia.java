@@ -32,7 +32,7 @@ public class Incidencia {
     private byte[] foto;
 
 
-    @ManyToOne( optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "icono")
     private Icono icono;
 
@@ -50,7 +50,7 @@ public class Incidencia {
     private BigDecimal calificacion;
 
 
-    @ManyToOne( optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "tipo")
     private Tipo tipo;
 
@@ -59,7 +59,7 @@ public class Incidencia {
     @Column(name = "nivel", length = 45)
     private String nivel;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "zona")
     private Zona zona;
 

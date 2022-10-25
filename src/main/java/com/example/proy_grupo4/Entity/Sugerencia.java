@@ -12,7 +12,7 @@ public class Sugerencia {
     @Column(name = "texto", nullable = false, length = 150)
     private String texto;
 
-    @ManyToOne( optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "usuario", nullable = false)
     private UsuariosRegistrado usuario;
 
