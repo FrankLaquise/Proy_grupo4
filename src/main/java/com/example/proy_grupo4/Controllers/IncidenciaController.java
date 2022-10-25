@@ -170,10 +170,10 @@ public class IncidenciaController {
     }
 
     @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById("20120000");
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         if (opt.isPresent()) {
-            usuarioRepository.actualizarTelefono(usuario.getTelefono());
+            usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
         }
         return "redirect:/incidencia";
     }

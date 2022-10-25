@@ -17,8 +17,8 @@ public interface UsuarioRepository extends JpaRepository<UsuariosRegistrado,Stri
 
     @Transactional
     @Modifying
-    @Query(nativeQuery = true, value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE codigo = \"20120000\"")
-        void actualizarTelefono(String phone);
+    @Query(nativeQuery = true, value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE (codigo = ?2)")
+        void actualizarTelefono(String phone, String codigous);
 
 
 
