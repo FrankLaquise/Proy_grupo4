@@ -103,9 +103,11 @@ public class SeguridadController {
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
             incidenciaRepository.Actualizar(id, incidencia.getEstado());
-            if((comentario.length() != 0) && comentario!=null) {
-                System.out.println("El comentario es:"+comentario);
-                comentariosRepository.IngresarComentxIdinci(comentario,id);
+            if(comentario!=null) {
+                if(comentario.length() != 0) {
+                    System.out.println("El comentario es:" + comentario);
+                    comentariosRepository.IngresarComentxIdinci(comentario, id);
+                }
             }
 
         }

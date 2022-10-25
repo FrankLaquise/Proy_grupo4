@@ -254,12 +254,12 @@
                                                        th:value="${incidencia.getEstado()}"
                                                 />
                                             </div>
-                                            <div class="mb-3" th:unless="${incidencia.getEstado() eq 'Resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}">
+                                            <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}">
                                                 <label for="zona" class="form-label">Actualizar estado</label>
                                                 <select class="form-select" name="estado" th:field="*{estado}" id="estado">
-                                                    <option value="Atendido">Atendido</option>
-                                                    <option value="En proceso">En proceso</option>
-                                                    <option value="Registrado">Registrado</option>
+                                                    <option value="atendido">atendido</option>
+                                                    <option value="en proceso">en proceso</option>
+                                                    <option value="registrado">registrado</option>
                                                 </select>
                                             </div>
                                             <!--Comentarios incidencia-->
@@ -284,7 +284,7 @@
                                                     </div>
                                                     </div>
                                                     <div class="mt-3" th:if="${info.last and info.odd}">
-                                                    <div class="mb-3" th:unless="${incidencia.getEstado() eq 'Resuelto' }">
+                                                    <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto' }">
                                                         <label for="comentario" class="form-label">Agregar Comentario</label>
                                                         <textarea class="form-control"
                                                                   name="comentario"
@@ -310,7 +310,7 @@
                                             <button th:href="@{'/seguridad/inicio'}"
                                                     type="submit"
                                                     class="btn btn-success"
-                                                    th:unless="${incidencia.getEstado() eq 'Resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}"
+                                                    th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}"
                                                     >Actualizar
                                             </button>
                                             <a th:href="@{'/seguridad/inicio'}" class="btn btn-danger">Regresar</a>

@@ -253,17 +253,17 @@
                                                     data-bs-toggle="dropdown"
                                                     aria-expanded="false"
                                                     th:text="${inc.getEstado()}"
-                                                    th:unless="${inc.getEstado() eq 'Resuelto'}"
+                                                    th:unless="${inc.getEstado() eq 'resuelto'}"
                                             >
                                                 Primary
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a th:if="${ inc.getEstado() eq 'Atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">Registrado</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">En proceso</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'En proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">Registrado</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'En proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">Atendido</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">En proceso</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">Atendido</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
                                             </ul>
                                         </div>
                                         <button
@@ -271,7 +271,7 @@
                                                 style="display: block;margin-bottom: 25px"
                                                 class="btn btn-primary"
                                                 th:text="${inc.getEstado()}"
-                                                th:if="${inc.getEstado() eq 'Resuelto'}"
+                                                th:if="${inc.getEstado() eq 'resuelto'}"
                                         >
                                         </button>
                                     </td>
@@ -288,7 +288,7 @@
                                                 class="btn btn-danger"
                                                 data-bs-toggle="modal"
                                                 th:data-bs-target="'#basicModal'+${inc.getId()}"
-                                                th:if="${ inc.getRes() == 1 and inc.getEstado() ne 'Resuelto'}"
+                                                th:if="${ inc.getRes() == 1 and inc.getEstado() ne 'resuelto'}"
                                         >
                                                 Reportar
                                         </button>
@@ -297,7 +297,7 @@
                                                 class="btn btn-danger"
                                                 data-bs-toggle="modal"
                                                 th:data-bs-target="'#basicModal'+${inc.getId()}"
-                                                th:if="${ inc.getRes() == 0 and inc.getEstado() ne 'Resuelto'}" disabled
+                                                th:if="${ inc.getRes() == 0 and inc.getEstado() ne 'resuelto'}" disabled
                                         >
                                             Reportada
                                         </button>
