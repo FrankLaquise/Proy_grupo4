@@ -234,11 +234,11 @@
                                     <td th:text="${inc.getTitulo()}"></td>
                                     <td>
                                         <span class="badge bg-label-success me-1" th:text="${inc.nivel}"
-                                                th:if="${inc.nivel eq 'leve'}"></span>
+                                                th:if="${inc.nivel eq 'Leve'}"></span>
                                         <span class="badge bg-label-warning me-1" th:text="${inc.nivel}"
-                                              th:if="${inc.nivel eq 'moderado'}"></span>
+                                              th:if="${inc.nivel eq 'Moderado'}"></span>
                                         <span class="badge bg-label-danger me-1" th:text="${inc.nivel}"
-                                              th:if="${inc.nivel eq 'critico'}"></span>
+                                              th:if="${inc.nivel eq 'Critico'}"></span>
                                     </td>
                                     <td th:text="${inc.getHoraCreacion()}"></td>
                                     <td th:text="${inc.getZona().getTitulo()}"></td>
