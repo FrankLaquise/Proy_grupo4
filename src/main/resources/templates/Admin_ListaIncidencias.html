@@ -154,11 +154,11 @@
                     <tbody class="table-border-bottom-0">
 
 					  <tr class="table-danger" th:each="incidente, info : ${lista_incidentes}"
-                          th:if="${incidente.nivel eq 'crítico'}">
+                          th:if="${incidente.nivel eq 'Critico'}">
 
                         <td th:text="${incidente.titulo}"></td>
                         <td th:text="${incidente.nivel}"></td>
-                        <td th:text="${incidente.horaCreacion}">03/09/2022</td>
+                        <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${incidente.zona.titulo}">Pabello E</td>
 						<td>
                           <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
@@ -170,11 +170,11 @@
                         </td>
                       </tr>
                       <tr class="table-warning" th:each="incidente, info : ${lista_incidentes}"
-                          th:if="${incidente.nivel eq 'moderado'}">
+                          th:if="${incidente.nivel eq 'Moderado'}">
 
                         <td th:text="${incidente.titulo}"></td>
                         <td th:text="${incidente.nivel}"></td>
-                        <td th:text="${incidente.horaCreacion}">03/09/2022</td>
+                        <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${incidente.zona.titulo}">Pabello E</td>
                         <td>
                           <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
@@ -190,7 +190,7 @@
 
                         <td th:text="${incidente.titulo}"></td>
                         <td th:text="${incidente.nivel}"></td>
-                        <td th:text="${incidente.horaCreacion}">03/09/2022</td>
+                        <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${incidente.zona.titulo}">Pabello E</td>
                         <td>
                           <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
