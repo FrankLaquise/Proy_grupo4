@@ -194,7 +194,7 @@
                           <span class="badge bg-label-danger me-1" th:text="${inc.nivel}"
                                 th:if="${inc.nivel eq 'critico'}"></span>
                         </td>
-                        <td th:text="${inc.getHoraCreacion()}"></td>
+                          <td th:text="${#temporals.format(inc.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${inc.getZona().getTitulo()}"></td>
                         <td th:text="${inc.getTipo().getTitulo()}"></td>
                         <td>
@@ -221,7 +221,7 @@
                         <td th:text="${info.index + 1}"></td>
                         <td th:text="${inc.getTitulo()}"></td>
                         <td th:text="${inc.getNivel()}"></td>
-                        <td th:text="${inc.getHoraCreacion()}"></td>
+                        <td th:text="${#temporals.format(inc.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${inc.getZona().getTitulo()}"></td>
                         <td th:text="${inc.getTipo().getTitulo()}"></td>
                         <td>

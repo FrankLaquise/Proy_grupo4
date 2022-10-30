@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -155,7 +157,15 @@ public class IncidenciaController {
 
 
     @PostMapping("/save")
-    public String guardarProducto(Incidencia incidencia) {
+    public String guardarProducto(  Incidencia incidencia) {
+
+
+
+
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");
         incidencia.setNumeroReportes(1);
         incidencia.setHoraCreacion(Instant.now());

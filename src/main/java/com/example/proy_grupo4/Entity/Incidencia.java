@@ -1,6 +1,9 @@
 package com.example.proy_grupo4.Entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -32,12 +35,12 @@ public class Incidencia {
     private byte[] foto;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "icono")
     private Icono icono;
 
     @Size(max = 45)
-
+    @NotBlank
     @Column(name = "titulo", length = 45)
     private String titulo;
 
@@ -68,6 +71,7 @@ public class Incidencia {
     private String zonaDetalles;
 
 
+@Range(min = -90,max =+90)
     @Column(name = "latitud", precision = 10, scale = 8)
     private BigDecimal latitud;
 
