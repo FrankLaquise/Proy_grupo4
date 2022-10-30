@@ -166,18 +166,15 @@
                                         <div class="card-body">
                                             <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
                                                 <div class="mb-3">
-                                                    <input type="hidden" name="usuario" th:value="${session.usuario.id}"/>
                                                     <label for="titulo" class="form-label">Titulo</label>
                                                     <input type="text" class="form-control" id="titulo" name="titulo"
-                                                           placeholder="Titulo del incidente"
-                                                           required = true/>
+                                                           placeholder="Titulo del incidente"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripcion</label>
                                                     <input type="text " class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
-                                                           required = true
                                                     />
                                                 </div>
 
@@ -185,12 +182,15 @@
                                                     <label for="formFile" class="form-label">Imagen</label>
                                                     <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
+
+
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
+
                                                         </option>
 
                                                     </select>
@@ -198,18 +198,21 @@
 
                                                 <div id='coordenadas_lat'></div>
                                                 <div id='coordenadas_long'></div>
+
+
                                                 <div class="mb-3">
                                                     <label for="latitud" class="form-label">Latitud</label>
                                                     <input type="number" step="any" class="form-control" id="latitud" name="latitud"
-                                                           placeholder="Ingrese latitud de su coordenada"
-                                                           required = true/>
+                                                           placeholder="Ingrese latitud de su coordenada"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="longitud" class="form-label">Longitud</label>
                                                     <input type="number" step="any" class="form-control" id="longitud" name="longitud"
-                                                           placeholder="Ingrese longitud de su coordenada"
-                                                           required = true/>
+                                                           placeholder="Ingrese longitud de su coordenada"/>
                                                 </div>
+
+
+
 
                                                 <div class="mb-3">
                                                     <label for="tipo" class="form-label">Tipo de
@@ -218,6 +221,7 @@
                                                         <option th:each="tipo:${listaTipos}"
                                                                 th:value="${tipo.getId()}"
                                                                 th:text="${tipo.getTitulo()}">
+
                                                         </option>
 
                                                     </select>
@@ -233,11 +237,12 @@
 
                                                 <div class="mb-3">
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
-                                                    <select class="form-select" id="nivel" name="nivel"
+                                                    <select class="form-select" id="nivel"
                                                             aria-label="Default select example">
-                                                        <option value="Leve">Leve</option>
-                                                        <option value="Moderado">Moderado</option>
-                                                        <option value="Critico">Critico</option>
+                                                        <option value="1">leve</option>
+                                                        <option value="2">moderado</option>
+                                                        <option value="3">critico</option>
+
                                                     </select>
                                                 </div>
 
