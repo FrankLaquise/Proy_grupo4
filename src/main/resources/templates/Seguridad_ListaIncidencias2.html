@@ -85,11 +85,7 @@
                         <div data-i18n="Account">Mapa de Incidencias</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a th:href="@{'/seguridad/dashboard'}" class="menu-link">
-                        <div data-i18n="Account">Dashboard</div>
-                    </a>
-                </li>
+
             </ul>
         </aside>
         <!-- / Menu -->
@@ -234,39 +230,18 @@
                                     <td th:text="${inc.getTitulo()}"></td>
                                     <td>
                                         <span class="badge bg-label-success me-1" th:text="${inc.nivel}"
-                                                th:if="${inc.nivel eq 'leve'}"></span>
+                                                th:if="${inc.nivel eq 'Leve'}"></span>
                                         <span class="badge bg-label-warning me-1" th:text="${inc.nivel}"
-                                              th:if="${inc.nivel eq 'moderado'}"></span>
+                                              th:if="${inc.nivel eq 'Moderado'}"></span>
                                         <span class="badge bg-label-danger me-1" th:text="${inc.nivel}"
-                                              th:if="${inc.nivel eq 'critico'}"></span>
+                                              th:if="${inc.nivel eq 'Critico'}"></span>
                                     </td>
                                     <td th:text="${inc.getHoraCreacion()}"></td>
                                     <td th:text="${inc.getZona().getTitulo()}"></td>
                                     <td th:text="${inc.getTipo().getTitulo()}"></td>
                                     <td th:text="${inc.getNumeroReportes}"></td>
-                                    <!--
                                     <td>
-
-                                        <select th:value="${inc.getEstado()}" style="width: 130px;" id="estado" class="select2 form-select" th:unless="${inc.getEstado() eq 'resuelto'}">
-                                            <option th:value="${inc.getEstado()}" th:text="${inc.getEstado()}">Estado</option>
-                                            <option th:if="${ inc.getEstado() eq 'en proceso'}">atendido</option>
-                                            <option th:if="${ inc.getEstado() eq 'en proceso'}">registrado</option>
-                                            <option th:if="${ inc.getEstado() eq 'registrado'}">en proceso</option>
-                                            <option th:if="${ inc.getEstado() eq 'registrado'}">atendido</option>
-                                            <option th:if="${ inc.getEstado() eq 'atendido'}">en proceso</option>
-                                            <option th:if="${ inc.getEstado() eq 'atendido'}">registrado</option>
-                                        </select>
-
-                                        <select disabled style="width: 130px;" id="Estados" class="select2 form-select" th:if="${inc.getEstado() eq 'resuelto'}">
-                                            <option selected>resuelto</option>
-                                        </select>
-
-                                    </td>
-                                    -->
-
-                                    <td>
-                                        <div>
-                                            <div class="btn-group dropup">
+                                        <div class="btn-group dropup">
                                             <button
                                                     type="button"
                                                     class="btn btn-primary dropdown-toggle"
@@ -274,65 +249,60 @@
                                                     data-bs-toggle="dropdown"
                                                     aria-expanded="false"
                                                     th:text="${inc.getEstado()}"
-                                                    th:unless="${inc.getEstado() eq 'Resuelto'}"
+                                                    th:unless="${inc.getEstado() eq 'resuelto'}"
                                             >
                                                 Primary
                                             </button>
-
                                             <ul class="dropdown-menu">
-                                                <li><a th:if="${ inc.getEstado() eq 'Atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">Registrado</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">En proceso</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'En proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">Registrado</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'En proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">Atendido</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">En proceso</a></li>
-                                                <li><a th:if="${ inc.getEstado() eq 'Registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">Atendido</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'atendido'}" class="dropdown-item"   th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizarregistrado'+ '?id=' + ${inc.getId()}}">registrado</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'en proceso'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizarenproceso'+ '?id=' + ${inc.getId()}}">en proceso</a></li>
+                                                <li><a th:if="${ inc.getEstado() eq 'registrado'}" class="dropdown-item" th:href="@{'/seguridad/actualizaratendido'+ '?id=' + ${inc.getId()}}">atendido</a></li>
                                             </ul>
-                                            </div>
-                                            <button
-                                                    disabled
-                                                    style="display: block;margin-bottom: 5px"
-                                                    class="btn btn-primary"
-                                                    th:text="${inc.getEstado()}"
-                                                    th:if="${inc.getEstado() eq 'Resuelto'}"
-                                            >
-                                            </button>
                                         </div>
+                                        <button
+                                                disabled
+                                                style="display: block;margin-bottom: 25px"
+                                                class="btn btn-primary"
+                                                th:text="${inc.getEstado()}"
+                                                th:if="${inc.getEstado() eq 'resuelto'}"
+                                        >
+                                        </button>
                                     </td>
                                     <td>
-                                        <button
-                                                style="display: block;margin-bottom: 5px"
-                                                class="btn btn-danger"
-                                                th:if="${ inc.getRes() == 1 and inc.getEstado() ne 'Resuelto'}" >
-                                            <a th:href="@{'/seguridad/reportar'+ '?id=' + ${inc.getId()}}" style="color: #ffffff">Reportar </a>
-                                        </button>
-                                        <button
-                                                style="display: block;margin-bottom: 5px"
-                                                class="btn btn-danger"
-                                                th:if="${ inc.getRes() == 0 and inc.getEstado() ne 'Resuelto'}" disabled>
-                                            <a th:href="@{'/seguridad/reportar'+ '?id=' + ${inc.getId()}}" style="color: #ffffff">Reportada </a>
-                                        </button>
+                                        <!--Boton Ver mas-->
                                         <button
                                                 style="display: block;margin-bottom: 5px"
                                                 class="btn btn-success">
                                             <a th:href="@{'/seguridad/detalle'+ '?id=' + ${inc.getId()}}" style="color: #ffffff">Ver Más</a>
                                         </button>
-                                        <div class="mt-3">
-                                            <!-- Button trigger modal -->
-                                            <button
-                                                    type="button"
-                                                    class="btn btn-primary"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#basicModal"
-                                            >
-                                                Reportar Modal
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="exampleModalLabel1">Reportar Usuario</h4>
+                                        <!--Botones Reportar-->
+                                        <button
+                                                type="button"
+                                                class="btn btn-danger"
+                                                data-bs-toggle="modal"
+                                                th:data-bs-target="'#basicModal'+${inc.getId()}"
+                                                th:if="${ inc.getRes() == 1 and inc.getEstado() ne 'resuelto'}"
+                                        >
+                                                Reportar
+                                        </button>
+                                        <button
+                                                type="button"
+                                                class="btn btn-danger"
+                                                data-bs-toggle="modal"
+                                                th:data-bs-target="'#basicModal'+${inc.getId()}"
+                                                th:if="${ inc.getRes() == 0 and inc.getEstado() ne 'resuelto'}" disabled
+                                        >
+                                            Reportada
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade"  th:id="'basicModal'+${inc.getId()}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                            <h2 class="modal-title" id="exampleModalLabel1">Reportar Informacion falsa</h2>
                                                             <button
                                                                     type="button"
                                                                     class="btn-close"
@@ -340,28 +310,31 @@
                                                                     aria-label="Close"
                                                             ></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col mb-3">
-                                                                    <label for="nameBasic" class="form-label" th:text="${inc.getId()}">Name</label>
-                                                                    <input type="text" id="nameBasic" class="form-control" placeholder="Ingresar motivo de reporte" />
-                                                                </div>
+                                                    <form method="post" th:action="@{'/seguridad/reportarinc'+ '?id=' + ${inc.getId()}}">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <label class="form-label" th:text="'ID de incidencia: '+${inc.getId()}">ID incidencia</label>
+                                                                <input type="text"
+                                                                       id="comentarioreporte"
+                                                                       name="comentarioreporte"
+                                                                       class="form-control"
+                                                                       placeholder="Ingresar motivo de reporte"
+                                                                       th:value="${comentarioreporte}"
+                                                                />
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                                                Cancelar
-                                                            </button>
-                                                            <button type="button" class="btn btn-primary">Reportar</button>
-                                                        </div>
                                                     </div>
+                                                    <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"> Cancelar</button>
+                                                            <button type="submit" class="btn btn-primary" >Reportar</button>
+                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-
-
-
+                                </tr>
                                 </tbody>
                             </table>
                             <!-- Paginacion  -->
@@ -384,39 +357,16 @@
                                 <div class="col-md-2"></div>
                             </div>
                             <!-- fin Paginacion  -->
+
+
                         </div>
                     </div>
                     <div class="mt-3 mb-3" >
                     </div>
-                    <!-- Bootstrap Table with Header - Light -->
 
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item prev">
-                                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">2</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="javascript:void(0);">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">5</a>
-                            </li>
-                            <li class="page-item next">
-                                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                            </li>
-                        </ul>
-                    </nav>
 
                     <!-- Bootstrap Table with Header - Footer -->
+
 
 
                 </div>

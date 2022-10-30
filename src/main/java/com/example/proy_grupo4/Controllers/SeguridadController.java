@@ -3,14 +3,20 @@ package com.example.proy_grupo4.Controllers;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
+import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.proy_grupo4.Entity.Incidencia;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/seguridad")
@@ -36,10 +42,24 @@ public class SeguridadController {
     }
 
     //Para la vista de inicio
+    @Autowired
+    private IncidenciaServiceAPI incidenciaServiceAPI;
     @GetMapping(value = {"/inicio"})
-    public String Seguridadincidenciaslistar(Model model){
-        List<Incidencia> lista = incidenciaRepository.findAll();
-        model.addAttribute("listaIncidencias", lista);
+    public String Seguridadincidenciaslistar(@RequestParam Map<String,Object> params, Model model){
+        int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
+        PageRequest pageRequest =PageRequest.of(page,3);
+        Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+
+        int totalPage  = pageIncidencia.getTotalPages();
+        if (totalPage>0){
+            List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages",pages);
+        }
+        model.addAttribute("listaIncidencias",pageIncidencia.getContent());
+        model.addAttribute("current",page+1);
+        model.addAttribute("next",page+2);
+        model.addAttribute("prev",page);
+        model.addAttribute("last",totalPage);
         return "Seguridad_ListaIncidencias2";
     }
 
@@ -83,11 +103,16 @@ public class SeguridadController {
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
             incidenciaRepository.Actualizar(id, incidencia.getEstado());
-            if(comentario != null) comentariosRepository.IngresarComentxIdinci(comentario,id);
+            if(comentario!=null) {
+                if(comentario.length() != 0) {
+                    System.out.println("El comentario es:" + comentario);
+                    comentariosRepository.IngresarComentxIdinci(comentario, id);
+                }
+            }
 
         }
         System.out.println(comentario);
-        return  "redirect:/seguridad/inicio";
+        return  "redirect:/seguridad/detalle?id="+id;
     }
 
     //Para aumentar en uno el contador del reporte del usuario(En proceso)
@@ -99,6 +124,20 @@ public class SeguridadController {
             seguridadRepository.aumentarreportes(codigoCreador);
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
             incidenciaRepository.ReportarFalsaIncidencia(id);
+        }
+        return  "redirect:/seguridad/inicio";
+    }
+
+    @PostMapping(value = {"/reportarinc"})
+    public String Aumentarrepp(Model model, Incidencia incidencia, String comentarioreporte,@RequestParam("id") int id){
+        Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        if(opt.isPresent()){
+            String codigoCreador = incidenciaRepository.buscarCreador(id);
+            seguridadRepository.aumentarreportes(codigoCreador);
+            seguridadRepository.ValidarSuspenderusuario(codigoCreador);
+            incidenciaRepository.ReportarFalsaIncidencia(id);
+            if(comentarioreporte != null) incidenciaRepository.ReportarFalsaIncidenciacoment(id,comentarioreporte);
+
         }
         return  "redirect:/seguridad/inicio";
     }

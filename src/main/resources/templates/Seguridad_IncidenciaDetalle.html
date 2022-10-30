@@ -85,11 +85,7 @@
                         <div data-i18n="Account">Mapa de Incidencias</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a th:href="@{'/seguridad/Dashboard'}" class="menu-link">
-                        <div data-i18n="Account">Dashboard</div>
-                    </a>
-                </li>
+
             </ul>
         </aside>
         <!-- / Menu -->
@@ -254,15 +250,16 @@
                                                        th:value="${incidencia.getEstado()}"
                                                 />
                                             </div>
-                                            <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto'}">
+                                            <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}">
                                                 <label for="zona" class="form-label">Actualizar estado</label>
                                                 <select class="form-select" name="estado" th:field="*{estado}" id="estado">
-                                                    <option value="atendido">Atendido</option>
-                                                    <option value="en proceso">En proceso</option>
-                                                    <option value="registrado">Registrado</option>
+                                                    <option value="atendido">atendido</option>
+                                                    <option value="en proceso">en proceso</option>
+                                                    <option value="registrado">registrado</option>
                                                 </select>
                                             </div>
-                                            <div class="mt-3" th:unless="${#lists.isEmpty(comentarios)}">
+                                            <!--Comentarios incidencia-->
+                                            <div class="mt-3" th:unless="${#lists.isEmpty(comentarios) or incidencia.getRes() == 0 }">
                                                 <label class="form-label">Comentarios de Incidencia</label>
                                                 <div class="mt-3" th:each="variable,info : ${comentarios}">
                                                     <div class="mt-3">
@@ -297,13 +294,22 @@
 
                                                 </div>
                                             </div>
+
+                                            <!--Comentarios de reporte de incidencia-->
+                                            <div class="mb-3" th:unless="${#strings.isEmpty(incidencia.getComentariorep())}">
+                                                <label class="form-label">Comentario de reporte de Incidencia</label>
+                                                <input disabled type="text" class="form-control" id="eactual" name="zona"
+                                                       th:value="${incidencia.getComentariorep()}"
+                                                />
+                                            </div>
+                                            <!--Botones actualizar y regresar-->
                                             <button th:href="@{'/seguridad/inicio'}"
                                                     type="submit"
                                                     class="btn btn-success"
-                                                    th:unless="${incidencia.getEstado() eq 'resuelto'}"
+                                                    th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}"
                                                     >Actualizar
                                             </button>
-                                                <a th:href="@{'/seguridad/inicio'}" class="btn btn-danger">Regresar</a>
+                                            <a th:href="@{'/seguridad/inicio'}" class="btn btn-danger">Regresar</a>
                                         </form>
                                     </div>
                                 </div>

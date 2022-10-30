@@ -8,4 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface IncidenciaServiceAPI {
     Page<Incidencia> getAll(Pageable pageable);
 
+
+
 }

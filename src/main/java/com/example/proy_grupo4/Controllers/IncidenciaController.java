@@ -8,12 +8,12 @@ import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
 import java.util.List;
@@ -36,12 +36,8 @@ public class IncidenciaController {
 
     @Autowired
     TipoRepository tipoRepository;
-
     @Autowired
     ComentariosRepository comentariosRepository;
-
-
-
     @GetMapping("/perfil")
     public String perfil(Model model) {
 
@@ -77,15 +73,12 @@ public class IncidenciaController {
         model.addAttribute("listaIncidencias", lista);
         return "Usuario_MisIncidencias";
     }
-
-
     @GetMapping(value = {"/info"})
     public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
         Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
         Incidencia incidencia = optionalIncidencia.get();
-        incidencia.setDestacado(1);
-        incidenciaRepository.save(incidencia);
-        return "redirect:/incidencia/list";
+        model.addAttribute("Incidencia", incidencia);
+        return "Usuario_InfoIncidencia";
     }
 
     @GetMapping(value = {"/destacar"})
@@ -150,6 +143,8 @@ public class IncidenciaController {
     }
 
 
+
+
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
@@ -170,10 +165,10 @@ public class IncidenciaController {
     }
 
     @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById("20120000");
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         if (opt.isPresent()) {
-            usuarioRepository.actualizarTelefono(usuario.getTelefono());
+            usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
         }
         return "redirect:/incidencia";
     }

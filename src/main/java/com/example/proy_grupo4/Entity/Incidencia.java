@@ -87,6 +87,17 @@ public class Incidencia {
     @Column(name = "res")
     private Byte res;
 
+    @Column(name = "comentariorep", length = 45)
+    private String comentariorep;
+
+    public String getComentariorep() {
+        return comentariorep;
+    }
+
+    public void setComentariorep(String comentariorep) {
+        this.comentariorep = comentariorep;
+    }
+
     public Integer getId() {
         return id;
     }
