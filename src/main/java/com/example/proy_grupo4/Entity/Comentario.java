@@ -3,6 +3,7 @@ package com.example.proy_grupo4.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 
 @Entity
 @Table(name = "comentarios")
@@ -21,6 +22,28 @@ public class Comentario {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "incidencia", nullable = false)
     private Incidencia incidencia;
+
+    @Column(name = "tipo", length = 45)
+    private String tipo;
+
+    @Column(name = "fecha", nullable = false)
+    private Instant fecha;
+
+    public Instant getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Instant fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public Integer getId() {
         return id;

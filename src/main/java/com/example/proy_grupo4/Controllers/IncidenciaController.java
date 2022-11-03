@@ -158,12 +158,6 @@ public class IncidenciaController {
 
     @PostMapping("/save")
     public String guardarProducto(  Incidencia incidencia) {
-
-
-
-
-
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");

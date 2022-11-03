@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.proy_grupo4.Entity.Incidencia;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -82,9 +84,11 @@ public class SeguridadController {
         Optional<Incidencia> optInc = incidenciaRepository.findById(id);
         String codigoCreador = incidenciaRepository.buscarCreador(id);
 
-        List<String> comentarios= comentariosRepository.ComentariosporidInc(id);
+        //List<String> comentarios= comentariosRepository.ComentariosporidInc(id);
+        List<Comentario> comentarios = comentariosRepository.ComentariosporidInci(id);
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
+
             System.out.println(incidencia);
 
             model.addAttribute("comentarios",comentarios);
@@ -106,7 +110,8 @@ public class SeguridadController {
             if(comentario!=null) {
                 if(comentario.length() != 0) {
                     System.out.println("El comentario es:" + comentario);
-                    comentariosRepository.IngresarComentxIdinci(comentario, id);
+                    //Dependiendo del 3er parametro ingresa comentario seguridad/usuario
+                    comentariosRepository.IngresarComentxIdinci(comentario, id, "seguridad", Instant.now());
                 }
             }
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -25,11 +26,15 @@ public interface ComentariosRepository extends JpaRepository<Comentario, Integer
             value = "SELECT u.idcomentarios FROM reportpucp.`comentarios` u where u.incidencia = ?1")
     int idComenarioporidInc(int id);
 
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM comentarios where incidencia = ?1")
+    List<Comentario> ComentariosporidInci(int id);
+
     @Transactional
     @Modifying
     @Query(nativeQuery = true,
-            value = "insert into reportpucp.comentarios (texto,incidencia)\n" +
-                    "values (?1, ?2)")
-    void IngresarComentxIdinci(String comment, int id);
+            value = "insert into reportpucp.comentarios (texto,incidencia,tipo,fecha)\n" +
+                    "values (?1, ?2,?3,?4)")
+    void IngresarComentxIdinci(String comment, int id, String tipo, Instant fecha);
 
 }
