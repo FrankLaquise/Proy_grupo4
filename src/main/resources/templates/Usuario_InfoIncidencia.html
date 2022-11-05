@@ -75,7 +75,6 @@
                                 <div data-i18n="Connections">Registrar incidencia</div>
                             </a>
                         </li>
-
                     </ul>
                 </li>
 
@@ -87,7 +86,6 @@
                 </li>
             </ul>
         </aside>
-
         <div class="layout-page">
             <nav
                     class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -154,74 +152,102 @@
                     </ul>
                 </div>
             </nav>
-
             <div class="content-wrapper">
-
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4 class="fw-bold py-3 mb-4">Informacion de la incidencia</h4>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card mb-4" th:object="${Incidencia}">
-                                    <form method="POST" th:action="@{'/usuario/comentar'}" th:object="${comentario}">
+                                    <form method="POST" th:action="@{'/incidencia/comentar'+ '?id=' + ${Incidencia.getId()}}">
                                     <h3 class="card-header" th:text="${Incidencia.getTitulo()}"></h3>
                                     <!-- Account -->
                                     <div class="card-body">
                                         <dl class="row mt-2">
-                                        <dt class="col-sm-3">Descripcion:</dt>
-                                        <dd class="col-sm-9" th:text="${Incidencia.getDescripcion()}"></dd>
+                                            <dt class="col-sm-3">Descripcion:</dt>
+                                            <dd class="col-sm-9" th:text="${Incidencia.getDescripcion()}"></dd>
 
-                                        <dt class="col-sm-3">Estado:</dt>
-                                        <dd class="col-sm-9" th:text="${Incidencia.getEstado()}"></dd>
+                                            <dt class="col-sm-3" th:if="${Incidencia.getRes() == 0}">Estado:</dt>
+                                            <dd class="col-sm-9" th:if="${Incidencia.getRes() == 0}" th:text="${Incidencia.getEstado()}+' (Reportada)'"></dd>
 
-                                        <dt class="col-sm-3">Nivel:</dt>
-                                        <dd class="col-sm-9" th:text="${Incidencia.getNivel()}"></dd>
+                                            <dt class="col-sm-3" th:if="${Incidencia.getRes() == 1}">Estado:</dt>
+                                            <dd class="col-sm-9" th:if="${Incidencia.getRes() == 1}" th:text="${Incidencia.getEstado()}"></dd>
 
-                                        <dt class="col-sm-3 text-truncate">Calificaion:</dt>
-                                        <dd class="col-sm-9" th:text="${Incidencia.getCalificacion()}"></dd>
+                                            <dt class="col-sm-3">Nivel:</dt>
+                                            <dd class="col-sm-9" th:text="${Incidencia.getNivel()}"></dd>
 
-                                            <dt class="col-sm-3 text-truncate">Zona:</dt>
+                                            <dt class="col-sm-3">Calificación:</dt>
+                                            <dd class="col-sm-9" th:text="${Incidencia.getCalificacion()}"></dd>
+
+                                            <dt class="col-sm-3">Zona:</dt>
                                             <dd class="col-sm-9" th:text="${Incidencia.getZonaDetalles()}"></dd>
 
-                                            <div class="col-xxl">
-                                                <div class="card mb-4">
-                                                    <div class="card-header d-flex align-items-center justify-content-between">
-                                                        <h5 class="mb-0">Comentario</h5>
-                                                    </div>
-                                                    <div class="card-body">
+                                            <dt class="col-sm-3" th:if="${Incidencia.getRes() == 0}" style="color: red">INCIDENCIA REPORTADA</dt>
+                                            <dd class="col-sm-9" th:if="${Incidencia.getRes() == 0}"> </dd>
 
-                                                            <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label" for="texto">Comentario</label>
-                                                                <div class="col-sm-10">
-                                                                    <textarea id="texto" name="texto" class="form-control" placeholder="Ingrese su comentario" ></textarea>
+                                            <dt class="col-sm-3" th:if="${Incidencia.getRes() == 0}">Comentario de Reporte:</dt>
+                                            <dd class="col-sm-9" th:if="${Incidencia.getRes() == 0}" th:text="${Incidencia.getComentariorep()}"></dd>
+
+                                        </dl>
+                                        <!--Comentarios incidencia(VISTA USUARIO)-->
+                                        <div class="col-md-6">
+                                            <div class="card mb-4">
+                                                <div class="mt-3" th:unless="${#lists.isEmpty(comentarios)}">
+                                                    <label class="form-label">Comentarios de Incidencia</label>
+                                                    <div class="mt-3" th:each="comentario,info : ${comentarios}">
+                                                        <div class="mt-3">
+                                                            <div th:if="${comentario.getTipo() eq 'usuario'}">
+                                                                <div class="d-flex flex-row justify-content-start">
+                                                                    <!--Avatar usuario-->
+                                                                    <img th:src="@{/img/alum_ava.png}" alt="avatar 1"
+                                                                         style="width: 45px; height: 100%;">
+                                                                    <div class="p-3 ms-0" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                                        <p class=" mb-0" th:text="${comentario.getTexto()}">Comentario usuario</p>
+                                                                    </div>
                                                                 </div>
+                                                                <span th:text="${#temporals.format(comentario.getFecha(), 'yyyy-MM-dd HH:mm:ss')}" class="small mb-2 d-flex flex-row justify-content-start mb-4">11:01 AM    |    June 9</span>
                                                             </div>
-                                                            <div class="row justify-content-end">
-                                                                <div class="col-sm-10">
-                                                                    <button type="submit" class="btn btn-primary">Comentar</button>
+
+                                                            <div th:if="${comentario.getTipo() eq 'seguridad'}">
+                                                                <div class="d-flex flex-row justify-content-end">
+                                                                    <div class="p-3 me-0 border" style="border-radius: 15px; background-color: #fbfbfb;">
+                                                                        <p class=" mb-0" th:text="${comentario.getTexto()}">Comentario par</p>
+                                                                    </div>
+                                                                    <img th:src="@{/img/segu_ava2.png}" alt="avatar 1"
+                                                                         style="width: 45px; height: 100%;">
                                                                 </div>
+                                                                <span th:text="${#temporals.format(comentario.getFecha(), 'yyyy-MM-dd HH:mm:ss')}" class="small mb-2 d-flex flex-row justify-content-end mb-4">11:01 AM    |    June 9</span>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--HABILITAR COMENTARIO (REPORT+RESUELTO)-->
+                                                    <div class="mt-3" th:if="${Incidencia.getRes() != 0}">
+                                                        <div class="mb-3" th:unless="${Incidencia.getEstado() eq 'resuelto' }">
+                                                            <label for="comentario" class="form-label">Agregar Comentario</label>
+                                                            <textarea class="form-control"
+                                                                      name="comentario"
+                                                                      rows="3"
+                                                                      id="comentario"
+                                                                      placeholder="Introducir comentario"
+                                                                      th:value="${comentario}"
+                                                            ></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                    </dl>
-                                        <div class="card-body">
-                                            <div class="d-grid d-sm-flex p-3 border">
-
-                                            </div>
                                         </div>
+                                        <!--Botones actualizar y regresar-->
+                                        <button th:href="@{'/incidencia/list'}"
+                                                type="submit"
+                                                class="btn btn-success"
+                                                th:unless="${Incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(Incidencia.getComentariorep())== false}"
+                                        >Comentar
+                                        </button>
+                                        <a th:href="@{'/incidencia/list'}" class="btn btn-danger">Regresar</a>
                                     </div></form>
                                 </div>
                             </div>
                 </div>
-
-                    <script th:inline="javascript">
-
-                        var username = [[${Incidencia}]];
-                        console.log(username)
-
-                    </script>
                 </div>
     </div>
 </div>

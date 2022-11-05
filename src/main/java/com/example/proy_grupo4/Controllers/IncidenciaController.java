@@ -78,9 +78,16 @@ public class IncidenciaController {
     @GetMapping(value = {"/info"})
     public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
         Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
-        Incidencia incidencia = optionalIncidencia.get();
-        model.addAttribute("Incidencia", incidencia);
-        return "Usuario_InfoIncidencia";
+        List<Comentario> comentarios = comentariosRepository.ComentariosporidInci(idincidencias);
+        if (optionalIncidencia.isPresent()) {
+            Incidencia incidencia = optionalIncidencia.get();
+            model.addAttribute("comentarios", comentarios);
+            model.addAttribute("Incidencia", incidencia);
+            return "Usuario_InfoIncidencia";
+        }else{
+            return "redirect:/incidencia/list";
+        }
+
     }
 
     @GetMapping(value = {"/destacar"})
@@ -101,10 +108,20 @@ public class IncidenciaController {
         return "redirect:/incidencia/list";
     }
 
-    @GetMapping("/comentar")
-    public String comentar(Comentario comentario) {
-        comentariosRepository.save(comentario);
-        return "redirect:/incidencia/list";
+    @PostMapping(value = {"/comentar"})
+    public String comentarincidencia(Model model, Incidencia incidencia, String comentario, @RequestParam("id") int id){
+        Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        if(opt.isPresent()){
+            if(comentario!=null) {
+                if(comentario.length() != 0) {
+                    System.out.println("El comentario es:" + comentario);
+                    //Dependiendo del 3er parametro ingresa comentario seguridad/usuario
+                    comentariosRepository.IngresarComentxIdinci(comentario, id, "usuario", Instant.now());
+                }
+            }
+        }
+        System.out.println(comentario);
+        return  "redirect:/incidencia/info?idincidencias="+id;
     }
 
 
