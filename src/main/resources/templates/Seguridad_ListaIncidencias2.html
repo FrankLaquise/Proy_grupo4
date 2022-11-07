@@ -205,10 +205,32 @@
                         <h5 class="card-header">Lista de Incidencias</h5>
 
                         <div class="table-responsive text-nowrap">
+                            <div class="dropdown">
+                                <button
+                                        type="button"
+                                        class="btn btn-primary dropdown-toggle"
+                                        data-bs-display="static"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+
+
+                                >
+                                    Ordenar por
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a  class="dropdown-item"   th:href="@{'/seguridad/inicio'+ '?buscarx=titulo'}">Titulo</a></li>
+                                    <li><a  class="dropdown-item"   th:href="@{'/seguridad/inicio'+ '?buscarx=nivel' }">Urgencia</a></li>
+                                    <li><a  class="dropdown-item"   th:href="@{'/seguridad/inicio'+ '?buscarx=horaCreacion' }">Fecha</a></li>
+                                    <li><a  class="dropdown-item"   th:href="@{'/seguridad/inicio'+ '?buscarx=zona' }">Zona Pucp</a></li>
+                                    <li><a  class="dropdown-item"   th:href="@{'/seguridad/inicio'+ '?buscarx=tipo' }">Tipo</a></li>
+
+                                </ul>
+                            </div>
                             <table class="table">
                                 <thead class="table-light">
                                 <tr>
-                                    <th>#</th>
+
                                     <th>Titulo</th>
                                     <th>Urgencia</th>
                                     <th>Fecha</th>
@@ -224,7 +246,7 @@
                                 </thead>
                                 <tbody class="table-border-bottom-0">
                                 <tr th:each="inc, info : ${listaIncidencias}">
-                                    <td th:text="${info.index + 1}"></td>
+
                                     <td th:text="${inc.getTitulo()}"></td>
                                     <td>
                                         <span class="badge bg-label-success me-1" th:text="${inc.nivel}"
@@ -336,18 +358,18 @@
                                 </tbody>
                             </table>
                             <!-- Paginacion  -->
-                            <div class="row">
+                            <div class="row" th:if="${ordenarpor eq 'titulo'}">
                                 <div class="col-md-2"></div>
-                                <div class="col-md-8">
+                                <div class="col-md-8" >
                                     <ul class="pagination justify-content-center">
                                         <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
-                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}|}" >Anterior</a>
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}&buscarx=titulo|}" >Anterior</a>
                                         </li>
                                         <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
-                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}|}" th:text="${page}"></a>
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}&buscarx=titulo|}" th:text="${page}"></a>
                                         </li>
                                         <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
-                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}|}" >Siguiente</a>
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}&buscarx=titulo|}" >Siguiente</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -355,6 +377,87 @@
                                 <div class="col-md-2"></div>
                             </div>
                             <!-- fin Paginacion  -->
+                            <!-- Paginacion  -->
+                            <div class="row" th:if="${ordenarpor eq 'nivel'}">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" >
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}&buscarx=nivel|}" >Anterior</a>
+                                        </li>
+                                        <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}&buscarx=nivel|}" th:text="${page}"></a>
+                                        </li>
+                                        <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}&buscarx=nivel|}" >Siguiente</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+                            <!-- fin Paginacion  -->
+                            <!-- Paginacion  -->
+                            <div class="row" th:if="${ordenarpor eq 'horaCreacion'}">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" >
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}&buscarx=horaCreacion|}" >Anterior</a>
+                                        </li>
+                                        <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}&buscarx=horaCreacion|}" th:text="${page}"></a>
+                                        </li>
+                                        <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}&buscarx=horaCreacion|}" >Siguiente</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+                            <!-- fin Paginacion  -->
+                            <!-- Paginacion  -->
+                            <div class="row" th:if="${ordenarpor eq 'zona'}">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" >
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}&buscarx=zona|}" >Anterior</a>
+                                        </li>
+                                        <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}&buscarx=zona|}" th:text="${page}"></a>
+                                        </li>
+                                        <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}&buscarx=zona|}" >Siguiente</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+                            <!-- fin Paginacion  -->
+                            <!-- Paginacion  -->
+                            <div class="row" th:if="${ordenarpor eq 'tipo'}">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8" >
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${prev}&buscarx=tipo|}" >Anterior</a>
+                                        </li>
+                                        <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${page}&buscarx=tipo|}" th:text="${page}"></a>
+                                        </li>
+                                        <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                            <a class="page-link" th:href="@{|/seguridad/inicio?page=${next}&buscarx=tipo|}" >Siguiente</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-2"></div>
+                            </div>
+                            <!-- fin Paginacion  -->
+
 
 
                         </div>

@@ -39,12 +39,12 @@ public class Incidencia {
     @JoinColumn(name = "icono")
     private Icono icono;
 
-    @Size(max = 45)
+    @Size(max = 45, message = "El tamaño máximo es 45 caracteres")
     @NotBlank
     @Column(name = "titulo", length = 45)
     private String titulo;
 
-    @Size(max = 150)
+    @Size(max = 150, message = "El tamaño máximo es 150 caracteres")
 
     @Column(name = "descripcion",  length = 150)
     private String descripcion;
@@ -71,7 +71,7 @@ public class Incidencia {
     private String zonaDetalles;
 
 
-@Range(min = -90,max =+90)
+
     @Column(name = "latitud", precision = 10, scale = 8)
     private BigDecimal latitud;
 

@@ -8,6 +8,7 @@ import com.example.proy_grupo4.Repository.IconoRepository;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
 import com.example.proy_grupo4.Repository.RolRepository;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
+import com.example.proy_grupo4.service.impl.NewIncidenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,22 +52,47 @@ public class AdminController {
     //paginacion_INICIO...
     @Autowired
     private IncidenciaServiceAPI incidenciaServiceAPI;
+
+    @Autowired
+    private NewIncidenciaService newIncidenciaService;
     @GetMapping(value = {"/incidentes"})
-    public String listar_incidentes(@RequestParam Map<String,Object> params, Model model){
+    public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
-        Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+        if (buscarx != null){
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
+            int totalPage  = pageIncidencia.getTotalPages();
 
-        int totalPage  = pageIncidencia.getTotalPages();
-        if (totalPage>0){
-            List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
-            model.addAttribute("pages",pages);
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("lista_incidentes",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor",buscarx);
+        }else {
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,"titulo");
+            int totalPage  = pageIncidencia.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("lista_incidentes",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor","titulo");
         }
-        model.addAttribute("lista_incidentes",pageIncidencia.getContent());
-        model.addAttribute("current",page+1);
-        model.addAttribute("next",page+2);
-        model.addAttribute("prev",page);
-        model.addAttribute("last",totalPage);
+
+
         return "Admin_ListaIncidencias";
     }
 

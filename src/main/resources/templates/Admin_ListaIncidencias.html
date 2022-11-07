@@ -141,6 +141,28 @@
                 <h3 class="card-header">Incidencias</h3>
              
                 <div class="table-responsive text-nowrap">
+                    <div class="dropdown">
+                        <button
+                                type="button"
+                                class="btn btn-primary dropdown-toggle"
+                                data-bs-display="static"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+
+
+                        >
+                            Ordenar por
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=titulo'}">Titulo</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=nivel' }">Urgencia</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=horaCreacion' }">Fecha</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=zona' }">Zona Pucp</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=tipo' }">Tipo</a></li>
+
+                        </ul>
+                    </div>
                   <table class="table">
                     <thead>
                       <tr>
@@ -153,11 +175,17 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
 
-					  <tr class="table-danger" th:each="incidente, info : ${lista_incidentes}"
-                          th:if="${incidente.nivel eq 'Critico'}">
+					  <tr class="table table-sm" th:each="incidente, info : ${lista_incidentes}">
 
                         <td th:text="${incidente.titulo}"></td>
-                        <td th:text="${incidente.nivel}"></td>
+                        <td>
+                          <span class="badge bg-label-success me-1" th:text="${incidente.nivel}"
+                                th:if="${incidente.nivel eq 'Leve'}"></span>
+                          <span class="badge bg-label-warning me-1" th:text="${incidente.nivel}"
+                                th:if="${incidente.nivel eq 'Moderado'}"></span>
+                          <span class="badge bg-label-danger me-1" th:text="${incidente.nivel}"
+                                th:if="${incidente.nivel eq 'Critico'}"></span>
+                        </td>
                         <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${incidente.zona.titulo}">Pabello E</td>
 						<td>
@@ -169,62 +197,111 @@
                                 th:if="${incidente.estado eq 'registrado'}"></span>
                         </td>
                       </tr>
-                      <tr class="table-warning" th:each="incidente, info : ${lista_incidentes}"
-                          th:if="${incidente.nivel eq 'Moderado'}">
 
-                        <td th:text="${incidente.titulo}"></td>
-                        <td th:text="${incidente.nivel}"></td>
-                        <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td th:text="${incidente.zona.titulo}">Pabello E</td>
-                        <td>
-                          <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'resuelto'}"></span>
-                          <span class="badge bg-label-warning me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'atendido'}"></span>
-                          <span class="badge bg-label-danger me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'registrado'}"></span>
-                        </td>
-                      </tr>
-                      <tr class="table-info" th:each="incidente, info : ${lista_incidentes}"
-                          th:if="${incidente.nivel eq 'leve'}">
-
-                        <td th:text="${incidente.titulo}"></td>
-                        <td th:text="${incidente.nivel}"></td>
-                        <td th:text="${#temporals.format(incidente.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td th:text="${incidente.zona.titulo}">Pabello E</td>
-                        <td>
-                          <span class="badge bg-label-success me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'resuelto'}"></span>
-                          <span class="badge bg-label-warning me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'atendido'}"></span>
-                          <span class="badge bg-label-danger me-1" th:text="${incidente.estado}"
-                                th:if="${incidente.estado eq 'registrado'}"></span>
-                        </td>
-                      </tr>
 
                     </tbody>
                   </table>
 
-                  <!-- Paginacion  -->
-                  <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                      <ul class="pagination justify-content-center">
-                        <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
-                          <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}|}" >Anterior</a>
-                        </li>
-                        <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
-                          <a class="page-link" th:href="@{|/admin/incidentes?page=${page}|}" th:text="${page}"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
-                          <a class="page-link" th:href="@{|/admin/incidentes?page=${next}|}" >Siguiente</a>
-                        </li>
-                      </ul>
-                    </div>
+                    <!-- Paginacion  -->
+                    <div class="row" th:if="${ordenarpor eq 'titulo'}">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" >
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}&buscarx=titulo|}" >Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${page}&buscarx=titulo|}" th:text="${page}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=titulo|}" >Siguiente</a>
+                                </li>
+                            </ul>
+                        </div>
 
-                    <div class="col-md-2"></div>
-                  </div>
-                  <!-- fin Paginacion  -->
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- fin Paginacion  -->
+                    <!-- Paginacion  -->
+                    <div class="row" th:if="${ordenarpor eq 'nivel'}">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" >
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}&buscarx=nivel|}" >Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${page}&buscarx=nivel|}" th:text="${page}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=nivel|}" >Siguiente</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- fin Paginacion  -->
+                    <!-- Paginacion  -->
+                    <div class="row" th:if="${ordenarpor eq 'horaCreacion'}">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" >
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}&buscarx=horaCreacion|}" >Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${page}&buscarx=horaCreacion|}" th:text="${page}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=horaCreacion|}" >Siguiente</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- fin Paginacion  -->
+                    <!-- Paginacion  -->
+                    <div class="row" th:if="${ordenarpor eq 'zona'}">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" >
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}&buscarx=zona|}" >Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${page}&buscarx=zona|}" th:text="${page}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=zona|}" >Siguiente</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- fin Paginacion  -->
+                    <!-- Paginacion  -->
+                    <div class="row" th:if="${ordenarpor eq 'tipo'}">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" >
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${prev}&buscarx=tipo|}" >Anterior</a>
+                                </li>
+                                <li class="page-item" th:each="page:${pages}" th:classappend="${current==page?'active':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${page}&buscarx=tipo|}" th:text="${page}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${current==last ? 'disabled':''}">
+                                    <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=tipo|}" >Siguiente</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2"></div>
+                    </div>
+                    <!-- fin Paginacion  -->
 
                 </div>
 				  <div class="card-body">
