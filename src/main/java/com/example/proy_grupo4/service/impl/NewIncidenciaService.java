@@ -16,4 +16,9 @@ public class NewIncidenciaService {
         Page<Incidencia> products = incidenciaRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field).descending()));
         return  products;
     }
+
+    public Page<Incidencia> findProductsWithPaginationAndSorting_destac(int offset, int pageSize, String field1,String field2){
+        Page<Incidencia> products = incidenciaRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(field1).descending().and(Sort.by(field2).descending())));
+        return  products;
+    }
 }

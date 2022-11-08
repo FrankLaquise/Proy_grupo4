@@ -84,7 +84,7 @@ public class SeguridadController {
             model.addAttribute("prev",page);
             model.addAttribute("last",totalPage);
 
-            model.addAttribute("ordenarpor","titulo");
+            model.addAttribute("ordenarpor","horaCreacion");
         }
 
 

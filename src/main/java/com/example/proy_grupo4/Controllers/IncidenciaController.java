@@ -60,22 +60,96 @@ public class IncidenciaController {
     public String IncidenciaMapa(){
         return "Usuario_MapaIncidencias";
     }
+
     @GetMapping(value = {"/destacadas"})
-    public String IncidenciaDestacada(Model model){
-        List<Incidencia> lista = incidenciaRepository.findAll();
-        model.addAttribute("listaIncidencias", lista);
+    public String IncidenciaDestacada(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
+        int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
+        PageRequest pageRequest =PageRequest.of(page,3);
+        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+        if (buscarx != null){
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,6,buscarx,"destacado");
+            int totalPage  = pageIncidencia.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("listaIncidencias",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor",buscarx);
+        }else {
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,6,"titulo","destacado");
+            int totalPage  = pageIncidencia.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("listaIncidencias",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor","horaCreacion");
+        }
+
+
         return "Usuario_IncidenciasDestacadas";
     }
+
+
     @GetMapping(value = {"/sugerencias"})
     public String IncidenciaSugerencias(){
         return "Usuario_Sugerencias";
     }
+
     @GetMapping(value = {"/mis_incidencias"})
-    public String MisIncidencias(Model model){
-        List<Incidencia> lista = incidenciaRepository.findAll();
-        model.addAttribute("listaIncidencias", lista);
+    public String MisIncidencias(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
+        int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
+        PageRequest pageRequest =PageRequest.of(page,3);
+        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+        if (buscarx != null){
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
+            int totalPage  = pageIncidencia.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("listaIncidencias",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor",buscarx);
+        }else {
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,"titulo");
+            int totalPage  = pageIncidencia.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("listaIncidencias",pageIncidencia.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor","horaCreacion");
+        }
+
+
         return "Usuario_MisIncidencias";
     }
+
+
     @GetMapping(value = {"/info"})
     public String IncidenciaInfo(@RequestParam("idincidencias") int idincidencias ,Model model) {
         Optional<Incidencia> optionalIncidencia = incidenciaRepository.buscarxid(idincidencias);
@@ -171,7 +245,7 @@ if (buscarx != null){
     model.addAttribute("prev",page);
     model.addAttribute("last",totalPage);
 
-    model.addAttribute("ordenarpor","titulo");
+    model.addAttribute("ordenarpor","horaCreacion");
 }
 
 
@@ -207,6 +281,7 @@ if (buscarx != null){
         incidencia.setNumeroReportes(1);
         incidencia.setHoraCreacion(Instant.now());
         incidencia.setDestacado(0);
+        incidencia.setComentariosRestantes(100);
         incidenciaRepository.save(incidencia);
         return "redirect:/incidencia";
     }
