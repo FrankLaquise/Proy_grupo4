@@ -48,6 +48,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script th:src="@{/js/config.js}"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
@@ -467,9 +468,78 @@
 
 
                     <!-- Bootstrap Table with Header - Footer -->
+                    <!--
+                    <h4>Exportar como:</h4>
+                    <button onclick="ExportToExcel('xlsx')">XLS</button>
+
+                    <input type="button" value="PDF"
+                           id="btPrint" onclick="createPDF()" />
 
 
+                    <button href="#" id="save-link">TXT</button>
+                    <script>
 
+                    $('#save-link').click(function ()
+                    {
+                      var retContent = [];
+                      var retString = '';
+                      $('tbody tr').each(function (idx, elem)
+                      {
+                        var elemText = [];
+                        $(elem).children('td').each(function (childIdx, childElem)
+                        {
+                          elemText.push($(childElem).text());
+                        });
+                        retContent.push(`(${elemText.join(',')})`);
+                      });
+                      retString = retContent.join(',\r\n');
+                        var file = new Blob([retString], {type: 'text/plain'});
+                      var btn = $('#save-link');
+                      btn.attr("href", URL.createObjectURL(file));
+                      btn.prop("download", "data.txt");
+                    })
+
+                    </script>
+
+
+                    <script>
+
+                        function ExportToExcel(type, fn, dl) {
+                            var elt = document.getElementById('tbl_exporttable_to_xls');
+                            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+                            return dl ?
+                                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+                        }
+
+                    </script>
+                    <script>
+                        function createPDF() {
+                            var sTable = document.getElementById('tab').innerHTML;
+
+                            var style = "<style>";
+                            style = style + "table {width: 100%;font: 17px Calibri;}";
+                            style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+                            style = style + "padding: 2px 3px;text-align: center;}";
+                            style = style + "</style>";
+
+                            // CREATE A WINDOW OBJECT.
+                            var win = window.open('', '', 'height=700,width=700');
+
+                            win.document.write('<html><head>');
+                            win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+                            win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+                            win.document.write('</head>');
+                            win.document.write('<body>');
+                            win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+                            win.document.write('</body></html>');
+
+                            win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+                            win.print();    // PRINT THE CONTENTS.
+                        }
+                    </script>
+                -->
                 </div>
                 <!-- / Content -->
 
