@@ -2,6 +2,7 @@ package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.Incidencia;
+import com.example.proy_grupo4.Entity.Sugerencia;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
@@ -36,7 +37,8 @@ public class IncidenciaController {
     UsuarioRepository usuarioRepository;
     @Autowired
     ZonaRepository zonaRepository;
-
+    @Autowired
+    SugerenciaRepository sugerenciaRepository;
     @Autowired
     TipoRepository tipoRepository;
     @Autowired
@@ -296,6 +298,11 @@ if (buscarx != null){
     }
 
 
+    @PostMapping(value = {"/regsugerencias"})
+    public String usuarioregsugerencia(Sugerencia sugerencia) {
+        //sugerencia.setId();
+        sugerenciaRepository.save(sugerencia);
+        return "redirect:/incidencia/";
 
-
+    }
 }
