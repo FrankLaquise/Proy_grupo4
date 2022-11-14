@@ -173,7 +173,7 @@ public class IncidenciaController {
         Incidencia Incidencia = optionalIncidencia.get();
         Incidencia.setDestacado(1);
         incidenciaRepository.save(Incidencia);
-        return "redirect:/incidencia/list";
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 
     @GetMapping(value = {"/desdestacar"})
@@ -182,7 +182,7 @@ public class IncidenciaController {
         Incidencia Incidencia = optionalIncidencia.get();
         Incidencia.setDestacado(0);
         incidenciaRepository.save(Incidencia);
-        return "redirect:/incidencia/list/";
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 
     @PostMapping(value = {"/comentar"})
