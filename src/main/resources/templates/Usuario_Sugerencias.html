@@ -165,6 +165,7 @@
               <div sec:authorize="isAuthenticated()" class="mt-3">
                 <h2 th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></h2>
 
+
               </div>
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -241,18 +242,21 @@
               <!-- Bootstrap Table with Header - Light -->
               <div class="card">
                 <br><br>
+
                 <div class="container">
+                  <form method="post" th:action="@{'/incidencia/regsugerencias'} ">
+                    <input type="hidden" name="usuario" th:value="${session.usuario.id}"/>
                     <h1 class="text-center">Sugerencias de Mejora</h1>
                         <div class="form-group">
                             <label>Ingrese la sugerencias para ser revisada por los administradores</label>
-                            <textarea class="form-control" rows="5"></textarea>
+                            <textarea class="form-control" rows="5" name="texto"></textarea>
                         </div>
                         <br>
                         <div align="right">
-                        <input type="submit" class="btn btn-block btn-lg btn-primary" >
+                        <input type="submit"  class="btn btn-block btn-lg btn-primary" >
                         </div>
-                    </form>
-                    <p>&nbsp;</p>
+                  </form>
+                    <p>Ingrese</p>
             
                 </div>
 
