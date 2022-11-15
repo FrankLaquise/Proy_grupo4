@@ -202,7 +202,7 @@
 
 
                     <!-- Bootstrap Table with Header - Light -->
-                    <div class="card">
+                    <div class="card" >
                         <h5 class="card-header">Lista de Incidencias</h5>
 
                         <div class="table-responsive text-nowrap">
@@ -228,7 +228,7 @@
 
                                 </ul>
                             </div>
-                            <table class="table">
+                            <table id="tbl_exporttable_to_xls" class="table">
                                 <thead class="table-light">
                                 <tr>
 
@@ -468,7 +468,7 @@
 
 
                     <!-- Bootstrap Table with Header - Footer -->
-                    <!--
+
                     <h4>Exportar como:</h4>
                     <button onclick="ExportToExcel('xlsx')">XLS</button>
 
@@ -515,7 +515,7 @@
                     </script>
                     <script>
                         function createPDF() {
-                            var sTable = document.getElementById('tab').innerHTML;
+                            var sTable = document.getElementById('tbl_exporttable_to_xls').innerHTML;
 
                             var style = "<style>";
                             style = style + "table {width: 100%;font: 17px Calibri;}";

@@ -12,7 +12,7 @@ public class Zona {
     @Column(name = "idzonas", nullable = false)
     private Integer id;
 
-    @Column(name = "titulo", nullable = false, length = 45)
+    @Column(name = "titulo", nullable = false, length = 60)
     private String titulo;
 
     public Integer getId() {
