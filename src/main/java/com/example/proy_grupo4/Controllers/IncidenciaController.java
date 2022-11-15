@@ -116,7 +116,7 @@ public class IncidenciaController {
         PageRequest pageRequest =PageRequest.of(page,3);
         //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
-            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,10,buscarx);
             int totalPage  = pageIncidencia.getTotalPages();
 
             if (totalPage>0){
@@ -162,7 +162,7 @@ public class IncidenciaController {
             model.addAttribute("Incidencia", incidencia);
             return "Usuario_InfoIncidencia";
         }else{
-            return "redirect:/incidencia/list";
+            return "Error_404";
         }
 
     }
@@ -196,9 +196,12 @@ public class IncidenciaController {
                     comentariosRepository.IngresarComentxIdinci(comentario, id, "usuario", Instant.now());
                 }
             }
+        }else{
+            return "Error_404";
+
         }
         System.out.println(comentario);
-        return  "redirect:/incidencia/info?idincidencias="+id;
+        return  "incidencia/info?idincidencias="+id;
     }
 
 
