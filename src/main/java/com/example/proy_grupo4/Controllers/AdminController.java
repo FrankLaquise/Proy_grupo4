@@ -2,11 +2,9 @@ package com.example.proy_grupo4.Controllers;
 
 
 import com.example.proy_grupo4.Entity.Incidencia;
+import com.example.proy_grupo4.Entity.Sugerencia;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
-import com.example.proy_grupo4.Repository.AdminRepository;
-import com.example.proy_grupo4.Repository.IconoRepository;
-import com.example.proy_grupo4.Repository.IncidenciaRepository;
-import com.example.proy_grupo4.Repository.RolRepository;
+import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,8 @@ public class AdminController {
 
     @Autowired
     AdminRepository adminRepository;
-
+    @Autowired
+    SugerenciaRepository sugerenciaRepository;
     @Autowired
     IncidenciaRepository incidenciaRepository;
 
@@ -174,5 +173,12 @@ public class AdminController {
     public String Mapa(){
         return "Admin_MapaIncidencias";
     }
+
+    @GetMapping("/sugerencias")
+    public String Sugerencia(Model model){
+
+        List<Sugerencia> listadesugenrencias=sugerenciaRepository.findAll();
+        model.addAttribute("listadesugerencias",listadesugenrencias);
+        return "Admin_Sugerencias";}
 
 }
