@@ -187,6 +187,7 @@
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
+                                                        <option value="">Selecciona una zona</option>
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
@@ -221,6 +222,7 @@
                                                     <label for="tipo" class="form-label">Tipo de
                                                         Incidencia</label>
                                                     <select id="tipo" class="form-select" name="tipo">
+                                                        <option value="">Seleccione el Tipo</option>
                                                         <option th:each="tipo:${listaTipos}"
                                                                 th:value="${tipo.getId()}"
                                                                 th:text="${tipo.getTitulo()}">
@@ -243,6 +245,7 @@
                                                     <select class="form-select" id="nivel" name="nivel"
 
                                                             aria-label="Default select example">
+                                                        <option value="">Seleccione el Nivel</option>
                                                         <option value="Leve">Leve</option>
                                                         <option value="Moderado">Moderado</option>
                                                         <option value="Critico">Critico</option>
