@@ -49,8 +49,8 @@ public class Incidencia {
     @Column(name = "descripcion",  length = 150)
     private String descripcion;
 
-    @Column(name = "calificacion", precision = 3, scale = 2)
-    private BigDecimal calificacion;
+    @Column(name = "calificacion")
+    private int calificacion;
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -166,11 +166,11 @@ public class Incidencia {
         this.descripcion = descripcion;
     }
 
-    public BigDecimal getCalificacion() {
+    public int getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(BigDecimal calificacion) {
+    public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }
 

@@ -1,17 +1,5 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
         lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         class="light-style layout-menu-fixed"
@@ -194,7 +182,7 @@
                             <div class="col-md-6">
                                 <div class="card mb-4">
                                     <h5 class="card-header">Detalle de Incidencia</h5>
-                                    <div class="card-body">
+
                                         <form method="post" th:action="@{'/seguridad/actualizarest'+ '?id=' + ${incidencia.getId()}}" class="mt-2" th:object="${incidencia}">
 
                                             <div class="mb-3">
@@ -315,7 +303,6 @@
                                             </button>
                                             <a th:href="@{'/seguridad/inicio'}" class="btn btn-danger">Regresar</a>
                                         </form>
-                                    </div>
                                 </div>
                             </div>
                     </div>

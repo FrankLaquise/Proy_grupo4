@@ -126,10 +126,7 @@
                       <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
                           <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                         </form>
-
-
                       </div>
                     </li>
                   </ul>
@@ -138,9 +135,6 @@
               </ul>
             </div>
           </nav>
-
-          <!-- / Navbar -->
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -148,8 +142,6 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">Visualisar usuario</h4>
               <form method="POST" th:action="@{'/admin/actualizar'}" th:object="${usuario}">
-
-
               <div class="row">
                 <div class="col-md-12">
                 
@@ -183,10 +175,7 @@
                             <input type="text" class="form-control" id="comentarioSuspension" name="comentarioSuspension" >
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                  Regresar
-                                </button>
-                                <button type="submit" class="btn btn-danger">Confirmar</button>
+                                <button type="submit" class="btn btn-danger">Suspender</button>
                               </div>
                             </div>
                           </div>

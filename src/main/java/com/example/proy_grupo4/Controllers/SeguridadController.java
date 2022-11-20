@@ -1,11 +1,14 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Excel;
+import com.example.proy_grupo4.PDF;
 import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.Repository.IncidenciaRepository;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.proy_grupo4.Entity.Incidencia;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -86,17 +95,155 @@ public class SeguridadController {
 
             model.addAttribute("ordenarpor","horaCreacion");
         }
-
-
+        List<Incidencia> listita = incidenciaRepository.findAll();
+        String texto = "Titulo        Urgencia   Fecha         Zona       Tipo       Estado\n";
+        for(Incidencia inci : listita){
+            texto = texto + inci.getTitulo() + "   " + inci.getNivel() + "    " + inci.getHoraCreacion() +
+                    "    " + inci.getZona().getTitulo() + "   "  + inci.getTipo().getTitulo() + "    "
+                    + inci.getEstado() + "\n";
+        }
+        model.addAttribute("listita",texto);
         return "Seguridad_ListaIncidencias2";
     }
 
-    @GetMapping(value = {"/exportar"})
-    public String SeguridadExportar(){
-        return "Seguridad_exportar";
+    @GetMapping(value = {"/exportarpdf"})
+    public void exportarListadoDeEmpleadosEnPDF(HttpServletResponse response) throws DocumentException, IOException, IOException {
+        response.setContentType("application/pdf");
+
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename=lista.pdf";
+
+        response.setHeader(cabecera, valor);
+
+        List<Incidencia> incidencias = incidenciaRepository.findAll();
+
+        PDF exporter = new PDF(incidencias);
+        exporter.exportar(response);
+    }
+
+    @GetMapping(value = {"/exportarExcel"})
+    public void exportarListadoEnExcel(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/octet-stream");
+
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename=Incidencia.xlsx";
+
+        response.setHeader(cabecera, valor);
+
+        List<Incidencia> incidencias = incidenciaRepository.findAll();
+
+        Excel exporter = new Excel(incidencias);
+        exporter.exportar(response);
     }
     @GetMapping(value = {"/dashboard"})
-    public String SeguridadDashboard(){
+    public String SeguridadDashboard(Model model){
+        List<Incidencia> listaincidencia = incidenciaRepository.findAll();
+        int robo = 0;
+        int perdido = 0;
+        int ambulante = 0;
+        int accidente = 0;
+        int infra = 0;
+        int otro = 0;
+        int total = 0;
+        int zona1 = 0;
+        int zona2 = 0;
+        int zona3 = 0;
+        int zona4 = 0;
+        int zona5 = 0;
+        int zona6 = 0;
+        int nivel1 = 0;
+        int nivel2 = 0;
+        int nivel3 = 0;
+        int cal1 = 0;
+        int cal2 = 0;
+        int cal3 = 0;
+        int cal4 = 0;
+        int cal5 = 0;
+        int resuelto = 0;
+        int proceso = 0;
+        int atendido = 0;
+        int registrado = 0;
+        for(Incidencia incidencia : listaincidencia){
+            if(incidencia.getTipo().getId()==1){
+                robo ++;
+            } else if (incidencia.getTipo().getId()==2) {
+                perdido ++;
+            } else if(incidencia.getTipo().getId()==3){
+                infra ++;
+            } else if (incidencia.getTipo().getId()==4) {
+                ambulante ++;
+            } else if (incidencia.getTipo().getId()==5) {
+                accidente ++;
+            } else if (incidencia.getTipo().getId()==6) {
+                otro ++;
+            }
+            if(incidencia.getZona().getId()==1){
+                zona1 ++;
+            } else if (incidencia.getZona().getId()==2) {
+                zona2 ++;
+            } else if(incidencia.getZona().getId()==3){
+                zona3 ++;
+            } else if (incidencia.getZona().getId()==4) {
+                zona4 ++;
+            } else if (incidencia.getZona().getId()==5) {
+                zona5 ++;
+            } else {
+                zona6 ++;
+            }
+            if(incidencia.getNivel().equals("Leve")){
+                nivel1 ++;
+            } else if (incidencia.getNivel().equals("Moderado")) {
+                nivel2 ++;
+            } else{
+                nivel3 ++;
+            }
+            if(incidencia.getCalificacion()==1){
+                cal1 ++;
+            } else if (incidencia.getCalificacion()==2) {
+                cal2 ++;
+            }else if (incidencia.getCalificacion()==3) {
+                cal3 ++;
+            }else if (incidencia.getCalificacion()==4) {
+                cal4 ++;
+            }else if (incidencia.getCalificacion()==5) {
+                cal5 ++;
+            }
+            if(incidencia.getEstado().equals("resuelto")){
+                resuelto ++;
+            } else if (incidencia.getEstado().equals("en proceso")) {
+                proceso ++;
+            } else if (incidencia.getEstado().equals("atendido")) {
+                atendido ++;
+            } else if (incidencia.getEstado().equals("registrado")) {
+                registrado ++;
+            }
+            total ++;
+        }
+        model.addAttribute("robo",robo*100/total);
+        model.addAttribute("perdido",perdido*100/total);
+        model.addAttribute("ambulante",ambulante*100/total);
+        model.addAttribute("accidente",accidente*100/total);
+        model.addAttribute("infra",infra*100/total);
+        model.addAttribute("otro",otro*100/total);
+        model.addAttribute("zona1",zona1*100/total);
+        model.addAttribute("zona2",zona2*100/total);
+        model.addAttribute("zona3",zona3*100/total);
+        model.addAttribute("zona4",zona4*100/total);
+        model.addAttribute("zona5",zona5*100/total);
+        model.addAttribute("zona6",zona6*100/total);
+        model.addAttribute("leve",nivel1*100/total);
+        model.addAttribute("moderado",nivel2*100/total);
+        model.addAttribute("critico",nivel3*100/total);
+        model.addAttribute("cal1",cal1);
+        model.addAttribute("cal2",cal2);
+        model.addAttribute("cal3",cal3);
+        model.addAttribute("cal4",cal4);
+        model.addAttribute("cal5",cal5);
+        model.addAttribute("atendido",atendido);
+        model.addAttribute("resuelto",resuelto);
+        model.addAttribute("registrado",registrado);
+        model.addAttribute("proceso",proceso);
+        model.addAttribute("promedio",(cal5*5+cal4*4+cal3*3+cal2*2+cal1)/(cal5+cal4+cal3+cal2+cal1));
         return "Seguridad_Dashboard";
     }
     @GetMapping(value = {"/mapa"})
@@ -114,9 +261,7 @@ public class SeguridadController {
         List<Comentario> comentarios = comentariosRepository.ComentariosporidInci(id);
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
-
             System.out.println(incidencia);
-
             model.addAttribute("comentarios",comentarios);
             model.addAttribute("incidencia",incidencia);
             model.addAttribute("codigocreador",codigoCreador);
@@ -135,8 +280,6 @@ public class SeguridadController {
             incidenciaRepository.Actualizar(id, incidencia.getEstado());
             if(comentario!=null) {
                 if(comentario.length() != 0) {
-                    System.out.println("El comentario es:" + comentario);
-                    //Dependiendo del 3er parametro ingresa comentario seguridad/usuario
                     comentariosRepository.IngresarComentxIdinci(comentario, id, "seguridad", Instant.now());
                 }
             }
@@ -190,6 +333,7 @@ public class SeguridadController {
     @GetMapping(value = {"/actualizaratendido"})
     public String SeguridadActualizar1(@RequestParam("id") int id){
         incidenciaRepository.ActualizarAtendido(id);
+        comentariosRepository.IngresarComentxIdinci("atendido", id, "seguridad", Instant.now());
         return "redirect:/seguridad/inicio";
     }
     @GetMapping(value = {"/actualizarenproceso"})
