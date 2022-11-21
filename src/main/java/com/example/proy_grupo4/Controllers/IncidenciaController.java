@@ -286,7 +286,7 @@ if (buscarx != null){
 
 
     @PostMapping("/save")
-    public String guardarProducto(  Incidencia incidencia) {
+    public String guardarProducto(Incidencia incidencia) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");
@@ -308,6 +308,21 @@ if (buscarx != null){
             usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
         }
         return "redirect:/incidencia";
+    }
+
+    @RequestMapping(value ={"/resuelto"})
+    public String resuelto(Incidencia incidencia, @RequestParam("id") int id){
+        Optional<Incidencia> incidencia1 = incidenciaRepository.findById(id);
+        incidencia = incidencia1.get();
+        incidencia.setEstado("resuelto");
+        Comentario comentario = new Comentario();
+        comentario.setIncidencia(incidencia);
+        comentario.setTipo("usuario");
+        comentario.setTexto("Satisfecho");
+        comentario.setFecha(Instant.now());
+        comentariosRepository.save(comentario);
+        incidenciaRepository.save(incidencia);
+        return "redirect:/incidencia/info?idincidencias="+id;
     }
 
 
