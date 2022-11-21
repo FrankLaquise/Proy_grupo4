@@ -200,6 +200,7 @@
                         <th>Fecha</th>
                         <th>Zona PUCP</th>
                         <th>Tipo</th>
+                        <th>Estado</th>
                         <th>Destacar</th>
                         <th>Informacion</th>
                         <th></th>
@@ -221,6 +222,7 @@
                           <td th:text="${#temporals.format(inc.getHoraCreacion(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td th:text="${inc.getZona().getTitulo()}"></td>
                         <td th:text="${inc.getTipo().getTitulo()}"></td>
+                        <td th:text="${inc.getEstado()}"></td>
                         <td>
                           <a th:href="@{'/incidencia/destacar'+'?idincidencias=' + ${inc.getId()}}" th:if="${inc.destacado eq 0}">
                           <button type="button" class="btn btn-warning">
