@@ -121,7 +121,6 @@ public class IncidenciaController {
     public String MisIncidencias(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
-        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,10,buscarx);
             int totalPage  = pageIncidencia.getTotalPages();

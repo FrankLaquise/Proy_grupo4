@@ -69,7 +69,7 @@ public class SeguridadController {
     public void sendMail(String destino, String subjet, String body){
         sender.sendEmail(destino,subjet,body);
     }
-    @GetMapping(value = {"/inicio"})
+    @PostMapping(value = {"/inicio"})
     public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
@@ -259,6 +259,15 @@ public class SeguridadController {
     @GetMapping(value = {"/mapa"})
     public String SeguridadMapa(){
         return "Seguridad_MapaIncidencias";
+    }
+
+    @GetMapping(value = {"/factor"})
+    public String factor(Model model){
+        int codigo = (int)(Math.random()*(9999-1000+1)+1000);
+        sender.sendEmail("a20190212@pucp.edu.pe","Codigo de doble factor",
+                "el codigo de verificacion es el siguiente:\n"+ codigo);
+        model.addAttribute("codigo",codigo);
+        return "verificacion";
     }
 
     //Para ver el detalle de las incidencias
