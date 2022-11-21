@@ -197,22 +197,12 @@
                                                     </select>
                                                 </div>
 
-                                                <div id='coordenadas_lat'></div>
-                                                <div id='coordenadas_long'></div>
 
-
-                                                <div class="mb-3">
-                                                    <label for="latitud" class="form-label">Latitud</label>
-                                                    <input type="number" step="any" class="form-control" id="latitud" name="latitud"
-                                                           placeholder="Ingrese latitud de su coordenada"
-                                                           required = true/>
+                                                <div class="mb-3" id="latitud">
 
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="longitud" class="form-label">Longitud</label>
-                                                    <input type="number" step="any" class="form-control" id="longitud" name="longitud"
-                                                           placeholder="Ingrese longitud de su coordenada"
-                                                           required = true/>
+                                                <div class="mb-3" id="longitud">
+
                                                 </div>
 
 
@@ -340,13 +330,14 @@
             //Funcion para obtener latitud y longitud
             function mostrarUbicacion(position) {
                 var latitud = position.coords.latitude; //Obtener latitud
-
                 var longitud = position.coords.longitude; //Obtener longitud
-                var div_lat = document.getElementById("coordenadas_lat");
-                var div_long = document.getElementById("coordenadas_long");
+                document.getElementById("latitud").innerHTML="<label for=\"latitud\" class=\"form-label\">latitud</label>" +
+                    "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"latitud\" name=\"latitud\"\n" +
+                    " placeholder='" + latitud + "' value='"+ latitud+"' required = true/> ";
 
-                div_lat.textContent=`Latitud:${latitud}`;
-                div_long.textContent=`Longitud:${longitud}`;
+                document.getElementById("longitud").innerHTML="<label for=\"longitud\" class=\"form-label\">latitud</label>" +
+                    "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"longitud\" name=\"longitud\"\n" +
+                    " placeholder='" + longitud + "' value='"+ longitud +"' required = true/> ";
                 //-----------------------------------------------
 
             }

@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Entity.Comentario;
 import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.Sugerencia;
@@ -43,6 +44,12 @@ public class IncidenciaController {
     TipoRepository tipoRepository;
     @Autowired
     ComentariosRepository comentariosRepository;
+
+    @Autowired
+    private Email sender;
+    public void sendMail(String destino, String subjet, String body){
+        sender.sendEmail(destino,subjet,body);
+    }
     @GetMapping("/perfil")
     public String perfil(Model model) {
 
@@ -287,6 +294,9 @@ if (buscarx != null){
         incidencia.setHoraCreacion(Instant.now());
         incidencia.setDestacado(0);
         incidencia.setComentariosRestantes(100);
+        sender.sendEmail("a20190212@pucp.edu.pe","Nueva incidencia registrada","Estimado administrado: \n"
+        + "Se ha registrado una nueva incidencia con titulo:\n"+
+                incidencia.getTitulo());
         incidenciaRepository.save(incidencia);
         return "redirect:/incidencia";
     }
