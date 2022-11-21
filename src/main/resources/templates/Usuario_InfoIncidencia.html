@@ -216,8 +216,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--HABILITAR COMENTARIO (REPORT+RESUELTO)-->
-                                                    <div class="mt-3" th:if="${Incidencia.getEstado() ne 'resuelto'}">
+                                                    <div class="mt-3" th:if="${Incidencia.getEstado() eq 'atendido'}">
                                                         <div class="mb-3">
                                                             <label for="comentario" class="form-label">Agregar Comentario</label>
                                                             <textarea class="form-control"

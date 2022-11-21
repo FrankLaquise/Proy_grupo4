@@ -193,8 +193,11 @@ public class IncidenciaController {
     }
 
     @PostMapping(value = {"/comentar"})
-    public String comentarincidencia(Model model, Incidencia incidencia, String comentario, @RequestParam("id") int id){
+    public String comentarincidencia(String comentario, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
+        Incidencia incidencia = opt.get();
+        incidencia.setEstado("en proceso");
+        incidenciaRepository.save(incidencia);
         if(opt.isPresent()){
             if(comentario!=null) {
                 if(comentario.length() != 0) {
@@ -205,10 +208,9 @@ public class IncidenciaController {
             }
         }else{
             return "Error_404";
-
         }
         System.out.println(comentario);
-        return  "incidencia/info?idincidencias="+id;
+        return  "redirect:/incidencia/info?idincidencias="+id;
     }
 
 
@@ -277,7 +279,7 @@ if (buscarx != null){
 
 
     @GetMapping("/new")
-    public String nuevoTransportistaFrm(Model model , Incidencia incidencia) {
+    public String nuevoTransportistaFrm(Model model) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
         model.addAttribute("listaTipos",tipoRepository.findAll());
         return "Usuario_RegistroIncidencia";
@@ -294,9 +296,6 @@ if (buscarx != null){
         incidencia.setHoraCreacion(Instant.now());
         incidencia.setDestacado(0);
         incidencia.setComentariosRestantes(100);
-        sender.sendEmail("a20190212@pucp.edu.pe","Nueva incidencia registrada","Estimado administrado: \n"
-        + "Se ha registrado una nueva incidencia con titulo:\n"+
-                incidencia.getTitulo());
         incidenciaRepository.save(incidencia);
         return "redirect:/incidencia";
     }
