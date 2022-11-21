@@ -310,7 +310,7 @@ public class SeguridadController {
 
     //Para aumentar en uno el contador del reporte del usuario(En proceso)
     @GetMapping(value = {"/reportar"})
-    public String Aumentarrep(Model model, Incidencia incidencia, @RequestParam("id") int id){
+    public String Aumentarrep(Incidencia incidencia, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
             String codigoCreador = incidenciaRepository.buscarCreador(id);

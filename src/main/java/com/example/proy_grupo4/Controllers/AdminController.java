@@ -1,6 +1,7 @@
 package com.example.proy_grupo4.Controllers;
 
 
+import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.Sugerencia;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
@@ -37,6 +38,13 @@ public class AdminController {
 
     @Autowired
     RolRepository rolRepository;
+
+    @Autowired
+    private Email sender;
+
+    public void sendMail(String destino, String subjet, String body){
+        sender.sendEmail(destino,subjet,body);
+    }
     @GetMapping(value = "/salir")
     public String Salir(){
         return "auth-login-basic";
@@ -124,6 +132,11 @@ public class AdminController {
             return "redirect:/admin/usuario";
         }else{
             usuariosRegistrado.setEstado("suspendido");
+            if(usuariosRegistrado.getRol().equals(6)){
+                sender.sendEmail("a20190212@pucp.edu.pe","Cuenta suspendida",
+                        "Estimado: \n Su cuenta ha sido suspendida por el sigueinte motivo:" +
+                        usuariosRegistrado.getComentarioSuspension());
+            }
             adminRepository.save(usuariosRegistrado);
             return "redirect:/admin/usuario";
         }
