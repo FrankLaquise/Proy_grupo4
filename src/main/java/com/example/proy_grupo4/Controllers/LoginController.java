@@ -41,7 +41,7 @@ public class LoginController {
         switch (rol){
             case "Administrativo" -> {return "redirect:/admin/incidentes";}
             case "Alumno" -> {return "redirect:/incidencia/list";}
-            case "Seguridad" -> {return "redirect:/seguridad/factor";}
+            case "Seguridad" -> {return "redirect:/seguridad/factor?id="+usuariosRegistrado.getId();}
             default -> {return"redirect:/incidencia/list";}
         }
     }

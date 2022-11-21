@@ -132,8 +132,8 @@ public class AdminController {
             return "redirect:/admin/usuario";
         }else{
             usuariosRegistrado.setEstado("suspendido");
-            if(usuariosRegistrado.getRol().equals(6)){
-                sender.sendEmail("a20190212@pucp.edu.pe","Cuenta suspendida",
+            if(usuariosRegistrado.getRol().getId()==6){
+                sender.sendEmail(usuariosRegistrado.getCorreo(),"Cuenta suspendida",
                         "Estimado: \n Su cuenta ha sido suspendida por el sigueinte motivo:" +
                         usuariosRegistrado.getComentarioSuspension());
             }

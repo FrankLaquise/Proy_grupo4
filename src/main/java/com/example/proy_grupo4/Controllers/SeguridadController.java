@@ -262,9 +262,11 @@ public class SeguridadController {
     }
 
     @GetMapping(value = {"/factor"})
-    public String factor(Model model){
+    public String factor(Model model, @RequestParam String id){
+        Optional<UsuariosRegistrado> opt = adminRepository.findById(id);
+        UsuariosRegistrado usuariosRegistrado = opt.get();
         int codigo = (int)(Math.random()*(9999-1000+1)+1000);
-        sender.sendEmail("a20190212@pucp.edu.pe","Codigo de doble factor",
+        sender.sendEmail(usuariosRegistrado.getCorreo(),"Codigo de doble factor",
                 "el codigo de verificacion es el siguiente:\n"+ codigo);
         model.addAttribute("codigo",codigo);
         return "verificacion";
@@ -365,27 +367,13 @@ public class SeguridadController {
     @GetMapping(value = {"/actualizarenproceso"})
     public String SeguridadActualizar2(@RequestParam("id") int id){
         incidenciaRepository.ActualizarEnproceso(id);
-
         return "redirect:/seguridad/inicio";
     }
     @GetMapping(value = {"/actualizarregistrado"})
     public String SeguridadActualizar3(@RequestParam("id") int id){
         incidenciaRepository.ActualizarRegistrado(id);
-
         return "redirect:/seguridad/inicio";
     }
-
-    //Para cambiar el telefono
-    @PostMapping(value = {"/cambiotel"})
-    public String Seguridadcambiotel(UsuariosRegistrado seguridad){
-        Optional<UsuariosRegistrado> opt = seguridadRepository.findById("20110000");
-        if (opt.isPresent()) {
-            seguridadRepository.actualizarTelefono(seguridad.getTelefono());
-        }
-        return "redirect:/seguridad/inicio";
-    }
-
-
 
 }
 
