@@ -25,13 +25,6 @@ public class LoginController {
         return "Login";
     }
 
-    @GetMapping("verificacion")
-    public String verificacion(Model model){
-
-        int codigo = (int)(Math.random()*(9999-1000+1)+1000);
-        model.addAttribute("codigo",codigo);
-        return "verificacion";
-    }
     @GetMapping("redireccionarPorRol")
     public String redireccionarPorRol(Authentication authentication, HttpSession session){
         String rol ="";
