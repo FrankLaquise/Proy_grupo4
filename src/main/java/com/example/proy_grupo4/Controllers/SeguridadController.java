@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Controllers;
 
+import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Excel;
 import com.example.proy_grupo4.PDF;
 import com.example.proy_grupo4.Entity.Comentario;
@@ -10,6 +11,8 @@ import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -59,6 +62,13 @@ public class SeguridadController {
 
     @Autowired
     private NewIncidenciaService newIncidenciaService;
+
+    @Autowired
+    private Email sender;
+
+    public void sendMail(String destino, String subjet, String body){
+        sender.sendEmail(destino,subjet,body);
+    }
     @GetMapping(value = {"/inicio"})
     public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
@@ -332,7 +342,14 @@ public class SeguridadController {
     //Con estas funciones se actualiza el estado de la incidencia
     @GetMapping(value = {"/actualizaratendido"})
     public String SeguridadActualizar1(@RequestParam("id") int id){
-        incidenciaRepository.ActualizarAtendido(id);
+        Optional<Incidencia> incidencia = incidenciaRepository.findById(id);
+        Incidencia inci = incidencia.get();
+        Optional<UsuariosRegistrado> usuario = adminRepository.findById(inci.getUsuario());
+        UsuariosRegistrado usuariosRegistrado = usuario.get();
+        sender.sendEmail(usuariosRegistrado.getCorreo(),"Incidencia" + inci.getTitulo()+" actualizado",
+                "Estimado, su incidencia " + inci.getTitulo() + "fue atendida, podra revisarlo");
+        inci.setEstado("atendido");
+        incidenciaRepository.save(inci);
         comentariosRepository.IngresarComentxIdinci("atendido", id, "seguridad", Instant.now());
         return "redirect:/seguridad/inicio";
     }
