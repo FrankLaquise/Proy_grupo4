@@ -311,9 +311,9 @@ if (buscarx != null){
     }
 
     @RequestMapping(value ={"/resuelto"})
-    public String resuelto(Incidencia incidencia, @RequestParam("id") int id){
+    public String resuelto(@RequestParam("id") int id){
         Optional<Incidencia> incidencia1 = incidenciaRepository.findById(id);
-        incidencia = incidencia1.get();
+        Incidencia incidencia = incidencia1.get();
         incidencia.setEstado("resuelto");
         Comentario comentario = new Comentario();
         comentario.setIncidencia(incidencia);
@@ -328,7 +328,8 @@ if (buscarx != null){
 
     @PostMapping(value = {"/regsugerencias"})
     public String usuarioregsugerencia(Sugerencia sugerencia) {
-        //sugerencia.setId();
+        sender.sendEmail("a20190212@pucp.edu.pe","Nueva Sugerencia","Se ha registardo nueva sugerencia:\n"
+                + sugerencia.getTexto());
         sugerenciaRepository.save(sugerencia);
         return "redirect:/incidencia/";
 
