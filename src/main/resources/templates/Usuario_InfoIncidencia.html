@@ -189,7 +189,7 @@
                                         <div class="col-md-6">
                                             <div class="card mb-4">
                                                 <div class="mt-3" th:unless="${#lists.isEmpty(comentarios) or Incidencia.getRes()==0}">
-                                                    <label class="form-label">Comentarios de Incidencia</label>
+                                                    <h3>Comentarios de Incidencia</h3>
                                                     <div class="mt-3" th:each="comentario,info : ${comentarios}">
                                                         <div class="mt-3">
                                                             <div th:if="${comentario.getTipo() eq 'usuario'}">
