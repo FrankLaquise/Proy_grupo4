@@ -234,7 +234,7 @@
                                         <!--Botones actualizar y regresar-->
                                         <button type="submit"
                                                 class="btn btn-success"
-                                                th:unless="${Incidencia.getEstado() eq 'resuelto' or Incidencia.getRes()==0}"
+                                                th:if="${Incidencia.getEstado() eq 'atendido'}"
                                         >Comentar
                                         </button>
                                         <a th:href="@{'/incidencia/list'}" class="btn btn-danger">Regresar</a>
