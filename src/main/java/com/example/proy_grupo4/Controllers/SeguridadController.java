@@ -316,6 +316,12 @@ public class SeguridadController {
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
         if(opt.isPresent()){
             String codigoCreador = incidenciaRepository.buscarCreador(id);
+            Optional<UsuariosRegistrado> usuariosRegistrado = adminRepository.findById(String.valueOf(id));
+            UsuariosRegistrado usuario = usuariosRegistrado.get();
+            if(usuario.getNumeroReportes()==2){
+                sender.sendEmail(usuario.getCorreo(),"Cuenta suspendida","Estimado.\n"+
+                        "Su cuenta ha sido suspendido por poseer mas de 3 reportes");
+            }
             seguridadRepository.aumentarreportes(codigoCreador);
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
             incidenciaRepository.ReportarFalsaIncidencia(id);
