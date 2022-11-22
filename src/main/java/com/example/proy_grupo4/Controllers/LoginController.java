@@ -14,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LoginController {
@@ -27,11 +29,11 @@ public class LoginController {
     AdminRepository adminRepository;
 
     @PostMapping("activar")
-    public String Activar(UsuariosRegistrado usuariosRegistrado) {
-        UsuariosRegistrado usuario = adminRepository.buscarxcorreo(usuariosRegistrado.getCorreo());
+    public String Activar(UsuariosRegistrado usuario) {
         usuario.setComentarioSuspension("activo");
-        usuario.setEstado("activo");
-        usuario.setContrasena(BCrypt.hashpw(usuariosRegistrado.getContrasena(),BCrypt.gensalt()));
+        usuario.setEstado("1");
+        String contra = usuario.getContrasena();
+        usuario.setContrasena(BCrypt.hashpw(contra,BCrypt.gensalt()));
         adminRepository.save(usuario);
         return "redirect:/admin/usuario";
     }
@@ -41,7 +43,10 @@ public class LoginController {
     }
 
     @GetMapping("activacion")
-    public String activacion(){
+    public String activacion(Model model,@RequestParam("id") String id){
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = adminRepository.findById(id);
+        UsuariosRegistrado usuariosRegistrado = optionalUsuariosRegistrado.get();
+        model.addAttribute("usuario",usuariosRegistrado);
         return "ACTIVACION";
     }
 

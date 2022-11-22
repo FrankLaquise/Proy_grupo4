@@ -63,24 +63,33 @@
               </div>
               <!-- /Logo -->
               <center><h4 class="mb-2">Bienvenido</h4></center>
-              <form method="POST" th:action="@{/activar}"  onsubmit="return verificacion()">
+              <form method="POST" th:action="@{/activar}" th:object="${usuario}" onsubmit="return verifica()">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
+                  <input th:field="*{id}" type="hidden"/>
+                  <input th:field="*{apellido}" type="hidden"/>
+                  <input th:field="*{nombre}" type="hidden"/>
+                  <input th:field="*{correo}" type="hidden"/>
+                  <input th:field="*{dni}" type="hidden"/>
+                  <input th:field="*{estado}" type="hidden"/>
+                  <input th:field="*{icono}" type="hidden"/>
+                  <input th:field="*{numeroReportes}" type="hidden"/>
+                  <input th:field="*{rol}" type="hidden"/>
+                  <input th:field="*{telefono}" type="hidden"/>
+                  <label for="correo" class="form-label">Email</label>
                   <input
-                    type="email" class="form-control" id="email" name="correo"
-                    placeholder="Ingresar correo" autofocus
+                    type="email" class="form-control" id="correo" name="correo"
+                    th:placeholder="${usuario.correo}" th:value="${usuario.correo}" disabled
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="form-outline form-white mb-4" >
-                    <label class="form-label" for="verificacion">Contraseña</label>
+                    <label class="form-label" for="verificacion">Clave</label>
                   </div>
                   <div class="input-group input-group-merge">
                     <input
-                      type="password"
+                      type="text"
                       id="verificacion"
                       class="form-control"
-                      name="verificacion"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
@@ -113,15 +122,14 @@
     </div>
 
       <script type="text/javascript">
-
-
-        function verificacion(){
-        var codi =document.getElementById("verificacion");
-        if(codi = 1234){
-        return true;
-      }else {
-        alert("contra incorrecta");
-        return false;
+        var cod2 = "1234";
+        function verifica(){
+          var codi =document.getElementById("verificacion").value;
+          if(codi == cod2){
+          return true;
+          }else {
+          alert("contra incorrecta");
+          return false;
       }
       }
     </script>
