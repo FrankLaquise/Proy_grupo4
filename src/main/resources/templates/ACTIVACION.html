@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Login</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1022/1022331.png	" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" th:href="@{/css/boxicons.css}" />
+    <link rel="stylesheet" th:href="@{/css/core.css}" class="template-customizer-core-css" />
+    <link rel="stylesheet" th:href="@{/css/theme-default.css}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" th:href="@{/css/demo.css}" />
+    <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/page-auth.css}" />
+    <!-- Helpers -->
+    <script th:src="@{/js/helpers.js}"></script>
+    <script th:src="@{/js/config.js}"></script>
+  </head>
+
+  <body>
+    <!-- Content -->
+
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+                <!--<a href="index.html" class="app-brand-link gap-2">--->
+				<center>
+                  <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
+						height="100"> </img>
+                    </center>		
+                  
+                </a>
+              </div>
+              <!-- /Logo -->
+              <center><h4 class="mb-2">Bienvenido</h4></center>
+              <form method="POST" th:action="@{/activar}"  onsubmit="return verificacion()">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email" class="form-control" id="email" name="correo"
+                    placeholder="Ingresar correo" autofocus
+                  />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="form-outline form-white mb-4" >
+                    <label class="form-label" for="verificacion">Contraseña</label>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="verificacion"
+                      class="form-control"
+                      name="verificacion"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="form-outline form-white mb-4" >
+                    <label class="form-label" for="password1">Contraseña Nueva</label>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="password"
+                            id="password1"
+                            class="form-control"
+                            name="contrasena"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="password"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary d-grid w-100" type="submit">Activar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- /Register -->
+        </div>
+      </div>
+    </div>
+
+      <script type="text/javascript">
+
+
+        function verificacion(){
+        var codi =document.getElementById("verificacion");
+        if(codi = 1234){
+        return true;
+      }else {
+        alert("contra incorrecta");
+        return false;
+      }
+      }
+    </script>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/perfect-scrollbar.js}"></script>
+    <script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        var contrasena = $("#contrasena");
+        var cdiv = $("#contrasenadiv");
+        var showpass = cdiv.find(".showpass");
+
+        cdiv.mousemove(function(e) {
+          let posX = showpass.offset().left
+          if( e.clientX > posX && e.clientX < posX + 15 ){
+            contrasena.css('cursor', 'pointer');
+          }else{
+            contrasena.css('cursor', 'text');
+          }
+        });
+
+        cdiv.click(function(e) {
+          let posX = showpass.offset().left
+          if( e.clientX > posX && e.clientX < posX + 15 ){
+            if(contrasena.prop('type')==='password'){
+              contrasena.prop('type','text');
+              showpass.removeClass('fa-eye-slash');
+              showpass.addClass('fa-eye');
+            }else{
+              contrasena.prop('type','password');
+              showpass.removeClass('fa-eye');
+              showpass.addClass('fa-eye-slash');
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
