@@ -117,10 +117,14 @@ public class AdminController {
 
     @PostMapping("/save")
     public String Registro(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
-        usuariosRegistrado.setComentarioSuspension("Falta ser activado por el usuario");
+        usuariosRegistrado.setComentarioSuspension("Falta ser activado");
             usuariosRegistrado.setEstado("0");
             usuariosRegistrado.setContrasena(BCrypt.hashpw("1234",BCrypt.gensalt()));
             usuariosRegistrado.setNumeroReportes(0);
+            if(usuariosRegistrado.getRol().getId()==6){
+                sender.sendEmail(usuariosRegistrado.getCorreo(),"Link para activar la cuenta",
+                        "localhost:8080/activacion?id="+usuariosRegistrado.getId());
+            }
         adminRepository.save(usuariosRegistrado);
         return "redirect:/admin/usuario";
     }

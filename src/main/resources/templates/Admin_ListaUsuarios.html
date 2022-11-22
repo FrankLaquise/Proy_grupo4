@@ -165,7 +165,7 @@
                         <td th:text="${usuario.rol.titulo}"></td>
 						<td><a  th:href="@{'/admin/edit'+'?id='+${usuario.id}}"><button type="button" class="btn rounded-pill btn-outline-primary">Visualizar</button></a></td>
                       </tr>
-                      <tr class="table-danger" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq 'suspendido'}">
+                      <tr class="table-danger" th:each="usuario, info : ${lista_usuario}" th:if="${usuario.estado eq '0'}">
                         <td th:text="${usuario.id}"></td>
                         <td>Suspendido</td>
                         <td th:text="${usuario.numeroReportes}"></td>
