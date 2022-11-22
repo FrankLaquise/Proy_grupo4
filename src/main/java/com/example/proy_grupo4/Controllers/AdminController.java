@@ -118,7 +118,7 @@ public class AdminController {
     @PostMapping("/save")
     public String Registro(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
         usuariosRegistrado.setComentarioSuspension("Falta ser activado por el usuario");
-            usuariosRegistrado.setEstado("suspendido");
+            usuariosRegistrado.setEstado("0");
             usuariosRegistrado.setContrasena(BCrypt.hashpw("1234",BCrypt.gensalt()));
             usuariosRegistrado.setNumeroReportes(0);
         adminRepository.save(usuariosRegistrado);
@@ -139,7 +139,7 @@ public class AdminController {
             adminRepository.save(usuariosRegistrado);
             return "redirect:/admin/usuario";
         }else{
-            usuariosRegistrado.setEstado("suspendido");
+            usuariosRegistrado.setEstado("0");
             if(usuariosRegistrado.getRol().getId()==6){
                 sender.sendEmail(usuariosRegistrado.getCorreo(),"Cuenta suspendida",
                         "Estimado: \n Su cuenta ha sido suspendida por el sigueinte motivo:" +
