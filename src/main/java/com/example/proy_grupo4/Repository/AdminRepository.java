@@ -7,14 +7,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface AdminRepository extends JpaRepository<UsuariosRegistrado, String> {
     @Transactional
     @Modifying
     @Query(nativeQuery = true,
-            value = "UPDATE usuarios_registrados SET estado = 'suspendido' WHERE codigo = \"20120000\"")
-    void actualizarSuspendido(String status);
+            value = "UPDATE usuarios_registrados SET foto =?2 WHERE codigo =?1")
+    void actualizar(String id, byte[] foto);
 
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM usuarios_registrados i where i.correo=?1")
+    UsuariosRegistrado buscarxcorreo(String correo);
     @Transactional
     @Modifying
     @Query(nativeQuery = true,

@@ -4,6 +4,7 @@ package com.example.proy_grupo4.Controllers;
 import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.Sugerencia;
+import com.example.proy_grupo4.Entity.TodosLosUsuario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
@@ -61,6 +62,9 @@ public class AdminController {
     private IncidenciaServiceAPI incidenciaServiceAPI;
 
     @Autowired
+    private TodoRepository todoRepository;
+
+    @Autowired
     private NewIncidenciaService newIncidenciaService;
     @GetMapping(value = {"/incidentes"})
     public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
@@ -113,13 +117,17 @@ public class AdminController {
 
     @PostMapping("/save")
     public String Registro(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado, RedirectAttributes attr) {
-            attr.addFlashAttribute("msg", "Usuario creado exitosamente");
-            usuariosRegistrado.setEstado("activo");
+        usuariosRegistrado.setComentarioSuspension("Falta ser activado por el usuario");
+            usuariosRegistrado.setEstado("suspendido");
             usuariosRegistrado.setContrasena(BCrypt.hashpw("1234",BCrypt.gensalt()));
             usuariosRegistrado.setNumeroReportes(0);
         adminRepository.save(usuariosRegistrado);
         return "redirect:/admin/usuario";
     }
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
 
     @PostMapping("/actualizar")
     public String Actualizar(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado) {

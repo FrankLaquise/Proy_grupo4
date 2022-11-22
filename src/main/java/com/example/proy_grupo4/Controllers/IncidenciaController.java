@@ -8,6 +8,7 @@ import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -260,12 +265,8 @@ if (buscarx != null){
 
     model.addAttribute("ordenarpor","horaCreacion");
 }
-
-
         return "Usuario_ListaIncidencias";
     }
-    //paginacion_FINAL...listanorma
-
     @PostMapping("/BuscarxZona")
     public String BuscarxZona(@RequestParam("searchField") String searchField,Model model){
         List<Incidencia> listaIncidencias = incidenciaRepository.busquedaParcialTitulo(searchField);
@@ -273,38 +274,31 @@ if (buscarx != null){
         model.addAttribute("searchField",searchField);
         return "Usuario_ListaIncidencias";
     }
-
-
-
-
     @GetMapping("/new")
     public String nuevoTransportistaFrm(Model model) {
         model.addAttribute("listaZonas",zonaRepository.findAll());
         model.addAttribute("listaTipos",tipoRepository.findAll());
         return "Usuario_RegistroIncidencia";
     }
-
-
-
     @PostMapping("/save")
-    public String guardarProducto(Incidencia incidencia) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public String guardar(Incidencia incidencia) {
         incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");
         incidencia.setNumeroReportes(1);
         incidencia.setHoraCreacion(Instant.now());
         incidencia.setDestacado(0);
         incidencia.setComentariosRestantes(100);
+        incidencia.setCalificacion(0);
         incidenciaRepository.save(incidencia);
         return "redirect:/incidencia";
     }
 
     @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
-        if (opt.isPresent()) {
-            usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
-        }
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("file") MultipartFile imagen) throws IOException {
+        usuario.setFoto(imagen.getBytes());
+        System.out.printf(usuario.getFoto().toString());
+        System.out.println(usuario.getId());
+        adminRepository.actualizar(usuario.getId(),usuario.getFoto());
         return "redirect:/incidencia";
     }
 

@@ -2,15 +2,18 @@ package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
+import com.example.proy_grupo4.Repository.AdminRepository;
 import com.example.proy_grupo4.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -20,9 +23,26 @@ public class LoginController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    AdminRepository adminRepository;
+
+    @PostMapping("activar")
+    public String Activar(UsuariosRegistrado usuariosRegistrado) {
+        UsuariosRegistrado usuario = adminRepository.buscarxcorreo(usuariosRegistrado.getCorreo());
+        usuario.setComentarioSuspension("activo");
+        usuario.setEstado("activo");
+        usuario.setContrasena(BCrypt.hashpw(usuariosRegistrado.getContrasena(),BCrypt.gensalt()));
+        adminRepository.save(usuario);
+        return "redirect:/admin/usuario";
+    }
     @GetMapping("ventanaLogin")
     public String ventanaLogin(){
         return "Login";
+    }
+
+    @GetMapping("activacion")
+    public String activacion(){
+        return "ACTIVACION";
     }
 
     @GetMapping("redireccionarPorRol")

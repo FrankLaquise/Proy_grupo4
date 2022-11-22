@@ -127,7 +127,6 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semi-bold d-block" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></span>
-                                                <small class="text-muted">Estudiante</small>
                                             </div>
                                         </div>
                                     </a>
@@ -185,6 +184,7 @@
                                             <dd class="col-sm-9" th:if="${Incidencia.getRes() == 0}" th:text="${Incidencia.getComentariorep()}"></dd>
 
                                         </dl>
+
                                         <!--Comentarios incidencia(VISTA USUARIO)-->
                                         <div class="col-md-6">
                                             <div class="card mb-4">
