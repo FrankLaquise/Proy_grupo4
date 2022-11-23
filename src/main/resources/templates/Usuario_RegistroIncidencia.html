@@ -170,7 +170,7 @@
 
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="descripcion" class="form-label">Descripcion</label>
+                                                    <label for="descripcion" class="form-label">Descripción</label>
                                                     <input type="text " class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
@@ -183,11 +183,11 @@
                                                     <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
 
-
+                                                <!--
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
-                                                        <option value="">Selecciona una zona</option>
+                                                        <option value="">Selecciona una zona:</option>
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
@@ -196,6 +196,17 @@
 
                                                     </select>
                                                 </div>
+                                                -->
+                                                <label for="elige-zona">Selecciona una zona:</label>
+                                                <input list="zonas" id="elige-zona" name="elige-zona">
+                                                <datalist id="zonas">
+                                                    <option th:each="zona:${listaZonas}"
+                                                            th:value="${zona.getId()}"
+                                                            th:text="${zona.getTitulo()}">
+
+                                                    </option>
+                                                </datalist>
+
 
 
                                                 <div class="mb-3" id="latitud">
@@ -204,9 +215,6 @@
                                                 <div class="mb-3" id="longitud">
 
                                                 </div>
-
-
-
 
                                                 <div class="mb-3">
                                                     <label for="tipo" class="form-label">Tipo de
@@ -223,7 +231,7 @@
 
                                                     <div>
                                                         <label for="zonaDetalles" class="form-label">Especifique
-                                                            la situacion</label>
+                                                            la situación</label>
                                                         <textarea class="form-control" id="zonaDetalles"
                                                                   name="descripcion"
                                                                   rows="3"></textarea>
