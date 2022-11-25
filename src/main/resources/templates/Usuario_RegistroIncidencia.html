@@ -164,7 +164,7 @@
                                                            required = true/>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="descripcion" class="form-label">Descripcion</label>
+                                                    <label for="descripcion" class="form-label">Descripción</label>
                                                     <input type="text " class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
@@ -178,7 +178,7 @@
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
-                                                        <option value="">Selecciona una zona</option>
+                                                        <option value="">Selecciona una zona:</option>
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
@@ -248,9 +248,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- / Content -->
-
-                    <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
@@ -261,7 +258,6 @@
                                 </script>
                                 Pontificia Universidad Católica del Perú
                             </div>
-
                         </div>
                     </footer>
                     <div class="content-backdrop fade"></div>
@@ -276,19 +272,16 @@
                 navigator.geolocation.getCurrentPosition(mostrarUbicacion);
                 navigator.geolocation.getCurrentPosition(iniciarMap);//Obtiene la posición
             }
-
             function mostrarUbicacion(position) {
                 var latitud = position.coords.latitude; //Obtener latitud
                 var longitud = position.coords.longitude; //Obtener longitud
                 document.getElementById("latitud").innerHTML="<label for=\"latitud\" class=\"form-label\">latitud</label>" +
                     "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"latitud\" name=\"latitud\"\n" +
                     " placeholder='" + latitud + "' value='"+ latitud+"' required = true/> ";
-
                 document.getElementById("longitud").innerHTML="<label for=\"longitud\" class=\"form-label\">longitud</label>" +
                     "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"longitud\" name=\"longitud\"\n" +
                     " placeholder='" + longitud + "' value='"+ longitud +"' required = true/> ";
             }
-
             function iniciarMap(position){
                 var latitud = position.coords.latitude; //Obtener latitud
                 var longitud = position.coords.longitude; //Obtener longitud
@@ -303,29 +296,17 @@
                 });
             }
         </script>
-
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=iniciarMap"
         ></script>
-
         <script async defer crossorigin="anónimo" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0"
                 nonce="RhQbcBPc"></script>
-        <!-- build:js assets/vendor/js/core.js -->
+
         <script th:src="@{/js/jquery.js}"></script>
         <script th:src="@{/js/popper.js}"></script>
         <script th:src="@{/js/bootstrap.js}"></script>
         <script th:src="@{/js/perfect-scrollbar.js}"></script>
-
         <script th:src="@{/js/menu.js}"></script>
-        <!-- endbuild -->
-
-        <!-- Vendors JS -->
-
-        <!-- Main JS -->
         <script th:src="@{/js/main.js}"></script>
-
-        <!-- Page JS -->
-
-        <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
     </body>
 </html>
