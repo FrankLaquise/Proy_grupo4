@@ -181,10 +181,13 @@ ul ol {
 }
 
 dt {
-  font-weight: 700;
+  font-size: 1.125rem;
+  font-weight: 1000;
 }
 
 dd {
+  font-size: 1.125rem;
+  font-weight: 800;
   margin-bottom: 0.5rem;
   margin-left: 0;
 }

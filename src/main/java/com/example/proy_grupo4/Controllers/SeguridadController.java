@@ -69,15 +69,13 @@ public class SeguridadController {
     public void sendMail(String destino, String subjet, String body){
         sender.sendEmail(destino,subjet,body);
     }
-    @PostMapping(value = {"/inicio"})
-    public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
+    @GetMapping(value = {"/inicio",""})
+    public String aaaa(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
-        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
             int totalPage  = pageIncidencia.getTotalPages();
-
             if (totalPage>0){
                 List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
                 model.addAttribute("pages",pages);
@@ -87,12 +85,10 @@ public class SeguridadController {
             model.addAttribute("next",page+2);
             model.addAttribute("prev",page);
             model.addAttribute("last",totalPage);
-
             model.addAttribute("ordenarpor",buscarx);
         }else {
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,"titulo");
             int totalPage  = pageIncidencia.getTotalPages();
-
             if (totalPage>0){
                 List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
                 model.addAttribute("pages",pages);
@@ -102,19 +98,24 @@ public class SeguridadController {
             model.addAttribute("next",page+2);
             model.addAttribute("prev",page);
             model.addAttribute("last",totalPage);
-
             model.addAttribute("ordenarpor","horaCreacion");
         }
         List<Incidencia> listita = incidenciaRepository.findAll();
         String texto = "Titulo        Urgencia   Fecha         Zona       Tipo       Estado\n";
         for(Incidencia inci : listita){
-            texto = texto + inci.getTitulo() + "   " + inci.getNivel() + "    " + inci.getHoraCreacion() +
+            String hora = String.valueOf(inci.getHoraCreacion());
+            String charsToRemove = "TZ";
+            for (char c : charsToRemove.toCharArray()) {
+                hora = hora.replace(String.valueOf(c), " ");
+            }
+            texto = texto + inci.getTitulo() + "   " + inci.getNivel() + "    " + hora +
                     "    " + inci.getZona().getTitulo() + "   "  + inci.getTipo().getTitulo() + "    "
                     + inci.getEstado() + "\n";
         }
         model.addAttribute("listita",texto);
         return "Seguridad_ListaIncidencias2";
     }
+
 
     @GetMapping(value = {"/exportarpdf"})
     public void exportarListadoDeEmpleadosEnPDF(HttpServletResponse response) throws DocumentException, IOException, IOException {

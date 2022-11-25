@@ -26,7 +26,7 @@ public class PDF {
     private void escribirCabeceraDeLaTabla(PdfPTable tabla) {
         PdfPCell celda = new PdfPCell();
 
-        celda.setBackgroundColor(Color.GREEN);
+        celda.setBackgroundColor(Color.BLACK);
         celda.setPadding(5);
 
         Font fuente = FontFactory.getFont(FontFactory.HELVETICA);
@@ -56,7 +56,12 @@ public class PDF {
         for (Incidencia incidencia : lista) {
             tabla.addCell(incidencia.getTitulo());
             tabla.addCell(incidencia.getNivel());
-            tabla.addCell(String.valueOf(incidencia.getHoraCreacion()));
+            String hora = String.valueOf(incidencia.getHoraCreacion());
+            String charsToRemove = "TZ";
+            for (char c : charsToRemove.toCharArray()) {
+                hora = hora.replace(String.valueOf(c), " ");
+            }
+            tabla.addCell(hora);
             tabla.addCell(incidencia.getZona().getTitulo());
             tabla.addCell(incidencia.getTipo().getTitulo());
             tabla.addCell(incidencia.getEstado());

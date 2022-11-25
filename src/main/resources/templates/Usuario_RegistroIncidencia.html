@@ -28,14 +28,15 @@
         <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}"/>
         <script th:src="@{/js/helpers.js}"></script>
         <script th:src="@{/js/config.js}"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <style>
             #map {
-                margin: 20px;
+                height: 500px;
+                width: 100%;
             }
         </style>
     </head>
     <body>
-        <!-- Layout wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
                 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -81,7 +82,6 @@
                                         <div data-i18n="Connections">Registrar incidencia</div>
                                     </a>
                                 </li>
-
                             </ul>
                         </li>
                         <li class="menu-item">
@@ -102,7 +102,6 @@
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                             <div sec:authorize="isAuthenticated()" class="mt-3">
                                 <h2 th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></h2>
-
                             </div>
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -132,7 +131,6 @@
                                         </li>
                                         <li>
                                             <a class="dropdown-item" th:href="@{'/incidencia/perfil'}">
-
                                                 <span class="align-middle">Mi Perfil</span>
                                             </a>
                                         </li>
@@ -140,10 +138,7 @@
                                             <div sec:authorize="isAuthenticated()">
                                                 <form th:action="@{/logout}" method="post">
                                                     <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                                                 </form>
-
-
                                             </div>
                                         </li>
                                     </ul>
@@ -167,7 +162,6 @@
                                                     <input type="text" class="form-control" id="titulo" name="titulo"
                                                            placeholder="Titulo del incidente"
                                                            required = true/>
-
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripcion</label>
@@ -177,13 +171,10 @@
                                                            required = true
                                                     />
                                                 </div>
-
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Imagen</label>
                                                     <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
-
-
                                                 <div class="mb-3">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
@@ -196,18 +187,11 @@
 
                                                     </select>
                                                 </div>
-
-
                                                 <div class="mb-3" id="latitud">
-
                                                 </div>
                                                 <div class="mb-3" id="longitud">
-
                                                 </div>
-
-
-
-
+                                                <div id="map"></div>
                                                 <div class="mb-3">
                                                     <label for="tipo" class="form-label">Tipo de
                                                         Incidencia</label>
@@ -216,11 +200,8 @@
                                                         <option th:each="tipo:${listaTipos}"
                                                                 th:value="${tipo.getId()}"
                                                                 th:text="${tipo.getTitulo()}">
-
                                                         </option>
-
                                                     </select>
-
                                                     <div>
                                                         <label for="zonaDetalles" class="form-label">Especifique
                                                             la situacion</label>
@@ -229,20 +210,16 @@
                                                                   rows="3"></textarea>
                                                     </div>
                                                 </div>
-
                                                 <div class="mb-3">
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
                                                     <select class="form-select" id="nivel" name="nivel"
-
                                                             aria-label="Default select example">
                                                         <option value="">Seleccione el Nivel</option>
                                                         <option value="Leve">Leve</option>
                                                         <option value="Moderado">Moderado</option>
                                                         <option value="Critico">Critico</option>
-
                                                     </select>
                                                 </div>
-
                                                 <button  type="submit"
                                                         class="btn btn-primary">Registrar
                                                 </button>
@@ -260,21 +237,14 @@
                                         <div class="card-body">
                                             <p class="card-text">
                                                 Al registrar una incidencia apoyamos a nuestra comunidad PUCP.
-
                                             </p>
                                             <p class="card-text">
                                                 Cientos de nuestros usuarios estan muy satisfechos con el apoyo que
                                                 brinda nuestra aplicacion.
-
                                             </p>
-
                                         </div>
                                     </div>
-
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -294,40 +264,19 @@
 
                         </div>
                     </footer>
-                    <!-- / Footer -->
-
                     <div class="content-backdrop fade"></div>
                 </div>
-                <!-- Content wrapper -->
             </div>
-            <!-- / Layout page -->
         </div>
-
-        <!-- Overlay -->
-        <!-- Overlay -->
         <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-
-
-        <!-- Core JS -->
-
         <div id="fb-root"></div>
-
-        <!-- mostrar coordenadas -->
         <script type="text/javascript">
-            var poslat;
-            var poslong;
-            poslat= document.getElementById("latitud")
-            poslong= document.getElementById("longitud")
-
-
             if (navigator.geolocation) { //Validar si hay acceso web a la ubicación
-                navigator.geolocation.getCurrentPosition(mostrarUbicacion); //Obtiene la posición
-            } else {
-                alert("¡Error! Este navegador no soporta la Geolocalización.");
+                navigator.geolocation.getCurrentPosition(mostrarUbicacion);
+                navigator.geolocation.getCurrentPosition(iniciarMap);//Obtiene la posición
             }
 
-            //Funcion para obtener latitud y longitud
             function mostrarUbicacion(position) {
                 var latitud = position.coords.latitude; //Obtener latitud
                 var longitud = position.coords.longitude; //Obtener longitud
@@ -335,14 +284,28 @@
                     "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"latitud\" name=\"latitud\"\n" +
                     " placeholder='" + latitud + "' value='"+ latitud+"' required = true/> ";
 
-                document.getElementById("longitud").innerHTML="<label for=\"longitud\" class=\"form-label\">latitud</label>" +
+                document.getElementById("longitud").innerHTML="<label for=\"longitud\" class=\"form-label\">longitud</label>" +
                     "<input type=\"number\" step=\"any\" class=\"form-control\" id=\"longitud\" name=\"longitud\"\n" +
                     " placeholder='" + longitud + "' value='"+ longitud +"' required = true/> ";
-                //-----------------------------------------------
+            }
 
+            function iniciarMap(position){
+                var latitud = position.coords.latitude; //Obtener latitud
+                var longitud = position.coords.longitude; //Obtener longitud
+                var coord = {lat: latitud ,lng: longitud};
+                var map = new google.maps.Map(document.getElementById('map'),{
+                    zoom: 10,
+                    center: coord
+                });
+                var marker = new google.maps.Marker({
+                    position: coord,
+                    map: map
+                });
             }
         </script>
-        <!-- FIN- mostrar coordenadas -->
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=iniciarMap"
+        ></script>
 
         <script async defer crossorigin="anónimo" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0"
                 nonce="RhQbcBPc"></script>

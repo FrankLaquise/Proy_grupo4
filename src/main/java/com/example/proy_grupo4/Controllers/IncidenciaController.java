@@ -216,8 +216,6 @@ public class IncidenciaController {
         System.out.println(comentario);
         return  "redirect:/incidencia/info?idincidencias="+id;
     }
-
-
     @GetMapping(value = {"/recuperar_contra"})
     public String RecuperarContra(){
         return "Login_RecuperarContra";
@@ -290,7 +288,7 @@ if (buscarx != null){
         incidencia.setComentariosRestantes(100);
         incidencia.setCalificacion(0);
         incidenciaRepository.save(incidencia);
-        return "redirect:/incidencia";
+        return "redirect:/incidencia/list";
     }
 
     @PostMapping(value = {"/cambiotel"})
@@ -299,7 +297,7 @@ if (buscarx != null){
         System.out.printf(usuario.getFoto().toString());
         System.out.println(usuario.getId());
         adminRepository.actualizar(usuario.getId(),usuario.getFoto());
-        return "redirect:/incidencia";
+        return "redirect:/incidencia/list";
     }
 
     @RequestMapping(value ={"/resuelto"})
@@ -323,7 +321,7 @@ if (buscarx != null){
         sender.sendEmail("a20190212@pucp.edu.pe","Nueva Sugerencia","Se ha registardo nueva sugerencia:\n"
                 + sugerencia.getTexto());
         sugerenciaRepository.save(sugerencia);
-        return "redirect:/incidencia/";
+        return "redirect:/incidencia/sugerencias";
 
     }
 }

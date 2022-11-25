@@ -123,7 +123,7 @@ public class AdminController {
             usuariosRegistrado.setNumeroReportes(0);
             if(usuariosRegistrado.getRol().getId()==6){
                 sender.sendEmail(usuariosRegistrado.getCorreo(),"Link para activar la cuenta",
-                        "localhost:8080/activacion?id="+usuariosRegistrado.getId());
+                        "https://nohaycreatividad.azurewebsites.net/activacion?id="+usuariosRegistrado.getId() +"\n la clave es 1234");
             }
         adminRepository.save(usuariosRegistrado);
         return "redirect:/admin/usuario";

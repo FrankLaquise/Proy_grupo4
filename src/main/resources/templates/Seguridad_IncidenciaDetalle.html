@@ -59,7 +59,7 @@
             <ul class="menu-inner py-1">
 
                 <li class="menu-item active">
-                    <a th:href="@{'/seguridad/inicio'}" class="menu-link">
+                    <a th:href="@{'/seguridad/inicio2'}" class="menu-link">
                         <div data-i18n="Account">Inicio</div>
                     </a>
                 </li>
@@ -135,10 +135,7 @@
                                     <div sec:authorize="isAuthenticated()">
                                         <form th:action="@{/logout}" method="post">
                                             <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                                         </form>
-
-
                                     </div>
                                 </li>
                             </ul>
@@ -147,22 +144,13 @@
                     </ul>
                 </div>
             </nav>
-
-            <!-- / Navbar -->
-            <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <!--
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
-                    -->
                     <div class="card">
                             <div class="col-md-6">
                                     <h5 class="card-header">Detalle de Incidencia</h5>
                                         <div class="card-body">
                                             <form method="post" th:action="@{'/seguridad/actualizarest'+ '?id=' + ${incidencia.getId()}}" class="mt-2" th:object="${incidencia}">
-
                                                 <div class="mb-3">
                                                     <label class="form-label">Titulo</label>
                                                     <input disabled type="text" class="form-control" id="titulo" name="titulo"
@@ -179,19 +167,11 @@
                                                     <input disabled th:value="${incidencia.getDescripcion()}" type="text" class="form-control" id="descripcion" name="descripcion"
                                                     />
                                                 </div>
-                                                <!--
-                                                <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Imagen</label>
-                                                    <input class="form-control" type="file" id="formFile" name="foto">
-                                                    <div th:value="${incidencia.getFoto()}" type="img"></div>
-                                                </div>
-                                                -->
                                                 <div class="mb-3">
                                                     <label class="form-label">Zona PUCP</label>
                                                     <input disabled type="text" class="form-control" id="zona" name="zona"
                                                            th:value="${incidencia.getZona().getTitulo()}"
                                                     />
-
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
@@ -199,7 +179,6 @@
                                                         <input disabled type="text" class="form-control" name="titulo"
                                                                th:value="${incidencia.getTipo().getTitulo()}"
                                                         />
-
                                                 </div>
                                                 <div class="mb-3">
                                                         <label class="form-label">Nivel de Urgencia</label>
@@ -236,7 +215,6 @@
                                                                 </div>
                                                                 <span th:text="${#temporals.format(comentario.getFecha(), 'yyyy-MM-dd HH:mm:ss')}" class="small mb-2 d-flex flex-row justify-content-start mb-4">11:01 AM    |    June 9</span>
                                                             </div>
-
                                                             <div th:if="${comentario.getTipo() eq 'usuario'}">
                                                                 <div class="d-flex flex-row justify-content-end">
                                                                     <div class="p-3 me-0 border" style="border-radius: 15px; background-color: #fbfbfb;">
@@ -249,7 +227,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!--HABILITAR COMENTARIO (REPORT+RESUELTO)-->
                                                     <div class="mb-3" th:if="${incidencia.getRes() != 0}">
                                                         <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto' }">
                                                             <label for="comentario" class="form-label">Agregar Comentario</label>
@@ -263,18 +240,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <!--Comentarios de reporte de incidencia-->
                                                 <div class="mb-3" th:unless="${#strings.isEmpty(incidencia.getComentariorep())}">
                                                     <label class="form-label">Comentario de reporte de Incidencia</label>
-                                                    <input disabled type="text" class="form-control" id="eactual" name="zona"
+                                                    <input disabled type="text" class="form-control" id="actual" name="zona"
                                                            th:value="${incidencia.getComentariorep()}"
                                                     />
                                                 </div>
-
-                                                <!--Botones actualizar y regresar-->
-                                                <button th:href="@{'/seguridad/inicio'}"
-                                                        type="submit"
+                                                <button type="submit"
                                                         class="btn btn-success"
                                                         th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}"
                                                         >Actualizar
@@ -282,17 +254,12 @@
                                                 <a th:href="@{'/seguridad/inicio'}" class="btn btn-danger">Regresar</a>
                                             </form>
                                         </div>
-
                             </div></div>
                 </div>
-                <!-- / Content -->
-
-                <!-- Footer -->
                 <footer class="content-footer footer bg-footer-theme">
                     <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                         <div class="mb-2 mb-md-0">
                             Av. Universitaria N° 1801, San Miguel, Lima - Perú | © 2022
-
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
@@ -301,41 +268,18 @@
 
                     </div>
                 </footer>
-
-                <!-- / Footer -->
-
                 <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
     </div>
-
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-<!-- / Layout wrapper -->
-
-
-
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
 <script th:src="@{/js/jquery.js}"></script>
 <script th:src="@{/js/popper.js}"></script>
 <script th:src="@{/js/bootstrap.js}"></script>
 <script th:src="@{/js/perfect-scrollbar.js}"></script>
-
 <script th:src="@{/js/menu.js}"></script>
-<!-- endbuild -->
-
-<!-- Vendors JS -->
-
-<!-- Main JS -->
 <script th:src="@{/js/main.js}"></script>
-
-<!-- Page JS -->
-
-<!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

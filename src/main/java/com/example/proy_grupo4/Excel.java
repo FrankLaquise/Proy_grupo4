@@ -19,9 +19,7 @@ public class Excel {
 
     private XSSFWorkbook libro;
     private XSSFSheet hoja;
-
     private List<Incidencia> lista;
-
     public Excel(List<Incidencia> listaEmpleados) {
         this.lista = listaEmpleados;
         libro = new XSSFWorkbook();
@@ -84,7 +82,12 @@ public class Excel {
             celda.setCellStyle(estilo);
 
             celda = fila.createCell(2);
-            celda.setCellValue(String.valueOf(incidencia.getHoraCreacion()));
+            String hora = String.valueOf(incidencia.getHoraCreacion());
+            String charsToRemove = "TZ";
+            for (char c : charsToRemove.toCharArray()) {
+                hora = hora.replace(String.valueOf(c), " ");
+            }
+            celda.setCellValue(hora);
             hoja.autoSizeColumn(2);
             celda.setCellStyle(estilo);
 
