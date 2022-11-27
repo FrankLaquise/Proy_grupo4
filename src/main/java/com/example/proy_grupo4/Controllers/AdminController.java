@@ -102,8 +102,6 @@ public class AdminController {
 
             model.addAttribute("ordenarpor","horaCreacion");
         }
-
-
         return "Admin_ListaIncidencias";
     }
 

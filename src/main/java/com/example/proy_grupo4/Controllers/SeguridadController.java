@@ -25,8 +25,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -258,7 +260,16 @@ public class SeguridadController {
         return "Seguridad_Dashboard";
     }
     @GetMapping(value = {"/mapa"})
-    public String SeguridadMapa(){
+    public String SeguridadMapa(Model model){
+        List<Incidencia> incidencia = incidenciaRepository.findAll();
+        List<BigDecimal> latitud = new ArrayList();
+        List<BigDecimal> longitud = new ArrayList();
+        for(Incidencia inci : incidencia){
+            latitud.add(inci.getLatitud());
+            longitud.add(inci.getLongitud());
+        }
+        model.addAttribute("latitud",latitud);
+        model.addAttribute("longitud",longitud);
         return "Seguridad_MapaIncidencias";
     }
 
@@ -339,7 +350,6 @@ public class SeguridadController {
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
             incidenciaRepository.ReportarFalsaIncidencia(id);
             if(comentarioreporte != null) incidenciaRepository.ReportarFalsaIncidenciacoment(id,comentarioreporte);
-
         }
         return  "redirect:/seguridad/inicio";
     }
