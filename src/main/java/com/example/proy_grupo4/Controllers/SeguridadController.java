@@ -264,12 +264,18 @@ public class SeguridadController {
         List<Incidencia> incidencia = incidenciaRepository.findAll();
         List<BigDecimal> latitud = new ArrayList();
         List<BigDecimal> longitud = new ArrayList();
+        List<Integer> icono = new ArrayList();
+        List<String> titulo = new ArrayList();
         for(Incidencia inci : incidencia){
             latitud.add(inci.getLatitud());
             longitud.add(inci.getLongitud());
+            icono.add(inci.getIcono().getId());
+            titulo.add(inci.getTitulo());
         }
         model.addAttribute("latitud",latitud);
         model.addAttribute("longitud",longitud);
+        model.addAttribute("icono",icono);
+        model.addAttribute("titulo",titulo);
         return "Seguridad_MapaIncidencias";
     }
 

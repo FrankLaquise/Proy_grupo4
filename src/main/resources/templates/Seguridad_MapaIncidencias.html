@@ -142,6 +142,7 @@
       function iniciarMap(){
         var latitud = [[${latitud}]];
         var longitud = [[${longitud}]];
+        var icono = [[${icono}]];
         var coord = {lat: latitud[1] ,lng: longitud[1]};
         var map = new google.maps.Map(document.getElementById('map'),{
           zoom: 17,
@@ -150,11 +151,38 @@
         let lati;
         let x = 0;
         for(lati in latitud){
-        var marker = new google.maps.Marker({
-          position: {lat: latitud[x],lng: longitud[x]},
-          map: map
-        });
-        x++;}
+          switch(icono[x]){
+            case 1:
+              imag = "/icono/ambu.png";
+              break;
+            case 2:
+              imag = "/icono/atropello.png";
+              break;
+            case 3:
+              imag = "/icono/celu.png";
+              break;
+            case 4:
+              imag = "/icono/china.png";
+              break;
+            case 5:
+              imag = "/icono/choque.png";
+              break;
+            case 6:
+              imag = "/icono/gato.png";
+              break;
+            case 7:
+              imag = "/icono/herido.png";
+              break;
+            case 8:
+              imag = "/icono/incendio.png";
+              break;
+          }
+          var marker = new google.maps.Marker({
+            position: {lat: latitud[x],lng: longitud[x]},
+            map: map,
+            icon : imag
+          });
+          x++;}
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=iniciarMap"
