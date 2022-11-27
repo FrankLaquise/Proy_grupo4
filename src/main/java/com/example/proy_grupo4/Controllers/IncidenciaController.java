@@ -1,10 +1,7 @@
 package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Email;
-import com.example.proy_grupo4.Entity.Comentario;
-import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Entity.Sugerencia;
-import com.example.proy_grupo4.Entity.UsuariosRegistrado;
+import com.example.proy_grupo4.Entity.*;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;

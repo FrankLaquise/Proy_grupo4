@@ -31,8 +31,9 @@
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <style>
             #map {
-                height: 500px;
-                width: 100%;
+                height: 200px;
+                width: 92%;
+                margin-left: 2%;
             }
         </style>
     </head>
@@ -150,12 +151,10 @@
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span>
                                 Registro de Incidencias</h4>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card mb-4">
+                            <div class="card">
                                         <h5 class="card-header">Registro de Incidencia</h5>
                                         <div class="card-body">
-                                            <form method="post" th:action="@{'/incidencia/save'}" class="mt-2">
+                                            <form method="post" th:action="@{'/incidencia/save'}">
                                                 <div class="mb-3">
                                                     <input type="hidden" name="usuario" th:value="${session.usuario.id}"/>
                                                     <label for="titulo" class="form-label">Titulo</label>
@@ -168,49 +167,90 @@
                                                     <input type="text " class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
-                                                           required = true
-                                                    />
+                                                           required = true/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Imagen</label>
                                                     <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="row">
+                                                <div class="mb-3 col-md-5">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
                                                         <option value="">Selecciona una zona:</option>
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
-
                                                         </option>
 
                                                     </select>
                                                 </div>
-                                                <div class="mb-3" id="latitud">
-                                                </div>
-                                                <div class="mb-3" id="longitud">
-                                                </div>
-                                                <div id="map"></div>
-                                                <div class="mb-3">
-                                                    <label for="tipo" class="form-label">Tipo de
-                                                        Incidencia</label>
-                                                    <select id="tipo" class="form-select" name="tipo">
-                                                        <option value="">Seleccione el Tipo</option>
-                                                        <option th:each="tipo:${listaTipos}"
-                                                                th:value="${tipo.getId()}"
-                                                                th:text="${tipo.getTitulo()}">
-                                                        </option>
+                                                <div class="mb-3 col-md-4">
+                                                    <label for="zona" class="form-label">Icono</label>
+                                                    <select id="icono" class="form-select" name="icono">
+                                                        <option value=4>Icono:</option>
+                                                        <option value=1>1</option>
+                                                        <option value=2>2</option>
+                                                        <option value=3>3</option>
+                                                        <option value=4>4</option>
+                                                        <option value=5>5</option>
+                                                        <option value=6>6</option>
+                                                        <option value=7>7</option>
+                                                        <option value=8>8</option>
                                                     </select>
-                                                    <div>
-                                                        <label for="zonaDetalles" class="form-label">Especifique
-                                                            la situacion</label>
-                                                        <textarea class="form-control" id="zonaDetalles"
-                                                                  name="descripcion"
-                                                                  rows="3"></textarea>
+                                                </div>
+                                                    <div class="mb-3 col-md-2">
+                                                        <br>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#basicModal">
+                                                    visualizar iconos
+                                                </button></div>
+                                                </div>
+                                                <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel1">Iconos</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="mb-3 col-md-6">
+                                                                <label class="form-label">1</label>
+                                                                <img th:src="@{/icono/ambu.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">2</label>
+                                                                <img th:src="@{/icono/atropello.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">3</label>
+                                                                <img th:src="@{/icono/celu.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">4</label>
+                                                                <img th:src="@{/icono/china.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">5</label>
+                                                                <img th:src="@{/icono/choque.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">6</label>
+                                                                <img th:src="@{/icono/gato.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">7</label>
+                                                                <img th:src="@{/icono/herido.png}">
+                                                                </div><div class="mb-3 col-md-6">
+                                                                <label class="form-label">8</label>
+                                                                <img th:src="@{/icono/incendio.png}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="row">
+                                                <div class="mb-3 col-md-6" id="latitud">
+                                                </div>
+                                                <div class="mb-3 col-md-6" id="longitud">
+                                                </div>
+                                                </div>
+                                                <div id="map"></div>
+                                                <div class="row">
+                                                <div class="mb-3 col-md-6">
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
                                                     <select class="form-select" id="nivel" name="nivel"
                                                             aria-label="Default select example">
@@ -220,6 +260,24 @@
                                                         <option value="Critico">Critico</option>
                                                     </select>
                                                 </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="tipo" class="form-label">Tipo de Incidencia</label>
+                                                    <select id="tipo" class="form-select" name="tipo">
+                                                        <option value="">Seleccione el Tipo</option>
+                                                        <option th:each="tipo:${listaTipos}"
+                                                                th:value="${tipo.getId()}"
+                                                                th:text="${tipo.getTitulo()}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                </div>
+                                                    <div class="mb-3">
+                                                        <label for="zonaDetalles" class="form-label">Especifique
+                                                            la situacion</label>
+                                                        <textarea class="form-control" id="zonaDetalles"
+                                                                  name="descripcion"
+                                                                  rows="3"></textarea>
+                                                    </div>
                                                 <button  type="submit"
                                                         class="btn btn-primary">Registrar
                                                 </button>
@@ -229,30 +287,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-4  d-lg-block">
-
-                                    <div class="card mb-4">
-                                        <img class="card-img-top" th:src="@{/img/imagen_incidencias.jpg}"
-                                             alt="Card image cap">
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                Al registrar una incidencia apoyamos a nuestra comunidad PUCP.
-                                            </p>
-                                            <p class="card-text">
-                                                Cientos de nuestros usuarios estan muy satisfechos con el apoyo que
-                                                brinda nuestra aplicacion.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    </div>
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
-                                Av. Universitaria N° 1801, San Miguel, Lima - Perú | © 2022
-
+                                Av. Universitaria N° 1801, San Miguel, Lima - Perú | ©
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
@@ -260,13 +299,10 @@
                             </div>
                         </div>
                     </footer>
-                    <div class="content-backdrop fade"></div>
                 </div>
             </div>
         </div>
-        <div class="layout-overlay layout-menu-toggle"></div>
-        </div>
-        <div id="fb-root"></div>
+        </div></body>
         <script type="text/javascript">
             if (navigator.geolocation) { //Validar si hay acceso web a la ubicación
                 navigator.geolocation.getCurrentPosition(mostrarUbicacion);
@@ -287,7 +323,7 @@
                 var longitud = position.coords.longitude; //Obtener longitud
                 var coord = {lat: latitud ,lng: longitud};
                 var map = new google.maps.Map(document.getElementById('map'),{
-                    zoom: 10,
+                    zoom: 17,
                     center: coord
                 });
                 var marker = new google.maps.Marker({

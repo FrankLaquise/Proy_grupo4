@@ -165,8 +165,7 @@
                               class="form-control"
                               min="10000000"
                               max="99999999"
-                              required = true
-                            />
+                              required = true/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="telefono">Telefono</label>
@@ -179,8 +178,7 @@
                                 class="form-control"
                                 min="900000000"
                                 max="999999999"
-                                required = true
-                              />
+                                required = true/>
                             </div>
                           </div>
                       
@@ -193,15 +191,13 @@
                               name="id"
                               min="0"
                               max="99999999"
-                              required = true
-                            />
+                              required = true/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="rol">Categoria</label>
                             <select id="rol" class="select2 form-select" name="rol">
                               <option th:each="rol : ${roles}" th:text="${rol.titulo}"
                                       th:value="${rol.id}"></option>
-
                             </select>
                           </div>
                           <div class="mb-3 col-md-6">
