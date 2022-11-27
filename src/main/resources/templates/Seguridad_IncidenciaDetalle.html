@@ -159,6 +159,11 @@
                                                     <input disabled type="text" class="form-control" id="eactual" name="zona"
                                                            th:value="${incidencia.getEstado()}"/>
                                                 </div>
+                                                    <div class="mb-3" th:if="${incidencia.getCalificacion() ne 0}">
+                                                        <label class="form-label">Calificacion</label>
+                                                        <input disabled type="text" class="form-control" id="q" name="zona"
+                                                               th:value="${incidencia.getCalificacion()}"/>
+                                                    </div>
                                                 <div class="mb-3" th:unless="${incidencia.getEstado() eq 'resuelto' or #strings.isEmpty(incidencia.getComentariorep())== false}">
                                                     <label for="zona" class="form-label">Actualizar estado</label>
                                                     <select class="form-select" name="estado" th:field="*{estado}" id="estado">
