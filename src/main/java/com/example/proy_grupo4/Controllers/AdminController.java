@@ -6,9 +6,11 @@ import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.Sugerencia;
 import com.example.proy_grupo4.Entity.TodosLosUsuario;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
+import com.example.proy_grupo4.PDF;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Map;
@@ -213,4 +217,16 @@ public class AdminController {
         List<Sugerencia> listadesugenrencias=sugerenciaRepository.findAll();
         model.addAttribute("listadesugerencias",listadesugenrencias);
         return "Admin_Sugerencias";}
+
+    @GetMapping(value = {"/exportarpdf"})
+    public void exportarListadoDeEmpleadosEnPDF(HttpServletResponse response) throws DocumentException, IOException, IOException {
+        response.setContentType("application/pdf");
+        String cabecera = "Content-Disposition";
+        String valor = "attachment; filename=lista.pdf";
+        response.setHeader(cabecera, valor);
+        List<Incidencia> incidencias = incidenciaRepository.findAll();
+        PDF exporter = new PDF(incidencias);
+        exporter.exportar(response);
+    }
 }
+

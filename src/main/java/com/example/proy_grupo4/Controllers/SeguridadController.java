@@ -297,9 +297,7 @@ public class SeguridadController {
         }else{
             return "redirect:/seguridad/inicio";
         }
-
     }
-
     @PostMapping(value = {"/actualizarest"})
     public String Actualizaresst(Model model, Incidencia incidencia, String comentario, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
