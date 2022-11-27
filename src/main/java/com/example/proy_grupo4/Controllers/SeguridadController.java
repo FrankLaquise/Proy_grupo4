@@ -300,10 +300,10 @@ public class SeguridadController {
         List<Comentario> comentarios = comentariosRepository.ComentariosporidInci(id);
         if(optInc.isPresent()){
             Incidencia incidencia=optInc.get();
-            System.out.println(incidencia);
             model.addAttribute("comentarios",comentarios);
             model.addAttribute("incidencia",incidencia);
             model.addAttribute("codigocreador",codigoCreador);
+            model.addAttribute("icono",incidencia.getIcono().getId());
             return "Seguridad_IncidenciaDetalle";
         }else{
             return "redirect:/seguridad/inicio";
