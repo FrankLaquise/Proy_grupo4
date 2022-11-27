@@ -201,8 +201,8 @@
                             </select>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label class="form-label" for="icono">Icono</label>
-                            <select id="icono" class="select2 form-select" name="icono">
+                            <label hidden class="form-label" for="icono">Icono</label>
+                            <select hidden id="icono" class="select2 form-select" name="icono">
                               <option th:each="icono : ${icono}" th:text="${icono.id}"
                                       th:value="${icono.id}"></option>
                             </select>
