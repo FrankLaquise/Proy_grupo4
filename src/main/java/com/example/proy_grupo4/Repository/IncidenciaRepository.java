@@ -30,9 +30,11 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
                     "join incidencias i where u.incidencia = i.idincidencias and u.creador = 1 and i.idincidencias=?1")
     String buscarCreador(int id);
 
+    @Transactional
+    @Modifying
     @Query(nativeQuery = true,
-            value = "SELECT count(*) FROM incidencias i where i.usuario=?1")
-    int cantidadcreador(String id);
+            value = "UPDATE incidencias SET calificacion = ?2 where idincidencias=?1")
+    void calificacificar(int id,int calificacion);
 
 
     @Transactional

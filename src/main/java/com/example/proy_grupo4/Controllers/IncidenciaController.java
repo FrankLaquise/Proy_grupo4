@@ -108,8 +108,6 @@ public class IncidenciaController {
 
             model.addAttribute("ordenarpor","horaCreacion");
         }
-
-
         return "Usuario_IncidenciasDestacadas";
     }
 
@@ -210,7 +208,12 @@ public class IncidenciaController {
         }else{
             return "Error_404";
         }
-        System.out.println(comentario);
+        return  "redirect:/incidencia/info?idincidencias="+id;
+    }
+
+    @PostMapping(value = {"/calificar"})
+    public String calificar(int calificacion, @RequestParam("id") int id){
+        incidenciaRepository.calificacificar(id,calificacion);
         return  "redirect:/incidencia/info?idincidencias="+id;
     }
     @GetMapping(value = {"/recuperar_contra"})

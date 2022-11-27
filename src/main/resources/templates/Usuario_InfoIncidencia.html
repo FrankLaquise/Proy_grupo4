@@ -165,7 +165,6 @@
                                             <dt class="col-sm-5" th:if="${Incidencia.getRes() == 0}">Comentario de Reporte:</dt>
                                             <dd class="col-sm-6" th:if="${Incidencia.getRes() == 0}" th:text="${Incidencia.getComentariorep()}"></dd>
                                         </dl></div>
-
                                         <div class="col-md-9">
                                             <div class="card mb-4">
                                                 <div class="mt-3" th:unless="${#lists.isEmpty(comentarios) or Incidencia.getRes()==0}">
@@ -220,9 +219,27 @@
                                         <a th:href="@{'/incidencia/list'}">
                                             <button type="button" class="btn btn-danger">Regresar</button></a>
                                                 <a th:if="${Incidencia.getEstado() eq 'atendido'}" th:href="@{'/incidencia/resuelto?id='+${Incidencia.getId()}}"><button type="button" class="btn btn-info">Resuelto</button></a>
-                                                <a th:if="${Incidencia.getEstado() eq 'resuelto'}" th:href="@{'/incidencia/calificar?id='+${Incidencia.getId()}}"><button type="button" class="btn btn-warning">Calificar</button></a>
+                                                <a th:if="${Incidencia.getEstado() eq 'resuelto'}" ><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Calificar</button></a>
                                         </div></div></form>
-                                    </div>
+                                    <form method="POST" th:action="@{'/incidencia/calificar'+ '?id=' + ${Incidencia.getId()}}">
+                                    <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel1">Ingresar Su Calificacion para la incidencia resuelta</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label for="calificacion" class="form-label">Calificacion</label>
+                                                    <input type="number" class="form-control" id="calificacion" name="calificacion" min="1" th:value="${calificacion}"
+                                                           max="5">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-danger">Calificar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div></form>
                                 </div>
                             </div>
                 </div>
