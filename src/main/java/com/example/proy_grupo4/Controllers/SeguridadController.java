@@ -122,14 +122,10 @@ public class SeguridadController {
     @GetMapping(value = {"/exportarpdf"})
     public void exportarListadoDeEmpleadosEnPDF(HttpServletResponse response) throws DocumentException, IOException, IOException {
         response.setContentType("application/pdf");
-
         String cabecera = "Content-Disposition";
         String valor = "attachment; filename=lista.pdf";
-
         response.setHeader(cabecera, valor);
-
         List<Incidencia> incidencias = incidenciaRepository.findAll();
-
         PDF exporter = new PDF(incidencias);
         exporter.exportar(response);
     }
@@ -137,14 +133,10 @@ public class SeguridadController {
     @GetMapping(value = {"/exportarExcel"})
     public void exportarListadoEnExcel(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/octet-stream");
-
         String cabecera = "Content-Disposition";
         String valor = "attachment; filename=Incidencia.xlsx";
-
         response.setHeader(cabecera, valor);
-
         List<Incidencia> incidencias = incidenciaRepository.findAll();
-
         Excel exporter = new Excel(incidencias);
         exporter.exportar(response);
     }
@@ -265,17 +257,14 @@ public class SeguridadController {
         List<BigDecimal> latitud = new ArrayList();
         List<BigDecimal> longitud = new ArrayList();
         List<Integer> icono = new ArrayList();
-        List<String> titulo = new ArrayList();
         for(Incidencia inci : incidencia){
             latitud.add(inci.getLatitud());
             longitud.add(inci.getLongitud());
             icono.add(inci.getIcono().getId());
-            titulo.add(inci.getTitulo());
         }
         model.addAttribute("latitud",latitud);
         model.addAttribute("longitud",longitud);
         model.addAttribute("icono",icono);
-        model.addAttribute("titulo",titulo);
         return "Seguridad_MapaIncidencias";
     }
 
@@ -311,7 +300,6 @@ public class SeguridadController {
 
     }
 
-    //Para actualizar el estado de una incidencia(Comentarios+Estado) *Falta implementar validacion en el form
     @PostMapping(value = {"/actualizarest"})
     public String Actualizaresst(Model model, Incidencia incidencia, String comentario, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
@@ -328,7 +316,6 @@ public class SeguridadController {
         return  "redirect:/seguridad/detalle?id="+id;
     }
 
-    //Para aumentar en uno el contador del reporte del usuario(En proceso)
     @GetMapping(value = {"/reportar"})
     public String Aumentarrep(Incidencia incidencia, @RequestParam("id") int id){
         Optional<Incidencia> opt = incidenciaRepository.findById(id);
@@ -373,7 +360,6 @@ public class SeguridadController {
         }
     }
 
-    //Con estas funciones se actualiza el estado de la incidencia
     @GetMapping(value = {"/actualizaratendido"})
     public String SeguridadActualizar1(@RequestParam("id") int id){
         Optional<Incidencia> incidencia = incidenciaRepository.findById(id);

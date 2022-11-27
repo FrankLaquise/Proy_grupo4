@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -130,7 +132,6 @@ public class AdminController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-
     @PostMapping("/actualizar")
     public String Actualizar(@ModelAttribute("usuario") UsuariosRegistrado usuariosRegistrado) {
         if(usuariosRegistrado.getComentarioSuspension().isEmpty()){
@@ -185,23 +186,31 @@ public class AdminController {
         return "usuario_activo";
     }
 
-
-
     @GetMapping("/perfil")
     public String perfil(){
             return "Admin_Perfil";
 
     }
     @GetMapping(value = "/mapa")
-    public String Mapa(){
+    public String Mapa(Model model){
+        List<Incidencia> incidencia = incidenciaRepository.findAll();
+        List<BigDecimal> latitud = new ArrayList();
+        List<BigDecimal> longitud = new ArrayList();
+        List<Integer> icono = new ArrayList();
+        for(Incidencia inci : incidencia){
+            latitud.add(inci.getLatitud());
+            longitud.add(inci.getLongitud());
+            icono.add(inci.getIcono().getId());
+        }
+        model.addAttribute("latitud",latitud);
+        model.addAttribute("longitud",longitud);
+        model.addAttribute("icono",icono);
         return "Admin_MapaIncidencias";
     }
 
     @GetMapping("/sugerencias")
     public String Sugerencia(Model model){
-
         List<Sugerencia> listadesugenrencias=sugerenciaRepository.findAll();
         model.addAttribute("listadesugerencias",listadesugenrencias);
         return "Admin_Sugerencias";}
-
 }

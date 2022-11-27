@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-
-
-<html
-        lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
         class="light-style layout-menu-fixed"
         dir="ltr"
         data-theme="theme-default"
@@ -18,10 +15,8 @@
   <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1022/1022331.png	" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-          href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet"/>
   <link rel="stylesheet" th:href="@{/css/boxicons.css}" />
   <link rel="stylesheet" th:href="@{/css/core.css}" class="template-customizer-core-css" />
   <link rel="stylesheet" th:href="@{/css/theme-default.css}" class="template-customizer-theme-css" />
@@ -29,12 +24,18 @@
   <link rel="stylesheet" th:href="@{/css/perfect-scrollbar.css}" />
   <script th:src="@{/js/helpers.js}"></script>
   <script th:src="@{/js/config.js}"></script>
+    <style>
+        #map {
+            flex: 0 0 auto;
+            height: 700px;
+            width: 90%;
+            margin-left: 3%;
+        }
+    </style>
 </head>
-    <!-- Layout wrapper -->
+
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-        <!-- Menu -->
-
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
@@ -73,32 +74,20 @@
               </li>
           </ul>
         </aside>
-
         <div class="layout-page">
-
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+          <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar">
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
               </a>
             </div>
-
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
                 <div sec:authorize="isAuthenticated()" class="mt-3">
                     <h2 th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></h2>
-
                 </div>
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-				
-                <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3">
-                 
-
-                <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
@@ -123,19 +112,14 @@
                     </li>
                  <li>
                       <a th:href="@{'/admin/perfil'}" class="dropdown-item" href="#">
-
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
-                   
                     <li>
                         <div sec:authorize="isAuthenticated()">
                             <form th:action="@{/logout}" method="post">
                                 <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                             </form>
-
-
                         </div>
                     </li>
                   </ul>
@@ -143,76 +127,14 @@
               </ul>
             </div>
           </nav>
-
 			<div class="content-wrapper">
-
             <div class="container-xxl flex-grow-1 container-p-y">
-          <!-- Content wrapper -->
           <div class="card">
                 <h3 class="card-header">Mapa de Incidencias</h3>
-			
-                <div class="container px-9 py-5">
-
-                                    <span> </span><span> </span>
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.622025397508!2d-77.08154788583279!3d-12.069506745608525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c912d40840a5%3A0xd7a0bfb797e5862e!2sPontificia%20Universidad%20Cat%C3%B3lica%20del%20Per%C3%BA!5e0!3m2!1ses-419!2spe!4v1663016346161!5m2!1ses-419!2spe" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                </div>
 				  <div class="card-body">
-                    
-                      <div class="demo-inline-spacing">
-					  
-						<div class="card accordion-item">
-						<div class="mt-3">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                          Leyenda
-                        </button>
-                        <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel1">Leyenda</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Mi Ubicacion</h6>
-                                  </div>
-                                </div>
-								<div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Objeto Perdido</h6>
-                                  </div>
-                                </div>
-								<div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Infraestructura mal estado</h6>
-                                  </div>
-                                </div>
-								<div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Ambulancia PUCP</h6>
-                                  </div>
-                                </div>
-								<div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Accidente</h6>
-                                  </div>
-                                </div>
-								<div class="row">
-                                  <div class="col mb-3">
-                                    <h6>Otros</h6>
-                                  </div>
-                                </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                  Cerrar
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <div id="map"></div>
+                      <br>
+                      <div class="mb3 col-md-a">
                     <a th:href="@{'/admin/incidentes'}">
                         <button type="button" class="btn rounded-pill btn-outline-primary">Regresar</button>
                     </a>
@@ -227,13 +149,61 @@
     </div>
     </div>
 </body>
-              <div id = "fb-root" ></div> <script async defer crossorigin = "anónimo" src = "https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce = "RhQbcBPc" ></script>
-              <!-- build:js assets/vendor/js/core.js -->
-              <script th:src="@{/js/jquery.js}"></script>
-              <script th:src="@{/js/popper.js}"></script>
-              <script th:src="@{/js/bootstrap.js}"></script>
-              <script th:src="@{/js/perfect-scrollbar.js}"></script>
-              <script th:src="@{/js/menu.js}"></script>
-              <script th:src="@{/js/main.js}"></script>
-              <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script type="text/javascript">
+    function iniciarMap(){
+        var latitud = [[${latitud}]];
+        var longitud = [[${longitud}]];
+        var icono = [[${icono}]];
+        var coord = {lat: -12.071 ,lng: -77.081};
+        var map = new google.maps.Map(document.getElementById('map'),{
+            zoom: 17,
+            center: coord
+        });
+        let lati;
+        let x = 0;
+        for(lati in latitud){
+            switch(icono[x]){
+                case 1:
+                    imag = "/icono/ambu.png";
+                    break;
+                case 2:
+                    imag = "/icono/atropello.png";
+                    break;
+                case 3:
+                    imag = "/icono/celu.png";
+                    break;
+                case 4:
+                    imag = "/icono/china.png";
+                    break;
+                case 5:
+                    imag = "/icono/choque.png";
+                    break;
+                case 6:
+                    imag = "/icono/gato.png";
+                    break;
+                case 7:
+                    imag = "/icono/herido.png";
+                    break;
+                case 8:
+                    imag = "/icono/incendio.png";
+                    break;
+            }
+            var marker = new google.maps.Marker({
+                position: {lat: latitud[x],lng: longitud[x]},
+                map: map,
+                icon : imag
+            });
+            x++;}
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=iniciarMap"
+></script>
+<script async defer crossorigin = "anónimo" src = "https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v15.0" nonce = "RhQbcBPc" ></script>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/js/popper.js}"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script th:src="@{/js/perfect-scrollbar.js}"></script>
+<script th:src="@{/js/menu.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 </html>
