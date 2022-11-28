@@ -78,7 +78,7 @@ public class IncidenciaController {
         PageRequest pageRequest =PageRequest.of(page,3);
         //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
-            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,6,buscarx,"destacado");
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,4,buscarx,"destacado");
             int totalPage  = pageIncidencia.getTotalPages();
 
             if (totalPage>0){
@@ -93,7 +93,7 @@ public class IncidenciaController {
 
             model.addAttribute("ordenarpor",buscarx);
         }else {
-            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,6,"titulo","destacado");
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,4,"titulo","destacado");
             int totalPage  = pageIncidencia.getTotalPages();
 
             if (totalPage>0){
@@ -122,7 +122,7 @@ public class IncidenciaController {
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
         if (buscarx != null){
-            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,10,buscarx);
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,4,buscarx);
             int totalPage  = pageIncidencia.getTotalPages();
 
             if (totalPage>0){
@@ -137,7 +137,7 @@ public class IncidenciaController {
 
             model.addAttribute("ordenarpor",buscarx);
         }else {
-            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,"titulo");
+            Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,4,"titulo");
             int totalPage  = pageIncidencia.getTotalPages();
 
             if (totalPage>0){
@@ -233,7 +233,7 @@ public class IncidenciaController {
         PageRequest pageRequest =PageRequest.of(page,3);
         //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
 if (buscarx != null){
-    Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
+    Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,4,buscarx);
     int totalPage  = pageIncidencia.getTotalPages();
 
     if (totalPage>0){
@@ -248,7 +248,7 @@ if (buscarx != null){
 
     model.addAttribute("ordenarpor",buscarx);
 }else {
-    Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,"titulo");
+    Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,4,"titulo");
     int totalPage  = pageIncidencia.getTotalPages();
 
     if (totalPage>0){
