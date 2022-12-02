@@ -55,6 +55,28 @@ public class UsuariosRegistrado implements Serializable {
     @JoinColumn(name = "icono", nullable = false)
     private Icono icono;
 
+    //@Column(name = "fotoNombre", nullable = false, length = 45)
+    //private String fotoNombre;
+
+    //@Column(name = "fotoContentType", nullable = false)
+    //private String fotoContentType;
+
+    /*public String getFotoContentType() {
+        return fotoContentType;
+    }
+
+    public void setFotoContentType(String fotoContentType) {
+        this.fotoContentType = fotoContentType;
+    }
+
+    public String getFotoNombre() {
+        return fotoNombre;
+    }
+
+    public void setFotoNombre(String fotoNombre) {
+        this.fotoNombre = fotoNombre;
+    }*/
+
     public String getId() {
         return id;
     }
