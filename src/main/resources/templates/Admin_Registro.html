@@ -44,7 +44,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
                 <li class="menu-item">
-                  <a th:href="@{'/admin/incidentes'}" class="menu-link">
+                  <a th:href="@{'/admin/incidentes?page=1&buscarx=horaCreacion'}" class="menu-link">
                     <div data-i18n="Account">Incidentes</div>
                   </a>
                 </li>
@@ -207,7 +207,7 @@
                                       th:value="${icono.id}"></option>
                             </select>
                           </div><div class="mb-3 col-md-a">
-						<button type="submit" class="btn btn-danger deactivate-account">Registrar</button></div>
+						<button type="submit" class="btn btn-success">Registrar</button></div>
                         </div>
                       </form>
                     </div>
