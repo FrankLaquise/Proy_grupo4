@@ -39,7 +39,7 @@
           <div class="menu-inner-shadow"></div>
           <ul class="menu-inner py-1">
                 <li class="menu-item active">
-                  <a th:href="@{'/admin/incidentes'}" class="menu-link">
+                  <a th:href="@{'/admin/incidentes?page=1&buscarx=horaCreacion'}" class="menu-link">
                     <div data-i18n="Account">Incidentes</div>
                   </a>
                 </li>
@@ -185,6 +185,9 @@
                                     <a class="page-link" th:href="@{|/admin/incidentes?page=${next}&buscarx=titulo|}" >Siguiente</a>
                                 </li>
                             </ul>
+                        </div>
+
+                        <div class="col-md-2"></div>
                     </div>
                     <!-- fin Paginacion  -->
                     <!-- Paginacion  -->
@@ -203,6 +206,8 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="col-md-2"></div>
                     </div>
                     <!-- fin Paginacion  -->
                     <!-- Paginacion  -->
@@ -221,6 +226,8 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="col-md-2"></div>
                     </div>
                     <!-- fin Paginacion  -->
                     <!-- Paginacion  -->
@@ -239,6 +246,8 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="col-md-2"></div>
                     </div>
                     <!-- fin Paginacion  -->
                     <!-- Paginacion  -->
@@ -257,8 +266,11 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <div class="col-md-2"></div>
                     </div>
                     <!-- fin Paginacion  -->
+
                 </div>
 				  <div class="card-body">
                       <div class="demo-inline-spacing">

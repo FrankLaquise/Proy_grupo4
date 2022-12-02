@@ -61,7 +61,7 @@ public class LoginController {
 
         String username = authentication.getName();//obtengo por correo
         UsuariosRegistrado usuariosRegistrado = usuarioRepository.findByCorreo(username);//busco por email
-        session.setAttribute("usuario",usuariosRegistrado);
+        session.setAttribute("usuario",usuariosRegistrado); 
 
         switch (rol){
             case "Administrativo" -> {return "redirect:/admin/incidentes";}
