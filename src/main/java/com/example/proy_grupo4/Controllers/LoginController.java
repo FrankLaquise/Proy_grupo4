@@ -64,10 +64,10 @@ public class LoginController {
         session.setAttribute("usuario",usuariosRegistrado); 
 
         switch (rol){
-            case "Administrativo" -> {return "redirect:/admin/incidentes";}
-            case "Alumno" -> {return "redirect:/incidencia/list";}
+            case "Administrativo" -> {return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion";}
+            case "Alumno" -> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
             case "Seguridad" -> {return "redirect:/seguridad/factor?id="+usuariosRegistrado.getId();}
-            default -> {return"redirect:/incidencia/list";}
+            default -> {return"redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
         }
     }
 
