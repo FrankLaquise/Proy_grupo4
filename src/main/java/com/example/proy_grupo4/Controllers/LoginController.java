@@ -37,6 +37,14 @@ public class LoginController {
         adminRepository.save(usuario);
         return "redirect:/admin/usuario";
     }
+
+    @PostMapping("recuperar")
+    public String Recuperar(UsuariosRegistrado usuario) {
+        String contra = usuario.getContrasena();
+        usuario.setContrasena(BCrypt.hashpw(contra,BCrypt.gensalt()));
+        adminRepository.save(usuario);
+        return "redirect:/admin/usuario";
+    }
     @GetMapping("ventanaLogin")
     public String ventanaLogin(){
         return "Login";
@@ -49,6 +57,23 @@ public class LoginController {
         model.addAttribute("usuario",usuariosRegistrado);
         return "ACTIVACION";
     }
+
+    @Autowired
+    private Email sender;
+    @PostMapping("olvido")
+    public String olvidar(@RequestParam("corre") String correo){
+        sender.sendEmail(correo,"Link para la recuperacion del clave",
+                "https://nohaycreatividad.azurewebsites.net/recuperacion?correo="+correo);
+        return "Login";
+    }
+
+    @GetMapping("recuperacion")
+    public String recu(Model model, @RequestParam("correo") String correo){
+        UsuariosRegistrado usuario = adminRepository.buscarxcorreo(correo);
+        model.addAttribute("usuario",usuario);
+        return "Login_RecuperarContra";
+    }
+
 
     @GetMapping("redireccionarPorRol")
     public String redireccionarPorRol(Authentication authentication, HttpSession session){

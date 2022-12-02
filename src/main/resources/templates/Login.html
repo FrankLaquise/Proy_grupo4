@@ -68,9 +68,9 @@
             <div class="mb-3 form-password-toggle">
               <div class="form-outline form-white mb-4" >
                 <label class="form-label" for="password">Contraseña</label>
-                <a th:href="@{'/incidencia/recuperar_contra'}">
+                <div data-bs-toggle="modal" data-bs-target="#basicModal">
                   <small>Olvido su contraseña?</small>
-                </a>
+                </div>
               </div>
               <div class="input-group input-group-merge">
                 <input
@@ -100,8 +100,25 @@
           </form>
         </div>
       </div>
-      <!-- /Register -->
-    </div>
+      <form method="POST" th:action="@{/olvido}">
+      <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">Ingresar Correo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <label for="corre" class="form-label">Correo</label>
+            <input type="text" class="form-control" id="corre" name="corre" th:value="${corre}">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Enviar correo</button>
+          </div>
+        </div>
+      </div>
+    </div></form>
   </div>
 </div>
 

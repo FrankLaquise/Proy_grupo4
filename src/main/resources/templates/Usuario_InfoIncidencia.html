@@ -252,16 +252,44 @@
 </body>
 <script type="text/javascript">
     function iniciarMap(position){
+        var icono = [[${Incidencia.getIcono().getId()}]];
+        switch(icono){
+            case 1:
+                imag = "/icono/ambu.png";
+                break;
+            case 2:
+                imag = "/icono/atropello.png";
+                break;
+            case 3:
+                imag = "/icono/celu.png";
+                break;
+            case 4:
+                imag = "/icono/china.png";
+                break;
+            case 5:
+                imag = "/icono/choque.png";
+                break;
+            case 6:
+                imag = "/icono/gato.png";
+                break;
+            case 7:
+                imag = "/icono/herido.png";
+                break;
+            case 8:
+                imag = "/icono/incendio.png";
+                break;
+        }
         var latitud = [[${Incidencia.getLatitud()}]];
         var longitud = [[${Incidencia.getLongitud()}]];
         var coord = {lat: latitud ,lng: longitud};
         var map = new google.maps.Map(document.getElementById('map'),{
-            zoom: 10,
+            zoom: 17,
             center: coord
         });
         var marker = new google.maps.Marker({
             position: coord,
-            map: map
+            map: map,
+            icon: imag
         });
     }
 </script>
