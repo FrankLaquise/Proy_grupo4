@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,9 +54,9 @@ public class IncidenciaController {
         sender.sendEmail(destino,subjet,body);
     }
     @GetMapping("/perfil")
-    public String perfil(Model model) {
-
-        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = usuarioRepository.findById("20120000");
+    public String perfil(Model model , HttpSession session) {
+        UsuariosRegistrado user = (UsuariosRegistrado) session.getAttribute("usuario");
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = usuarioRepository.findById(user.getId());
 
         if (optionalUsuariosRegistrado.isPresent()) {
             UsuariosRegistrado usuario= optionalUsuariosRegistrado.get();
@@ -288,17 +289,23 @@ if (buscarx != null){
         incidencia.setComentariosRestantes(100);
         incidencia.setCalificacion(0);
         incidenciaRepository.save(incidencia);
-        return "redirect:/incidencia/list";
+        return "Usuario_ListaIncidencias";
     }
 
-    @PostMapping(value = {"/cambiotel"})
+    /*@PostMapping(value = {"/cambiotel"})
     public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("file") MultipartFile imagen) throws IOException {
         usuario.setFoto(imagen.getBytes());
         System.out.printf(usuario.getFoto().toString());
         System.out.println(usuario.getId());
         adminRepository.actualizar(usuario.getId(),usuario.getFoto());
-        return "redirect:/incidencia/list";
-    }
+        return "Usuario_ListaIncidencias";
+    }*/
+    @PostMapping(value = {"/cambiotel"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+        if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
+        }
+        return "redirect:/incidencia";}
 
     @RequestMapping(value ={"/resuelto"})
     public String resuelto(@RequestParam("id") int id){
