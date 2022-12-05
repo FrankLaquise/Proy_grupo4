@@ -15,17 +15,19 @@ import javax.sql.DataSource;
 public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/oauth2", "/oauth2/**").access("not (hasAnyAuthority('Alumno', 'Administrativo', 'Seguridad'))")
+                .antMatchers("/admin","/admin/**").hasAnyAuthority("Administrativo","ROLE_USER")
+                .antMatchers("/incidencia","/incidencia/**").hasAnyAuthority("Alumno","ROLE_USER")
+                .antMatchers("/seguridad","/seguridad/**").hasAnyAuthority("Seguridad","ROLE_USER")
+                .anyRequest().permitAll();
+
         http.formLogin()
                 .loginPage("/ventanaLogin").loginProcessingUrl("/procesarLoginForm")
                 .defaultSuccessUrl("/redireccionarPorRol", true);
-//Alumno,Administrativo,Jefe de Práctica
-        //Profesor,Egresado,Seguridad
-        //Administrador
-        http.authorizeRequests()
-                .antMatchers("/admin","/admin/**").hasAuthority("Administrativo")
-                .antMatchers("/incidencia","/incidencia/**").hasAuthority("Alumno")
-                .antMatchers("/seguridad","/seguridad/**").hasAuthority("Seguridad")
-                .anyRequest().permitAll();
+
+        http.oauth2Login().loginPage("/ventanaLogin").defaultSuccessUrl("/oauth2/login",true);
+
         http.logout()
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);//cuando cierre sesion,borra la cookie e invalida sesion
@@ -43,4 +45,5 @@ public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("SELECT correo,r.titulo FROM usuarios_registrados u inner join roles r on (u.rol = r.idroles) where correo=? and u.estado=1;");
 
     }
+
 }

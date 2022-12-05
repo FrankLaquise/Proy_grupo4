@@ -20,6 +20,9 @@ public interface UsuarioRepository extends JpaRepository<UsuariosRegistrado,Stri
     @Query(nativeQuery = true, value = "UPDATE usuarios_registrados SET telefono = ?1 WHERE (codigo = ?2)")
         void actualizarTelefono(String phone, String codigous);
 
+    @Query(nativeQuery = true, value = "select `rol` from `reportpucp`.`usuarios_registrados`  WHERE (`codigo` = ?1)")
+    Integer rolporid(String id);
+
 
 
 }

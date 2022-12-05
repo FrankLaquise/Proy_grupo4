@@ -93,11 +93,19 @@
             <div class="mb-3">
               <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
             </div>
-            <div class="mb-3">
-              <button style="background-color: #dadada; color: #000000;padding-left: 100px;display:flex;align-items: center; font-weight: 600" class="btn w-100" type="submit">Ingresar con Google&nbsp;&nbsp;
-                <img th:src="@{img/Usable/googlelogo.png}" style="float: right" alt class="w-px-40 h-auto rounded-circle" /></button>
-            </div>
           </form>
+          <div class="mb-3">
+            <button style="background-color: #dadada;
+                          color: #000000;
+                          padding-left: 75px;
+                          display:flex;
+                          align-items: center;
+                          font-weight: 1000"
+                          class="btn w-100"
+                    >
+              <a th:href="@{/oauth2/authorization/google}" class="btn" style="font-weight: bold; color: black">Ingresar con google</a>
+              <img th:src="@{/img/google.png}" alt class="w-px-40 h-auto rounded-circle" /></button>
+          </div>
         </div>
       </div>
       <form method="POST" th:action="@{/olvido}">
@@ -120,6 +128,7 @@
       </div>
     </div></form>
   </div>
+</div>
 </div>
 
 <script th:src="@{/js/jquery.js}"></script>

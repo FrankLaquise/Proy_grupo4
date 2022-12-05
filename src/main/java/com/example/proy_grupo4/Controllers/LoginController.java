@@ -1,23 +1,35 @@
 package com.example.proy_grupo4.Controllers;
 
 import com.example.proy_grupo4.Email;
+import com.example.proy_grupo4.Entity.Roles;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import com.example.proy_grupo4.Repository.AdminRepository;
 import com.example.proy_grupo4.Repository.UsuarioRepository;
+import com.example.proy_grupo4.security.oauth.CustomOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -27,6 +39,9 @@ public class LoginController {
 
     @Autowired
     AdminRepository adminRepository;
+
+    @Autowired
+    private OAuth2AuthorizedClientService authorizedClientService;
 
     @PostMapping("activar")
     public String Activar(UsuariosRegistrado usuario) {
@@ -82,6 +97,7 @@ public class LoginController {
         for(GrantedAuthority grantedAuthority : authorities){
             System.out.println(grantedAuthority);
             rol=grantedAuthority.getAuthority();
+            System.out.println(rol);
         }
 
         String username = authentication.getName();//obtengo por correo
@@ -96,4 +112,74 @@ public class LoginController {
         }
     }
 
+    @GetMapping({"/oauth/login2"})
+    public String logingooglept2(Authentication auth, Model model, HttpSession session) {
+        String rol = "";
+        List<GrantedAuthority> authorities=(List<GrantedAuthority>) auth.getAuthorities();
+        for(GrantedAuthority grantedAuthority : authorities){
+            rol=grantedAuthority.getAuthority();
+        }
+        UsuariosRegistrado userg = (UsuariosRegistrado) session.getAttribute("usuario");
+        //Roles ro = (Roles) session.getAttribute("rol");
+        System.out.println(userg.getNombre());
+        Integer roluser = usuarioRepository.rolporid(userg.getId());
+        System.out.println(roluser);
+        switch (roluser){
+            case (1)-> {return "redirect:/incidencia/list";}
+            case (2) -> {return "redirect:/incidencia/list";}
+            case (3)-> {return "redirect:/incidencia/list";}
+            case (4)-> {return "redirect:/incidencia/list";}
+            case (5)-> {return "redirect:/incidencia/list";}
+            case (6) -> {return "redirect:/seguridad/factor?id="+userg.getId();}
+            case (7) -> {return "redirect:/admin/incidentes";}
+            default -> {return"redirect:/incidencia/list";}
+        }
+    }
+    @GetMapping("/oauth2/login")
+    public String redirectOauth2(Model model, OAuth2AuthenticationToken authentication, HttpSession session){
+        OAuth2AuthorizedClient authorizedClient = this.getAuthorizedClient(authentication);
+
+        Map userAttributes = Collections.emptyMap();
+        String userInfoEndpointUri = authorizedClient.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
+        userAttributes = WebClient.builder().filter(oauth2Credentials(authorizedClient))
+                .build().get().uri(userInfoEndpointUri).retrieve().bodyToMono(Map.class).block();
+
+        String email = (String) userAttributes.get("email");
+
+        System.out.println(email);
+        Optional<UsuariosRegistrado> optusuario = Optional.ofNullable(usuarioRepository.findByCorreo(email));
+        if(optusuario.isPresent()){
+            UsuariosRegistrado usuariop = optusuario.get();
+            session.setAttribute("usuario",usuariop);
+            session.setAttribute("rol",usuariop.getRol());
+            System.out.println(usuariop.getCorreo());
+            System.out.println(usuariop.getNombre());
+            System.out.println(usuariop.getDni());
+            return "redirect:/oauth/login2";
+        }else{
+            System.out.println("usuario no existe en base de datos");
+            return "redirect:/errorLoginGoogle";
+        }
+    }
+
+
+    private OAuth2AuthorizedClient getAuthorizedClient(OAuth2AuthenticationToken authentication) {
+        return this.authorizedClientService.loadAuthorizedClient(
+                authentication.getAuthorizedClientRegistrationId(), authentication.getName());
+    }
+
+    private ExchangeFilterFunction oauth2Credentials(OAuth2AuthorizedClient authorizedClient) {
+        return ExchangeFilterFunction.ofRequestProcessor(
+                clientRequest -> {
+                    ClientRequest authorizedRequest = ClientRequest.from(clientRequest)
+                            .header(HttpHeaders.AUTHORIZATION, "Bearer " +
+                                    authorizedClient.getAccessToken().getTokenValue()).build();
+                    return Mono.just(authorizedRequest);
+                });
+    }
+
+    @GetMapping(value = {"/errorLoginGoogle"})
+    public String errorLoginGoogle(){
+        return "Error_loginGoogle";
+    }
 }

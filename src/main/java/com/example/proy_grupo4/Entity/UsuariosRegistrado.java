@@ -51,6 +51,11 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "comentario_suspension", length = 80)
     private String comentarioSuspension;
 
+    //authgoogle
+    @Enumerated(EnumType.STRING)
+    @Column(name="auth_provider")
+    private AuthenticationProvider authProvider;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "icono", nullable = false)
     private Icono icono;
@@ -179,6 +184,15 @@ public class UsuariosRegistrado implements Serializable {
 
     public void setIcono(Icono icono) {
         this.icono = icono;
+    }
+
+    //googleauth
+    public AuthenticationProvider getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(AuthenticationProvider authProvider) {
+        this.authProvider = authProvider;
     }
 
 }
