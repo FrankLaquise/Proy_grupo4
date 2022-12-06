@@ -129,10 +129,19 @@
                 <div data-i18n="Analytics">Sugerencias</div>
               </a>
             </li>
+
+
+
+
+
           </ul>
         </aside>
+        <!-- / Menu -->
 
+        <!-- Layout container -->
         <div class="layout-page">
+          <!-- Navbar -->
+
           <nav
             class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
@@ -178,7 +187,7 @@
                       </a>
                     </li>
 					<li>
-                      <a class="dropdown-item" th:href="@{'/incidencia/perfil'}">
+                      <a class="dropdown-item" href="Usuario_Perfil.html">
 
                         <span class="align-middle">Mi Perfil</span>
                       </a>
@@ -190,6 +199,8 @@
                           <input class="btn btn-link" type="submit" value="Cerrar Sesion">
 
                         </form>
+
+
                       </div>
                     </li>
                   </ul>
@@ -210,26 +221,27 @@
 
               <div class="row">
                 <div class="col-md-12">
-                  <form id="formAccountSettings" method="POST" th:action="@{'/incidencia/cambiotel'}"  enctype="multipart/form-data">
+                
                   <div class="card mb-4">
                     <h3 class="card-header" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></h3>
                     <!-- Account -->
-					<div class="card-body">
-                      <div class="d-flex align-items-start align-items-sm-center gap-4">
-                          <h4 class="form-label" >Foto</h4>
-                          <div class="text-center mt-2 mb-3">
-                            <img id="img-preview" th:src="${usuario.getFoto()}" style="max-width: 300px; resize: both; max-width: 300px" />
+                    <div class="col-lg-4 text-center">
+                      <div class="bg-image hover-overlay ripple user-page d-inline-block mb-3">
+                        <img th:src="@{'/incidencia/imagen'}" >
+                        <a href="#!" data-mdb-toggle="modal" data-mdb-target="#imagenModal">
+                          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                              <p class="text-white mb-0">Cambiar imagen</p>
+                            </div>
                           </div>
-                          <div class="d-flex justify-content-center my-3">
-                            <input type="file" accept="image/*" id="img-uploader" name="file">
-                            <input type="hidden" name="photoUrl" id="photoUrl" />
-                          </div>
-
+                        </a>
                       </div>
+                    </div>
+
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <input class="form-control" type="text" name="id" th:value="${usuario.id}" hidden>
+                      <form id="formAccountSettings" method="POST" th:action="@{'/incidencia/cambiotel?id='+${usuario.getId}}">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">Nombre</label>
@@ -276,7 +288,35 @@
             </div>
             <!-- / Content -->
 
-            
+                <!-- Modal Añadir Imagen -->
+                <div class="modal top fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModal" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+                  <div class="modal-dialog  ">
+                    <form method="post" th:action="@{/incidencia/cambiarimagen}" enctype="multipart/form-data">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Cambiar imagen</h5>
+                          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-flex justify-content-center py-4">
+                          <div style="height: 250px; width: 250px">
+                            <script>
+                              $(function() {
+                                $('.dropify').dropify();
+                              });
+                            </script>
+                            <input  type="file" name="foto" id="foto" data-max-file-size="1M" class="dropify" />
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-dark" data-mdb-dismiss="modal">
+                            Cerrar
+                          </button>
+                          <button type="submit" class="btn btn-redtele">Subir</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -295,40 +335,6 @@
 
     <!-- Page JS -->
     <script th:src="@{/js/pages-account-settings-account.js}"></script>
-          <script>
-            const imagePreview = document.getElementById('img-preview');
-            const imageUploader = document.getElementById('img-uploader');
-            const imageUploadbar = document.getElementById('img-upload-bar');
-
-            const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dytz5evzl/image/upload';
-            const CLOUDINARY_UPLOAD_PRESET = 'qz9oylvw';
-
-            imageUploader.addEventListener('change', async (e) => {
-              // console.log(e);
-              const file = e.target.files[0];
-              const formData = new FormData();
-              formData.append('file', file);
-              formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-              // Send to cloudianry
-              const res = await axios.post(
-                      CLOUDINARY_URL,
-                      formData,
-                      {
-                        headers: {
-                          'Content-Type': 'multipart/form-data'
-                        },
-                        onUploadProgress(e) {
-                          let progress = Math.round((e.loaded * 100.0) / e.total);
-                          console.log(progress);
-                          imageUploadbar.setAttribute('value', progress);
-                        }
-                      }
-              );
-              imagePreview.src = res.data.secure_url;
-              document.getElementById("photoUrl").value = res.data.secure_url;
-            });
-          </script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

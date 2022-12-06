@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
@@ -24,9 +27,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -47,7 +54,7 @@ public class IncidenciaController {
     TipoRepository tipoRepository;
     @Autowired
     ComentariosRepository comentariosRepository;
-
+    private final List<String> formatos= Arrays.asList("media/png","media/jpeg", "image/jpeg", "image/png");
     @Autowired
     private Email sender;
     public void sendMail(String destino, String subjet, String body){
@@ -330,6 +337,62 @@ if (buscarx != null){
         sugerenciaRepository.save(sugerencia);
         return "redirect:/incidencia/sugerencias";
 
+    }
+
+    @PostMapping("/cambiarimagen")
+    public String cambiarImagen(@RequestParam("foto") MultipartFile foto, RedirectAttributes attr, HttpSession session){
+
+        UsuariosRegistrado usuariosRegistrado = (UsuariosRegistrado) session.getAttribute("usuario");
+
+        if (foto.isEmpty()) {
+            attr.addFlashAttribute("error",1);
+            attr.addFlashAttribute("msg", "Debe subir un archivo");
+            return "redirect:/incidencia/perfil";
+        }
+        if (!verificarFoto(foto)) {
+            attr.addFlashAttribute("error",1);
+            attr.addFlashAttribute("msg", "Debe subir una imagen, no se acepta otros archivos");
+            return "redirect:/incidencia/perfil";
+        }
+        String fotoNombre = foto.getOriginalFilename();
+
+        if (fotoNombre.contains("..")) {
+            attr.addFlashAttribute("error",1);
+            attr.addFlashAttribute("msg", "No se permiten '..' en el archivo");
+            return "redirect:/incidencia/perfil";
+        }
+
+        try {
+            byte[] fotoB = foto.getBytes();
+            usuarioRepository.updateFoto(fotoB,usuariosRegistrado.getId());
+            attr.addFlashAttribute("msg","Se ha actualizado la foto de perfil");
+            return "redirect:/incidencia/perfil";
+        } catch (IOException e){
+            e.printStackTrace();
+            attr.addFlashAttribute("error",1);
+            attr.addFlashAttribute("msg", "Hubo un error al cargar el archivo");
+            return "redirect:/incidencia/perfil";
+        }
+    }
+
+    @GetMapping("/imagen")
+    public void mostrarImagen(HttpSession session, HttpServletResponse response)throws ServletException, IOException {
+        UsuariosRegistrado use = (UsuariosRegistrado) session.getAttribute("usuario");
+        Optional<UsuariosRegistrado> optuser = usuarioRepository.findById(use.getId());
+        byte[] foto = optuser.get().getFoto();
+        if(foto == null) {
+            foto = this.getClass().getClassLoader().getResourceAsStream("static/img/1.png").readAllBytes();
+        }
+        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+        response.getOutputStream().write(foto);
+        response.getOutputStream().close();
+    }
+
+    private boolean verificarFoto(MultipartFile file){
+        if(formatos.contains(file.getContentType().toLowerCase(Locale.ROOT))){
+            return true;
+        }
+        return false;
     }
 
 }
