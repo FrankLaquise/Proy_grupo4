@@ -68,14 +68,9 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a  class="app-brand-link">
-
               <span class="app-brand-logo demo">
-
-                  <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150"
-                       height="100"> </img>
-
-
-
+                  <img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150" height="100">
+              </span></a>
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
@@ -260,9 +255,6 @@
                             <input type="text" class="form-control" id="organization" name="organization" th:value="${usuario.dni}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
-
-
-
                             <div class="mb-3 col-md-6">
                               <label class="form-label" for="telefono">Celular</label>
                               <div class="input-group input-group-merge">
@@ -270,11 +262,11 @@
                                 <input type="number" name="telefono" id="telefono" class="form-control" placeholder="999999999" th:value="${usuario.telefono}">
                               </div>
                             </div>
-
-                          <div class="mb-3 col-md-6">
+                            <div class="mb-3 col-md-6">
                             <label for="id" class="form-label">Codigo PUCP</label>
                             <input type="number" class="form-control" id="id" name="id" placeholder="88888888" th:value="${usuario.getId()}" disabled>
                           </div>
+                        </div>
                         </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary">Guardar</button>
@@ -282,14 +274,15 @@
                         </div>
                       </form>
                     </div>
-                   
                 </div>
               </div>
             </div>
-            <!-- / Content -->
-
-                <!-- Modal Añadir Imagen -->
-                <div class="modal top fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModal" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+          </div>
+        </div>
+      </div>
+    </div>
+     <!-- Modal Añadir Imagen -->
+    <div class="modal top fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModal" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
                   <div class="modal-dialog  ">
                     <form method="post" th:action="@{/incidencia/cambiarimagen}" enctype="multipart/form-data">
                       <div class="modal-content">
@@ -318,25 +311,13 @@
                   </div>
                 </div>
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-              <script th:src="@{/js/jquery.js}"></script>
-              <script th:src="@{/js/popper.js}"></script>
-              <script th:src="@{/js/bootstrap.js}"></script>
-              <script th:src="@{/js/perfect-scrollbar.js}"></script>
-
-              <script th:src="@{/js/menu.js}"></script>
-              <!-- endbuild -->
-
-              <!-- Vendors JS -->
-
-              <!-- Main JS -->
-              <script th:src="@{/js/main.js}"></script>
-
-    <!-- Page JS -->
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/perfect-scrollbar.js}"></script>
+    <script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/pages-account-settings-account.js}"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
