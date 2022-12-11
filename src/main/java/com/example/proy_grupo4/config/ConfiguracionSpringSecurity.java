@@ -16,7 +16,7 @@ public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/oauth2", "/oauth2/**").access("not (hasAnyAuthority('Alumno', 'Administrativo', 'Seguridad'))")
+                .antMatchers("/oauth2", "/oauth2/**").access("not (hasAnyAuthority('Alumno','Administrativo','Seguridad'))")
                 .antMatchers("/admin","/admin/**").hasAnyAuthority("Administrativo","ROLE_USER")
                 .antMatchers("/incidencia","/incidencia/**").hasAnyAuthority("Alumno","ROLE_USER")
                 .antMatchers("/seguridad","/seguridad/**").hasAnyAuthority("Seguridad","ROLE_USER")

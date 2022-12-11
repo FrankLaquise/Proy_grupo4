@@ -274,7 +274,7 @@ public class SeguridadController {
         UsuariosRegistrado usuariosRegistrado = opt.get();
         int codigo = (int)(Math.random()*(9999-1000+1)+1000);
         sender.sendEmail(usuariosRegistrado.getCorreo(),"Codigo de doble factor",
-                "el codigo de verificacion es el siguiente:\n"+ codigo);
+                "El codigo de verificacion es el siguiente:\n"+ codigo);
         model.addAttribute("codigo",codigo);
         return "verificacion";
     }
