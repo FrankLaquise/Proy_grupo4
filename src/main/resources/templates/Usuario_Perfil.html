@@ -27,6 +27,13 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
+    <style>
+      .dropify-wrapper{
+        height: 250px !important;
+      }
+    </style>
+    <link rel="stylesheet" th:href="@{/css/dropify.css}"/>
+
     <title>Perfil de usuario</title>
 
     <meta name="description" content="" />
@@ -60,6 +67,11 @@
   </head>
 
   <body>
+    <script>
+      $(function() {
+        $('.dropify').dropify();
+      });
+    </script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -267,13 +279,13 @@
                             <input type="number" class="form-control" id="id" name="id" placeholder="88888888" th:value="${usuario.getId()}" disabled>
                           </div>
                         </div>
-                        </div>
                         <div class="mt-2">
                           <button type="submit" class="btn btn-primary">Guardar</button>
                           <a th:href="@{'/incidencia'}" class="btn btn-danger">Cancelar</a>
                         </div>
                       </form>
                     </div>
+                   
                 </div>
               </div>
             </div>
@@ -310,6 +322,7 @@
                     </form>
                   </div>
                 </div>
+    <script th:src="@{/js/dropify.js}"></script>
     <script th:src="@{/js/jquery.js}"></script>
     <script th:src="@{/js/popper.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
@@ -317,6 +330,8 @@
     <script th:src="@{/js/menu.js}"></script>
     <script th:src="@{/js/main.js}"></script>
     <script th:src="@{/js/pages-account-settings-account.js}"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
