@@ -299,10 +299,24 @@ if (buscarx != null){
         return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 
-    @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("file") MultipartFile imagen) throws IOException {
-        usuario.setFoto(imagen.getBytes());
-        adminRepository.actualizar(usuario.getId(),usuario.getFoto());
+    @PostMapping(value = {"/cambio"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id, @RequestParam("file") MultipartFile imagen){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+        UsuariosRegistrado usuariosRegistrado = opt.get();
+        if(!imagen.isEmpty()){
+            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
+            System.out.println(directorio);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
+                Path rutacompleta = Paths.get(strpath);
+                Files.write(rutacompleta,bytesImg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        usuariosRegistrado.setTelefono(usuario.getTelefono());
+        usuarioRepository.actualizar(usuariosRegistrado.getTelefono(),id);
         return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 

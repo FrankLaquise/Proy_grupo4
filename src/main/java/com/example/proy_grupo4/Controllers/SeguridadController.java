@@ -19,13 +19,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.proy_grupo4.Entity.Incidencia;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -51,7 +56,7 @@ public class SeguridadController {
     ComentariosRepository comentariosRepository;
 
     @Autowired
-    ComentariosRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
 
     @GetMapping(value = {"/login2F"})
     public String Seguridadlogin2F(){
@@ -353,13 +358,13 @@ public class SeguridadController {
         return  "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
 
-    //Para acceder al perfil del seguridad
     @GetMapping("/perfil")
-    public String perfil(Model model) {
-        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = seguridadRepository.findById("20110000");
+    public String perfil(Model model, HttpSession session) {
+        UsuariosRegistrado user = (UsuariosRegistrado) session.getAttribute("usuario");
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = seguridadRepository.findById(user.getId());
         if (optionalUsuariosRegistrado.isPresent()) {
             UsuariosRegistrado seguridad= optionalUsuariosRegistrado.get();
-            model.addAttribute("seguridad", seguridad);
+            model.addAttribute("usuario", seguridad);
             return "Seguridad_Perfil";
         } else {
             return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
@@ -387,6 +392,26 @@ public class SeguridadController {
     @GetMapping(value = {"/actualizarregistrado"})
     public String SeguridadActualizar3(@RequestParam("id") int id){
         incidenciaRepository.ActualizarRegistrado(id);
+        return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
+    }
+    @PostMapping(value = {"/cambio"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id, @RequestParam("file") MultipartFile imagen){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+        UsuariosRegistrado usuariosRegistrado = opt.get();
+        if(!imagen.isEmpty()){
+            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
+            System.out.println(directorio);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
+                Path rutacompleta = Paths.get(strpath);
+                Files.write(rutacompleta,bytesImg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        usuariosRegistrado.setTelefono(usuario.getTelefono());
+        usuarioRepository.actualizar(usuariosRegistrado.getTelefono(),id);
         return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
 
