@@ -10,6 +10,7 @@ import com.example.proy_grupo4.PDF;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
+import com.example.proy_grupo4.service.impl.NewUsuarioService;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,12 +58,55 @@ public class AdminController {
         return "auth-login-basic";
     }
 
-    @GetMapping(value = "/usuario")
-    public String listar_usuario(Model model){
-        model.addAttribute("lista_usuario",adminRepository.findAll());
+
+    @Autowired
+    private NewUsuarioService newUsuarioService;
+    @GetMapping(value = {"/usuario"})
+    public String usuarios(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
+        int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
+        PageRequest pageRequest =PageRequest.of(page,3);
+        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
+        if (buscarx != null){
+            Page<UsuariosRegistrado> pageUsuario = newUsuarioService.findProductsWithPaginationAndSorting(page,3,buscarx);
+            int totalPage  = pageUsuario.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("lista_usuario",pageUsuario.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor",buscarx);
+        }else {
+            Page<UsuariosRegistrado> pageUsuario = newUsuarioService.findProductsWithPaginationAndSorting(page,6,"estado");
+            int totalPage  = pageUsuario.getTotalPages();
+
+            if (totalPage>0){
+                List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
+                model.addAttribute("pages",pages);
+            }
+            model.addAttribute("lista_usuario",pageUsuario.getContent());
+            model.addAttribute("current",page+1);
+            model.addAttribute("next",page+2);
+            model.addAttribute("prev",page);
+            model.addAttribute("last",totalPage);
+
+            model.addAttribute("ordenarpor","estado");
+        }
         return "Admin_ListaUsuarios";
     }
+    @PostMapping("/BuscarxCodigo")
+    public String BuscarxZona(@RequestParam("searchField") String searchField,Model model){
 
+        List<UsuariosRegistrado> listaUsuarios = adminRepository.busquedaParcialCodigo(searchField);
+        model.addAttribute("lista_usuario",listaUsuarios);
+        model.addAttribute("searchField",searchField);
+        return "Admin_ListaUsuarios";
+    }
     //paginacion_INICIO...
     @Autowired
     private IncidenciaServiceAPI incidenciaServiceAPI;
@@ -228,5 +272,12 @@ public class AdminController {
         PDF exporter = new PDF(incidencias);
         exporter.exportar(response);
     }
+    @PostMapping(value = {"/cambiotel"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+        if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
+        }
+        return "redirect:/admin/incidentes";}
+
 }
 

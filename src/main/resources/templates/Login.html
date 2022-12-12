@@ -55,7 +55,15 @@
             </a>
           </div>
 
-          <center><h4 class="mb-2">Bienvenido</h4></center>
+          <h4 class="mb-2">Bienvenido</h4>
+          <div th:if="${param.error}">
+            <div class="alert alert-danger" role="alert">Usuario o contraseña incorrectas</div>
+          </div>
+          <div th:if="${param.logout}">
+            <div class="alert alert-warning" role="alert">Ha cerrado sesion correctamente</div>
+          </div>
+
+
           <form method="POST" th:action="@{/procesarLoginForm}">
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
@@ -81,15 +89,11 @@
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password"
                 />
+
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
               </div>
             </div>
-            <div class="mb-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="remember-me" />
-                <label class="form-check-label" for="remember-me">Recordar</label>
-              </div>
-            </div>
+
             <div class="mb-3">
               <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
             </div>

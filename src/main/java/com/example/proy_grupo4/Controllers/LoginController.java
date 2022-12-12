@@ -125,14 +125,14 @@ public class LoginController {
         Integer roluser = usuarioRepository.rolporid(userg.getId());
         System.out.println(roluser);
         switch (roluser){
-            case (1)-> {return "redirect:/incidencia/list";}
-            case (2) -> {return "redirect:/incidencia/list";}
-            case (3)-> {return "redirect:/incidencia/list";}
-            case (4)-> {return "redirect:/incidencia/list";}
-            case (5)-> {return "redirect:/incidencia/list";}
+            case (1)-> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
+            case (2) -> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
+            case (3)-> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
+            case (4)-> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
+            case (5)-> {return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
             case (6) -> {return "redirect:/seguridad/factor?id="+userg.getId();}
-            case (7) -> {return "redirect:/admin/incidentes";}
-            default -> {return"redirect:/incidencia/list";}
+            case (7) -> {return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion\"";}
+            default -> {return"redirect:/incidencia/list?page=1&buscarx=horaCreacion\"";}
         }
     }
     @GetMapping("/oauth2/login")

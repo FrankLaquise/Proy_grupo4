@@ -1,5 +1,6 @@
 package com.example.proy_grupo4.Repository;
 
+import com.example.proy_grupo4.Entity.Incidencia;
 import com.example.proy_grupo4.Entity.UsuariosRegistrado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Repository
 public interface AdminRepository extends JpaRepository<UsuariosRegistrado, String> {
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM reportpucp.usuarios_registrados i join roles r on i.rol=r.idroles where i.codigo like %?1% ;")
+    List<UsuariosRegistrado> busquedaParcialCodigo(String titulo);
     @Transactional
     @Modifying
     @Query(nativeQuery = true,

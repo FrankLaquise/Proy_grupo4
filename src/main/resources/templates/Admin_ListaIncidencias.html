@@ -49,7 +49,7 @@
                   </a>
                 </li>
 				<li class="menu-item">
-                  <a th:href="@{'/admin/usuario'}" class="menu-link">
+                  <a th:href="@{'/admin/usuario?page=1&buscarx=estado'}" class="menu-link">
                     <div data-i18n="Account">Usuarios</div>
                   </a>
                 </li>
@@ -127,11 +127,11 @@
                             Ordenar por
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=titulo'}">Titulo</a></li>
-                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=nivel' }">Urgencia</a></li>
-                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=horaCreacion' }">Fecha</a></li>
-                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=zona' }">Zona Pucp</a></li>
-                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?buscarx=tipo' }">Tipo</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=titulo'}">Titulo</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=nivel' }">Urgencia</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=horaCreacion' }">Fecha</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=zona' }">Zona Pucp</a></li>
+                            <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=tipo' }">Tipo</a></li>
                         </ul>
                     </div>
                   <table class="table">
