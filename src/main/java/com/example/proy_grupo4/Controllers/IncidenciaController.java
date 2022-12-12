@@ -3,37 +3,29 @@ package com.example.proy_grupo4.Controllers;
 import com.example.proy_grupo4.Email;
 import com.example.proy_grupo4.Entity.*;
 import com.example.proy_grupo4.Repository.*;
-import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
 import com.example.proy_grupo4.service.impl.NewIncidenciaService;
-import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -98,12 +90,10 @@ public class IncidenciaController {
             model.addAttribute("next",page+2);
             model.addAttribute("prev",page);
             model.addAttribute("last",totalPage);
-
             model.addAttribute("ordenarpor",buscarx);
         }else {
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting_destac(page,4,"titulo","destacado");
             int totalPage  = pageIncidencia.getTotalPages();
-
             if (totalPage>0){
                 List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
                 model.addAttribute("pages",pages);
@@ -113,7 +103,6 @@ public class IncidenciaController {
             model.addAttribute("next",page+2);
             model.addAttribute("prev",page);
             model.addAttribute("last",totalPage);
-
             model.addAttribute("ordenarpor","horaCreacion");
         }
         return "Usuario_IncidenciasDestacadas";
@@ -147,7 +136,6 @@ public class IncidenciaController {
         }else {
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,4,"titulo");
             int totalPage  = pageIncidencia.getTotalPages();
-
             if (totalPage>0){
                 List<Integer> pages  = IntStream.rangeClosed(1,totalPage).boxed().collect(Collectors.toList());
                 model.addAttribute("pages",pages);
@@ -229,10 +217,6 @@ public class IncidenciaController {
         return "Login_RecuperarContra";
     }
 
-    //paginacion_INICIO...listanormal
-    @Autowired
-    private IncidenciaServiceAPI incidenciaServiceAPI;
-
     @Autowired
     private NewIncidenciaService newIncidenciaService;
     @GetMapping(value = {"/list",""})
@@ -287,7 +271,23 @@ if (buscarx != null){
         return "Usuario_RegistroIncidencia";
     }
     @PostMapping("/save")
-    public String guardar(Incidencia incidencia) {
+    public String guardar(Incidencia incidencia, @RequestParam("file") MultipartFile imagen) throws IOException {
+        if(!imagen.isEmpty()){
+            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
+            System.out.println(directorio);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String strpath = directorio + "//" + imagen.getOriginalFilename();
+                Path rutacompleta = Paths.get(strpath);
+                Files.write(rutacompleta,bytesImg);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        incidencia.setImagen(imagen.getOriginalFilename());
+        byte[] bytesImg = imagen.getBytes();
+        incidencia.setFoto(bytesImg);
         incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");
         incidencia.setNumeroReportes(1);
@@ -296,23 +296,15 @@ if (buscarx != null){
         incidencia.setComentariosRestantes(100);
         incidencia.setCalificacion(0);
         incidenciaRepository.save(incidencia);
-        return "Usuario_ListaIncidencias";
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 
-    /*@PostMapping(value = {"/cambiotel"})
+    @PostMapping(value = {"/cambiotel"})
     public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("file") MultipartFile imagen) throws IOException {
         usuario.setFoto(imagen.getBytes());
-        System.out.printf(usuario.getFoto().toString());
-        System.out.println(usuario.getId());
         adminRepository.actualizar(usuario.getId(),usuario.getFoto());
-        return "Usuario_ListaIncidencias";
-    }*/
-    @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
-        if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
-        }
-        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
+    }
 
     @RequestMapping(value ={"/resuelto"})
     public String resuelto(@RequestParam("id") int id){
@@ -337,62 +329,6 @@ if (buscarx != null){
         sugerenciaRepository.save(sugerencia);
         return "redirect:/incidencia/sugerencias";
 
-    }
-
-    @PostMapping("/cambiarimagen")
-    public String cambiarImagen(@RequestParam("foto") MultipartFile foto, RedirectAttributes attr, HttpSession session){
-
-        UsuariosRegistrado usuariosRegistrado = (UsuariosRegistrado) session.getAttribute("usuario");
-
-        if (foto.isEmpty()) {
-            attr.addFlashAttribute("error",1);
-            attr.addFlashAttribute("msg", "Debe subir un archivo");
-            return "redirect:/incidencia/perfil";
-        }
-        if (!verificarFoto(foto)) {
-            attr.addFlashAttribute("error",1);
-            attr.addFlashAttribute("msg", "Debe subir una imagen, no se acepta otros archivos");
-            return "redirect:/incidencia/perfil";
-        }
-        String fotoNombre = foto.getOriginalFilename();
-
-        if (fotoNombre.contains("..")) {
-            attr.addFlashAttribute("error",1);
-            attr.addFlashAttribute("msg", "No se permiten '..' en el archivo");
-            return "redirect:/incidencia/perfil";
-        }
-
-        try {
-            byte[] fotoB = foto.getBytes();
-            usuarioRepository.updateFoto(fotoB,usuariosRegistrado.getId());
-            attr.addFlashAttribute("msg","Se ha actualizado la foto de perfil");
-            return "redirect:/incidencia/perfil";
-        } catch (IOException e){
-            e.printStackTrace();
-            attr.addFlashAttribute("error",1);
-            attr.addFlashAttribute("msg", "Hubo un error al cargar el archivo");
-            return "redirect:/incidencia/perfil";
-        }
-    }
-
-    @GetMapping("/imagen")
-    public void mostrarImagen(HttpSession session, HttpServletResponse response)throws ServletException, IOException {
-        UsuariosRegistrado use = (UsuariosRegistrado) session.getAttribute("usuario");
-        Optional<UsuariosRegistrado> optuser = usuarioRepository.findById(use.getId());
-        byte[] foto = optuser.get().getFoto();
-        if(foto == null) {
-            foto = this.getClass().getClassLoader().getResourceAsStream("static/img/1.png").readAllBytes();
-        }
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(foto);
-        response.getOutputStream().close();
-    }
-
-    private boolean verificarFoto(MultipartFile file){
-        if(formatos.contains(file.getContentType().toLowerCase(Locale.ROOT))){
-            return true;
-        }
-        return false;
     }
 
 }

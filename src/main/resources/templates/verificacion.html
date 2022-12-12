@@ -62,14 +62,15 @@
               </div>
               <!-- /Logo -->
               <center><h4 class="mb-2">Bienvenido</h4></center>
-              <form th:action="@{'/seguridad/inicio?page=1&buscarx=horaCreacion'}" onsubmit="return verificacion()">
                 <div class="mb-3">
                   <label for="abc" class="form-label">Codigo de Verificacion</label>
                   <input
                     type="number" class="form-control" id="abc" name="abc"
                     placeholder="Ingresar codigo"
                   />
-                </div>
+                </div><form th:action="@{'/seguridad/inicio'}" onsubmit="return verificacion()">
+              <input hidden name="page" value="1">
+              <input hidden name="buscarx" value="horaCreacion">
                     <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
                 <br>
               </form>
@@ -80,7 +81,6 @@
               </div>
             </div>
           </div>
-          <!-- /Register -->
         </div>
       </div>
     </div>

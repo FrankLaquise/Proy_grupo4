@@ -43,7 +43,6 @@ public class UsuariosRegistrado implements Serializable {
     @Column(name = "estado", nullable = false, length = 45)
     private String estado;
 
-
     @Column(name = "numero_reportes", nullable = false)
     private Integer numeroReportes;
 

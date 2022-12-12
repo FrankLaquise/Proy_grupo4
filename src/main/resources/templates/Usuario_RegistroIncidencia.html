@@ -150,7 +150,7 @@
                             <div class="card">
                                         <h5 class="card-header">Registro de Incidencia</h5>
                                         <div class="card-body">
-                                            <form method="post" th:action="@{'/incidencia/save'}">
+                                            <form method="post" th:action="@{'/incidencia/save'}" enctype="multipart/form-data">
                                                 <div class="mb-3">
                                                     <input type="hidden" name="usuario" th:value="${session.usuario.id}"/>
                                                     <label for="titulo" class="form-label">Titulo</label>
@@ -160,25 +160,23 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripción</label>
-                                                    <input type="text " class="form-control" id="descripcion"
+                                                    <input type="text" class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
                                                            required = true/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Imagen</label>
-                                                    <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="foto">
+                                                    <input required = true accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="file">
                                                 </div>
                                                 <div class="row">
                                                 <div class="mb-3 col-md-5">
                                                     <label for="zona" class="form-label">Zona PUCP</label>
                                                     <select id="zona" class="form-select" name="zona">
-                                                        <option value="">Selecciona una zona:</option>
                                                         <option th:each="zona:${listaZonas}"
                                                                 th:value="${zona.getId()}"
                                                                 th:text="${zona.getTitulo()}">
                                                         </option>
-
                                                     </select>
                                                 </div>
                                                 <div class="mb-3 col-md-4">
@@ -251,7 +249,6 @@
                                                     <label class="form-label" for="nivel">Nivel de Urgencia</label>
                                                     <select class="form-select" id="nivel" name="nivel"
                                                             aria-label="Default select example">
-                                                        <option value="">Seleccione el Nivel</option>
                                                         <option value="Leve">Leve</option>
                                                         <option value="Moderado">Moderado</option>
                                                         <option value="Critico">Critico</option>
@@ -260,7 +257,6 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="tipo" class="form-label">Tipo de Incidencia</label>
                                                     <select id="tipo" class="form-select" name="tipo">
-                                                        <option value="">Seleccione el Tipo</option>
                                                         <option th:each="tipo:${listaTipos}"
                                                                 th:value="${tipo.getId()}"
                                                                 th:text="${tipo.getTitulo()}">
@@ -272,13 +268,16 @@
                                                         <label for="zonaDetalles" class="form-label">Especifique
                                                             la situacion</label>
                                                         <textarea class="form-control" id="zonaDetalles"
-                                                                  name="descripcion"
+                                                                  name="ZonaDetalles"
                                                                   rows="3"></textarea>
                                                     </div>
+                                                <input hidden id="serviceRegion" type="text" size="40" value="brazilsouth">
+                                                <input hidden id="subscriptionKey" type="text" size="40" value="2ae1a24101984131887a21cff59d2583">
                                                 <button  type="submit"
                                                         class="btn btn-primary">Registrar
                                                 </button>
-                                                <a th:href="@{'/incidencia/list'}" class="btn btn-danger">Cancelar</a>
+                                                <button class="btn btn-warning" id="startRecognizeOnceAsyncButton">Detalle a voz</button>
+                                                <a th:href="@{'/incidencia/list?page=1&buscarx=horaCreacion'}" class="btn btn-danger">Cancelar</a>
                                             </form>
                                         </div>
                                     </div>
@@ -300,6 +299,57 @@
             </div>
         </div>
         </div></body>
+        <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+        <script>
+        var phraseDiv;
+        var startRecognizeOnceAsyncButton;
+        var subscriptionKey, serviceRegion;
+        var SpeechSDK;
+        var recognizer;
+        document.addEventListener("DOMContentLoaded", function () {
+            startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+            subscriptionKey = document.getElementById("subscriptionKey");
+            serviceRegion = document.getElementById("serviceRegion");
+            phraseDiv = document.getElementById("zonaDetalles");
+
+            startRecognizeOnceAsyncButton.addEventListener("click", function () {
+                startRecognizeOnceAsyncButton.disabled = true;
+                phraseDiv.innerHTML = "";
+
+                var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+                speechConfig.speechRecognitionLanguage = "es-MX";
+                var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+                recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+                recognizer.recognizeOnceAsync(
+                    function (result) {
+                        startRecognizeOnceAsyncButton.disabled = false;
+                        phraseDiv.innerHTML += result.text;
+                        window.console.log(result);
+
+                        recognizer.close();
+                        recognizer = undefined;
+                    },
+                    function (err) {
+                        startRecognizeOnceAsyncButton.disabled = false;
+                        phraseDiv.innerHTML += err;
+                        window.console.log(err);
+
+                        recognizer.close();
+                        recognizer = undefined;
+                    });
+            });
+
+            if (!!window.SpeechSDK) {
+                SpeechSDK = window.SpeechSDK;
+                startRecognizeOnceAsyncButton.disabled = false;
+
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('warning').style.display = 'none';
+            }
+        });
+    </script>
         <script type="text/javascript">
             if (navigator.geolocation) { //Validar si hay acceso web a la ubicación
                 navigator.geolocation.getCurrentPosition(mostrarUbicacion);

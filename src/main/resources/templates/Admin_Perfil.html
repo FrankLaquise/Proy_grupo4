@@ -92,7 +92,8 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -101,7 +102,8 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:if="${usuario.icono.id == 1}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -113,19 +115,14 @@
                     </li>
 					<li>
                       <a th:href="@{'/admin/perfil'}" class="dropdown-item">
-
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
-                   
                     <li>
                       <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
                           <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                         </form>
-
-
                       </div>
                     </li>
                   </ul>
@@ -143,22 +140,21 @@
 
               <div class="row">
                 <div class="col-md-12">
-                
                   <div class="card mb-4">
                     <h3 class="card-header" th:text="|${session.usuario.nombre} ${session.usuario.apellido}|"></h3>
-                    <!-- Account -->
+                    <form method="POST" th:action="@{'/admin/cambio?id='+${usuario.getId()}}" enctype="multipart/form-data">
 					<div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                        <img th:if="${usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100" >
+                        <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${usuario.apellido}+'.png'}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                         <div>
-							<h3>Icono</h3>
-                          <img src="https://png.pngtree.com/png-vector/20190916/ourlarge/pngtree-star-icon-for-your-project-png-image_1731096.jpg" alt="user-avatar" class="d-block rounded" height="50" width="50" id="uploadedAvatar">
-						</div>
-					  </div>
+                          <label for="formFile" class="form-label">Cambiar foto de perfil</label>
+                          <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="file">
+                        </div>
+                      </div>
                     </div>
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" th:action="@{'/admin/cambiotel?id='+${usuario.getId}}">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">Nombre</label>
@@ -170,23 +166,24 @@
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" th:value="${usuario.correo}" disabled>
+                            <input class="form-control" type="text" id="email" name="correo" th:value="${usuario.correo}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">DNI</label>
-                            <input type="text" class="form-control" id="organization" name="organization" th:value="${usuario.dni}" disabled>
+                            <input type="text" class="form-control" id="organization" name="dni" th:value="${usuario.dni}" disabled>
                           </div>
                           <div class="mb-3 col-md-6">
                             <div class="mb-3 col-md-6">
                               <label class="form-label" for="telefono">Celular</label>
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text">PE (+51)</span>
-                                <input type="number" name="telefono" id="telefono" class="form-control" placeholder="999999999" th:value="${usuario.telefono}">
+                                <input type="number" name="telefono" id="telefono" class="form-control" min="0"
+                                       max="999999999" th:value="${usuario.telefono}">
                               </div>
                             </div>
                             <div class="mb-3 col-md-6">
                               <label for="id" class="form-label">Codigo PUCP</label>
-                              <input type="number" class="form-control" id="id" name="id" placeholder="88888888" th:value="${usuario.getId()}" disabled>
+                              <input type="number" class="form-control" id="id" name="id" placeholder="88888888" th:value="${usuario.id}" disabled>
                             </div>
                           </div>
                           <div class="mt-2">
@@ -194,8 +191,8 @@
                             <a th:href="@{'/admin/usuario'}" class="btn btn-danger">Cancelar</a>
                           </div>
                         </div>
-                      </form>
-                    </div>
+
+                    </div></form>
                   </div>
                 </div>
 

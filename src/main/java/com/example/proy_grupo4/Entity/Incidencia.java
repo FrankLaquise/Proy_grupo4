@@ -30,6 +30,8 @@ public class Incidencia {
     @Column(name = "estado", length = 45)
     private String estado;
 
+    @Column(name = "imagen")
+    private String imagen;
 
     @Column(name = "foto" )
     private byte[] foto;
@@ -252,5 +254,13 @@ public class Incidencia {
 
     public void setDestacado(Integer destacado) {
         this.destacado = destacado;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

@@ -148,6 +148,9 @@
                                         <div class="row">
                                         <div class="mb-3 col-md-5" id="map">
                                         </div>
+                                            <div class="mb-3 col-md-5">
+                                                <img th:src="@{'/foto/'+${Incidencia.getImagen()}}" width="350" height="250">
+                                            </div>
                                         <div class="mb-3 col-md-5">
                                         <dl class="row mt-2">
                                             <dt class="col-sm-5">Descripcion:</dt>
@@ -159,6 +162,8 @@
                                             <dt class="col-sm-5">Calificación:</dt>
                                             <dd class="col-sm-6" th:text="${Incidencia.getCalificacion()}"></dd>
                                             <dt class="col-sm-5">Zona:</dt>
+                                            <dd class="col-sm-6" th:text="${Incidencia.getZona().getTitulo()}"></dd>
+                                            <dt class="col-sm-5" th:if="${Incidencia.getZonaDetalles() ne null}">Especificacion:</dt>
                                             <dd class="col-sm-6" th:text="${Incidencia.getZonaDetalles()}"></dd>
                                             <dt class="col-sm-5" th:if="${Incidencia.getRes() == 0}" style="color: red">INCIDENCIA REPORTADA</dt>
                                             <dd class="col-sm-6" th:if="${Incidencia.getRes() == 0}"> </dd>
@@ -250,6 +255,9 @@
 </div>
 </div>
 </body>
+<script>
+
+</script>
 <script type="text/javascript">
     function iniciarMap(position){
         var icono = [[${Incidencia.getIcono().getId()}]];

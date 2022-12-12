@@ -36,7 +36,7 @@
             flex: 0 0 auto;
             height: 300px;
             width: 88%;
-            margin-left: 5%;
+            margin-left: 3%;
         }
     </style>
 </head>
@@ -154,6 +154,9 @@
                                                     <label class="form-label">Mapa de incidencia</label>
                                                     <div class="mb-3 col-md-5" id="map">
                                                 </div>
+                                                    <div class="mb-3">
+                                                        <img th:src="@{'/foto/'+${incidencia.getImagen()}}" width="400" height="300">
+                                                    </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Estado actual</label>
                                                     <input disabled type="text" class="form-control" id="eactual" name="zona"

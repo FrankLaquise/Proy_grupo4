@@ -2,10 +2,7 @@ package com.example.proy_grupo4.Controllers;
 
 
 import com.example.proy_grupo4.Email;
-import com.example.proy_grupo4.Entity.Incidencia;
-import com.example.proy_grupo4.Entity.Sugerencia;
-import com.example.proy_grupo4.Entity.TodosLosUsuario;
-import com.example.proy_grupo4.Entity.UsuariosRegistrado;
+import com.example.proy_grupo4.Entity.*;
 import com.example.proy_grupo4.PDF;
 import com.example.proy_grupo4.Repository.*;
 import com.example.proy_grupo4.service.api.IncidenciaServiceAPI;
@@ -19,12 +16,16 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
@@ -239,7 +240,6 @@ public class AdminController {
     public String perfil(Model model , HttpSession session) {
         UsuariosRegistrado user = (UsuariosRegistrado) session.getAttribute("usuario");
         Optional<UsuariosRegistrado> optionalUsuariosRegistrado = usuarioRepository.findById(user.getId());
-
         if (optionalUsuariosRegistrado.isPresent()) {
             UsuariosRegistrado usuario= optionalUsuariosRegistrado.get();
             model.addAttribute("usuario", usuario);
@@ -281,11 +281,25 @@ public class AdminController {
         PDF exporter = new PDF(incidencias);
         exporter.exportar(response);
     }
-    @PostMapping(value = {"/cambiotel"})
-    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+    @PostMapping(value = {"/cambio"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id, @RequestParam("file") MultipartFile imagen){
         Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
-        if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
+        UsuariosRegistrado usuariosRegistrado = opt.get();
+        if(!imagen.isEmpty()){
+            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
+            System.out.println(directorio);
+            try {
+                byte[] bytesImg = imagen.getBytes();
+                String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
+                Path rutacompleta = Paths.get(strpath);
+                Files.write(rutacompleta,bytesImg);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        usuariosRegistrado.setTelefono(usuario.getTelefono());
+        usuarioRepository.actualizar(usuariosRegistrado.getTelefono(),id);
         return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion";}
 
 }

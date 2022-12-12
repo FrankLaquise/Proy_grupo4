@@ -148,13 +148,9 @@
                             class="btn btn-primary dropdown-toggle"
                             data-bs-display="static"
                             data-bs-toggle="dropdown"
-                            aria-expanded="false"
-
-
-                    >
+                            aria-expanded="false">
                       Ordenar por
                     </button>
-
                     <ul class="dropdown-menu">
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/list'+ '?page=1&buscarx=titulo'}">Titulo</a></li>
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/list'+ '?page=1&buscarx=nivel' }">Urgencia</a></li>
@@ -167,7 +163,6 @@
                   <table class="table">
                     <thead class="table-light">
                       <tr>
-
                         <th>Titulo</th>
                         <th>Urgencia</th>
                         <th>Fecha</th>
@@ -223,11 +218,8 @@
                           </button></a>
                         </td>
                       </tr>
-
                     </tbody>
-
                   </table>
-                  <!-- Paginacion  -->
                 <div class="row" th:if="${ordenarpor eq 'titulo'}">
                   <div class="col-md-2"></div>
                   <div class="col-md-8" >
@@ -243,8 +235,6 @@
                       </li>
                     </ul>
                   </div>
-
-                  <div class="col-md-2"></div>
                 </div>
                   <!-- fin Paginacion  -->
                   <!-- Paginacion  -->
