@@ -147,8 +147,10 @@
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span>
                                 Registro de Incidencias</h4>
+                            <div th:if="${errorTitulo != null}" th:text="${errorTitulo}" class="alert alert-danger" role="alert"></div>
                             <div class="card">
                                         <h5 class="card-header">Registro de Incidencia</h5>
+
                                         <div class="card-body">
                                             <form method="post" th:action="@{'/incidencia/save'}">
                                                 <div class="mb-3">

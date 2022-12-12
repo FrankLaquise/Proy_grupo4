@@ -287,16 +287,25 @@ if (buscarx != null){
         return "Usuario_RegistroIncidencia";
     }
     @PostMapping("/save")
-    public String guardar(Incidencia incidencia) {
-        incidencia.setRes((byte) 1);
-        incidencia.setEstado("registrado");
-        incidencia.setNumeroReportes(1);
-        incidencia.setHoraCreacion(Instant.now());
-        incidencia.setDestacado(0);
-        incidencia.setComentariosRestantes(100);
-        incidencia.setCalificacion(0);
+    public String guardar(Incidencia incidencia,Model model,RedirectAttributes attr) {
+        if(incidencia.getTitulo().equals("")){
+            model.addAttribute("errorTitulo","El titulo no puede ser vacio");
+            return "Usuario_RegistroIncidencia";
+
+        }else {
+            incidencia.setRes((byte) 1);
+            incidencia.setEstado("registrado");
+            incidencia.setNumeroReportes(1);
+            incidencia.setHoraCreacion(Instant.now());
+            incidencia.setDestacado(0);
+            incidencia.setComentariosRestantes(100);
+            incidencia.setCalificacion(0);
+            attr.addFlashAttribute("msga","Incidencia creado exitosamente");
+
+        }
+
         incidenciaRepository.save(incidencia);
-        return "Usuario_ListaIncidencias";
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
     }
 
     /*@PostMapping(value = {"/cambiotel"})
