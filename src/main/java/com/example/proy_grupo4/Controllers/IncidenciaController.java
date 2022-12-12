@@ -312,7 +312,7 @@ if (buscarx != null){
         Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
         }
-        return "redirect:/incidencia";}
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";}
 
     @RequestMapping(value ={"/resuelto"})
     public String resuelto(@RequestParam("id") int id){

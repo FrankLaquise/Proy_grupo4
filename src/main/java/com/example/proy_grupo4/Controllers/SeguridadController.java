@@ -68,6 +68,14 @@ public class SeguridadController {
     @Autowired
     private Email sender;
 
+    @Autowired
+    UsuarioRepository usuarioRepository2;
+    @PostMapping(value = {"/cambiotel"})
+    public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id){
+        Optional<UsuariosRegistrado> opt = usuarioRepository2.findById(id);
+        if (opt.isPresent()) {  usuarioRepository2.actualizarTelefono(usuario.getTelefono(),id);
+        }
+        return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";}
     public void sendMail(String destino, String subjet, String body){
         sender.sendEmail(destino,subjet,body);
     }
@@ -295,7 +303,7 @@ public class SeguridadController {
             model.addAttribute("icono",incidencia.getIcono().getId());
             return "Seguridad_IncidenciaDetalle";
         }else{
-            return "redirect:/seguridad/inicio";
+            return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
         }
     }
     @PostMapping(value = {"/actualizarest"})
@@ -329,7 +337,7 @@ public class SeguridadController {
             seguridadRepository.ValidarSuspenderusuario(codigoCreador);
             incidenciaRepository.ReportarFalsaIncidencia(id);
         }
-        return  "redirect:/seguridad/inicio";
+        return  "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
 
     @PostMapping(value = {"/reportarinc"})
@@ -342,7 +350,7 @@ public class SeguridadController {
             incidenciaRepository.ReportarFalsaIncidencia(id);
             if(comentarioreporte != null) incidenciaRepository.ReportarFalsaIncidenciacoment(id,comentarioreporte);
         }
-        return  "redirect:/seguridad/inicio";
+        return  "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
 
     //Para acceder al perfil del seguridad
@@ -354,7 +362,7 @@ public class SeguridadController {
             model.addAttribute("seguridad", seguridad);
             return "Seguridad_Perfil";
         } else {
-            return "redirect:/seguridad/inicio";
+            return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
         }
     }
 
@@ -369,17 +377,17 @@ public class SeguridadController {
         inci.setEstado("atendido");
         incidenciaRepository.save(inci);
         comentariosRepository.IngresarComentxIdinci("atendido", id, "seguridad", Instant.now());
-        return "redirect:/seguridad/inicio";
+        return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
     @GetMapping(value = {"/actualizarenproceso"})
     public String SeguridadActualizar2(@RequestParam("id") int id){
         incidenciaRepository.ActualizarEnproceso(id);
-        return "redirect:/seguridad/inicio";
+        return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
     @GetMapping(value = {"/actualizarregistrado"})
     public String SeguridadActualizar3(@RequestParam("id") int id){
         incidenciaRepository.ActualizarRegistrado(id);
-        return "redirect:/seguridad/inicio";
+        return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
     }
 
 }

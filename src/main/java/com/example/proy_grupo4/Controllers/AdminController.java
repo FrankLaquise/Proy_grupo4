@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class AdminController {
         PageRequest pageRequest =PageRequest.of(page,3);
         //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
-            Page<UsuariosRegistrado> pageUsuario = newUsuarioService.findProductsWithPaginationAndSorting(page,3,buscarx);
+            Page<UsuariosRegistrado> pageUsuario = newUsuarioService.findProductsWithPaginationAndSorting(page,5,buscarx);
             int totalPage  = pageUsuario.getTotalPages();
 
             if (totalPage>0){
@@ -235,9 +236,17 @@ public class AdminController {
     }
 
     @GetMapping("/perfil")
-    public String perfil(){
-            return "Admin_Perfil";
+    public String perfil(Model model , HttpSession session) {
+        UsuariosRegistrado user = (UsuariosRegistrado) session.getAttribute("usuario");
+        Optional<UsuariosRegistrado> optionalUsuariosRegistrado = usuarioRepository.findById(user.getId());
 
+        if (optionalUsuariosRegistrado.isPresent()) {
+            UsuariosRegistrado usuario= optionalUsuariosRegistrado.get();
+            model.addAttribute("usuario", usuario);
+            return "Admin_Perfil";
+        } else {
+            return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion";
+        }
     }
     @GetMapping(value = "/mapa")
     public String Mapa(Model model){
@@ -277,7 +286,7 @@ public class AdminController {
         Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         if (opt.isPresent()) {  usuarioRepository.actualizarTelefono(usuario.getTelefono(),id);
         }
-        return "redirect:/admin/incidentes";}
+        return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion";}
 
 }
 
