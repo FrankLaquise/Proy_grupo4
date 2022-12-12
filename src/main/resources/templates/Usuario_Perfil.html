@@ -194,7 +194,7 @@
                       </a>
                     </li>
 					<li>
-                      <a class="dropdown-item" href="Usuario_Perfil.html">
+                      <a class="dropdown-item" th:href="@{'/incidencia/perfil'}">
 
                         <span class="align-middle">Mi Perfil</span>
                       </a>
@@ -271,7 +271,7 @@
                               <label class="form-label" for="telefono">Celular</label>
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text">PE (+51)</span>
-                                <input type="number" name="telefono" id="telefono" class="form-control" placeholder="999999999" th:value="${usuario.telefono}">
+                                <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="999999999" th:value="${usuario.telefono}">
                               </div>
                             </div>
                             <div class="mb-3 col-md-6">

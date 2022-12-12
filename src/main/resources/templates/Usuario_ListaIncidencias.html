@@ -137,6 +137,7 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias/ </span> Lista de incidencias</h4>
               <div class="card">
                 <h5 class="card-header">Lista de Incidencias</h5>
+                <div th:if="${msga != null}" class="alert alert-success" th:text="${msga}"></div>
                 <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
                 <div class="table-responsive text-nowrap">
                   <form method="post" th:action="@{/incidencia/BuscarxZona}">
