@@ -161,66 +161,45 @@ input[type="radio"]:checked ~ label {
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="Login.html">
-
                         <span class="align-middle">Mi Perfil</span>
                       </a>
                     </li>
-
                     <li>
                       <div sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
                           <input class="btn btn-link" type="submit" value="Cerrar Sesion">
-
                         </form>
-
-
                       </div>
                     </li>
                   </ul>
-                </li>
-                <!--/ User -->
               </ul>
             </div>
           </nav>
-
-
-          <!-- Content wrapper -->
           <div class="content-wrapper">
-            <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Incidencias /</span> Mis incidencias</h4>
-
               <div class="card">
                 <h5 class="card-header">Mis Incidencias</h5>
                 <div class="table-responsive text-nowrap">
                   <div class="dropdown">
-                    <button
-                            type="button"
+                    <button type="button"
                             class="btn btn-primary dropdown-toggle"
                             data-bs-display="static"
                             data-bs-toggle="dropdown"
-                            aria-expanded="false"
-
-
-                    >
+                            aria-expanded="false">
                       Ordenar por
                     </button>
-
                     <ul class="dropdown-menu">
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/mis_incidencias'+ '?page=1&buscarx=titulo'}">Titulo</a></li>
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/mis_incidencias'+ '?page=1&buscarx=nivel' }">Urgencia</a></li>
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/mis_incidencias'+ '?page=1&buscarx=horaCreacion' }">Fecha</a></li>
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/mis_incidencias'+ '?page=1&buscarx=zona' }">Zona Pucp</a></li>
                       <li><a  class="dropdown-item"   th:href="@{'/incidencia/mis_incidencias'+ '?page=1&buscarx=tipo' }">Tipo</a></li>
-
                     </ul>
                   </div>
                   <table class="table">
                     <thead class="table-light">
                       <tr>
-
                         <th>Titulo</th>
                         <th>Urgencia</th>
                         <th>Fecha</th>
@@ -257,7 +236,7 @@ input[type="radio"]:checked ~ label {
                         </td>
                       </tr>
                     </tbody>
-                  </table>
+                  </table><br>
                   <!-- Paginacion  -->
                   <div class="row" th:if="${ordenarpor eq 'titulo'}">
                     <div class="col-md-2"></div>
@@ -354,66 +333,20 @@ input[type="radio"]:checked ~ label {
                         </li>
                       </ul>
                     </div>
-
-                    <div class="col-md-2"></div>
                   </div>
-                  <!-- fin Paginacion  -->
                 </div>
               </div>
-
-
-
-
-
-              <!-- -------------------------------->
-                          <!-- -------------------------------->     <!-- -------------------------------->     <!-- -------------------------------->
-                          <!-- -------------------------------->    <!-- -------------------------------->
-
-
-
-
-              <hr class="my-5" />
-
-              <!-- Bootstrap Table with Header - Footer -->
-
-
             </div>
-            <!-- / Content -->
-
-            <!-- Footer -->
-            
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
           </div>
-          <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
       </div>
-
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
         <script th:src="@{/js/jquery.js}"></script>
         <script th:src="@{/js/popper.js}"></script>
         <script th:src="@{/js/bootstrap.js}"></script>
         <script th:src="@{/js/perfect-scrollbar.js}"></script>
-
         <script th:src="@{/js/menu.js}"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
         <script th:src="@{/js/main.js}"></script>
-
-    <!-- Page JS -->
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

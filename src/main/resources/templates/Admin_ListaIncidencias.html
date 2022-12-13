@@ -76,8 +76,8 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img th:if="${session.usuario.icono.id == 1}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                        <img th:if="${!session.usuario.icono.id == 1}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -118,7 +118,8 @@
             <div class="container-xxl flex-grow-1 container-p-y">
           <div class="card">
                 <h3 class="card-header">Incidencias</h3>
-                <div class="table-responsive text-nowrap">
+                <div class="table-responsive" >
+                    <div class="col-md-2">
                     <div class="dropdown">
                         <button
                                 type="button"
@@ -135,7 +136,7 @@
                             <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=zona' }">Ubicacion</a></li>
                             <li><a  class="dropdown-item"   th:href="@{'/admin/incidentes'+ '?page=1&buscarx=estado' }">Estado</a></li>
                         </ul>
-                    </div>
+                    </div></div>
                   <table class="table">
                     <thead>
                       <tr>
@@ -172,9 +173,9 @@
                       </tr>
                     </tbody>
                   </table>
+                    <br>
                     <!-- Paginacion  -->
                     <div class="row" th:if="${ordenarpor eq 'titulo'}">
-                        <div class="col-md-2"></div>
                         <div class="col-md-8" >
                             <ul class="pagination justify-content-center">
                                 <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">

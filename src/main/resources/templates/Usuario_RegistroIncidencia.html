@@ -162,10 +162,10 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="descripcion" class="form-label">Descripción</label>
-                                                    <input type="text" class="form-control" id="descripcion"
+                                                    <textarea type="text" class="form-control" id="descripcion"
                                                            name="descripcion"
                                                            placeholder="Describa aqui"
-                                                           required = true/>
+                                                              required = true/></textarea>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">Imagen</label>
@@ -312,7 +312,7 @@
             startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
             subscriptionKey = document.getElementById("subscriptionKey");
             serviceRegion = document.getElementById("serviceRegion");
-            phraseDiv = document.getElementById("zonaDetalles");
+            phraseDiv = document.getElementById("descripcion");
 
             startRecognizeOnceAsyncButton.addEventListener("click", function () {
                 startRecognizeOnceAsyncButton.disabled = true;
