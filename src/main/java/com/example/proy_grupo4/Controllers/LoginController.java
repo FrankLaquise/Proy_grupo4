@@ -60,7 +60,7 @@ public class LoginController {
         adminRepository.save(usuario);
         return "redirect:/admin/usuario";
     }
-    @GetMapping("ventanaLogin")
+    @GetMapping(value={"ventanaLogin", ""})
     public String ventanaLogin(){
         return "Login";
     }
