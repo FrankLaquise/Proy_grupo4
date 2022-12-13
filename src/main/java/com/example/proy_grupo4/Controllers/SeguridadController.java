@@ -397,14 +397,15 @@ public class SeguridadController {
     }
     @PostMapping(value = {"/cambio"})
     public String usuariocambiotel(UsuariosRegistrado usuario, @RequestParam("id") String id, @RequestParam("file") MultipartFile imagen){
-        Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+            Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
+
         UsuariosRegistrado usuariosRegistrado = opt.get();
         if(!imagen.isEmpty()){
             try {
                 byte[] bytesImg = imagen.getBytes();
                 usuariosRegistrado.setFoto(bytesImg);
             } catch (IOException e) {
-                e.printStackTrace();
+                return "Error_404";
             }
         }
         usuariosRegistrado.setTelefono(usuario.getTelefono());
