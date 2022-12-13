@@ -29,9 +29,7 @@
       <div class="layout-container">
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="incidencia.html" class="app-brand-link">
               <span class="app-brand-text demo menu-text fw-bolder ms-2"><img src="https://pbs.twimg.com/media/E6sqz46WEAQOe4r.jpg" width="150" height="100"></span>
-            </a>
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
@@ -189,11 +187,7 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <div class="col-md-2"></div>
                     </div>
-                    <!-- fin Paginacion  -->
-                    <!-- Paginacion  -->
                     <div class="row" th:if="${ordenarpor eq 'nivel'}">
                         <div class="col-md-2"></div>
                         <div class="col-md-8" >
@@ -209,11 +203,8 @@
                                 </li>
                             </ul>
                         </div>
-
                         <div class="col-md-2"></div>
                     </div>
-                    <!-- fin Paginacion  -->
-                    <!-- Paginacion  -->
                     <div class="row" th:if="${ordenarpor eq 'horaCreacion'}">
                         <div class="col-md-2"></div>
                         <div class="col-md-8" >
@@ -229,13 +220,9 @@
                                 </li>
                             </ul>
                         </div>
-
                         <div class="col-md-2"></div>
                     </div>
-                    <!-- fin Paginacion  -->
-                    <!-- Paginacion  -->
                     <div class="row" th:if="${ordenarpor eq 'zona'}">
-                        <div class="col-md-2"></div>
                         <div class="col-md-8" >
                             <ul class="pagination justify-content-center">
                                 <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
@@ -249,13 +236,8 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <div class="col-md-2"></div>
                     </div>
-                    <!-- fin Paginacion  -->
-                    <!-- Paginacion  -->
                     <div class="row" th:if="${ordenarpor eq 'estado'}">
-                        <div class="col-md-2"></div>
                         <div class="col-md-8" >
                             <ul class="pagination justify-content-center">
                                 <li class="page-item" th:classappend="${prev==0 ? 'disabled':''}">
@@ -269,11 +251,7 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <div class="col-md-2"></div>
                     </div>
-                    <!-- fin Paginacion  -->
-
                 </div>
 				  <div class="card-body">
                       <div class="demo-inline-spacing">
