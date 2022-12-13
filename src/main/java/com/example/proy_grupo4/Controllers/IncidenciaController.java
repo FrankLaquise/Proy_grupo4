@@ -273,21 +273,13 @@ if (buscarx != null){
     @PostMapping("/save")
     public String guardar(Incidencia incidencia, @RequestParam("file") MultipartFile imagen) throws IOException {
         if(!imagen.isEmpty()){
-            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
-            System.out.println(directorio);
             try {
                 byte[] bytesImg = imagen.getBytes();
-                String strpath = directorio + "//" + imagen.getOriginalFilename();
-                Path rutacompleta = Paths.get(strpath);
-                Files.write(rutacompleta,bytesImg);
-
+                incidencia.setFoto(bytesImg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        incidencia.setImagen(imagen.getOriginalFilename());
-        byte[] bytesImg = imagen.getBytes();
-        incidencia.setFoto(bytesImg);
         incidencia.setRes((byte) 1);
         incidencia.setEstado("registrado");
         incidencia.setNumeroReportes(1);
@@ -304,13 +296,9 @@ if (buscarx != null){
         Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         UsuariosRegistrado usuariosRegistrado = opt.get();
         if(!imagen.isEmpty()){
-            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
-            System.out.println(directorio);
             try {
                 byte[] bytesImg = imagen.getBytes();
-                String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
-                Path rutacompleta = Paths.get(strpath);
-                Files.write(rutacompleta,bytesImg);
+                usuariosRegistrado.setFoto(bytesImg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -335,6 +323,14 @@ if (buscarx != null){
         return "redirect:/incidencia/info?idincidencias="+id;
     }
 
+    @RequestMapping(value ={"/eliminar"})
+    public String elimina(@RequestParam("id") int id){
+        Optional<Incidencia> incidencia1 = incidenciaRepository.findById(id);
+        Incidencia incidencia = incidencia1.get();
+        incidenciaRepository.delete(incidencia);
+        return "redirect:/incidencia/list?page=1&buscarx=horaCreacion";
+    }
+
 
     @PostMapping(value = {"/regsugerencias"})
     public String usuarioregsugerencia(Sugerencia sugerencia) {
@@ -343,6 +339,26 @@ if (buscarx != null){
         sugerenciaRepository.save(sugerencia);
         return "redirect:/incidencia/sugerencias";
 
+    }
+
+    @GetMapping(value={"/display"})
+    @ResponseBody
+    void mostrar(@RequestParam("id") String id, HttpServletResponse response, Optional<UsuariosRegistrado> usuariosRegistrado)
+            throws ServletException, IOException {
+        usuariosRegistrado = usuarioRepository.findById(id);
+        response.setContentType("image/jpeg,image/jpg,image/png");
+        response.getOutputStream().write(usuariosRegistrado.get().getFoto());
+        response.getOutputStream().close();
+    }
+
+    @GetMapping(value={"/display2"})
+    @ResponseBody
+    void mostrar1(@RequestParam("id") int id, HttpServletResponse response, Optional<Incidencia> incidencia)
+            throws ServletException, IOException {
+        incidencia = incidenciaRepository.findById(id);
+        response.setContentType("image/jpeg,image/jpg,image/png");
+        response.getOutputStream().write(incidencia.get().getFoto());
+        response.getOutputStream().close();
     }
 
 }

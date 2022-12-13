@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.proy_grupo4.Entity.Incidencia;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedWriter;
@@ -399,13 +400,9 @@ public class SeguridadController {
         Optional<UsuariosRegistrado> opt = usuarioRepository.findById(id);
         UsuariosRegistrado usuariosRegistrado = opt.get();
         if(!imagen.isEmpty()){
-            String directorio = Paths.get("src//main//resources//static/foto").toFile().getAbsolutePath();
-            System.out.println(directorio);
             try {
                 byte[] bytesImg = imagen.getBytes();
-                String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
-                Path rutacompleta = Paths.get(strpath);
-                Files.write(rutacompleta,bytesImg);
+                usuariosRegistrado.setFoto(bytesImg);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -413,6 +410,26 @@ public class SeguridadController {
         usuariosRegistrado.setTelefono(usuario.getTelefono());
         usuarioRepository.actualizar(usuariosRegistrado.getTelefono(),id);
         return "redirect:/seguridad/inicio?page=1&buscarx=horaCreacion";
+    }
+
+    @GetMapping(value={"/display"})
+    @ResponseBody
+    void mostrar(@RequestParam("id") String id, HttpServletResponse response, Optional<UsuariosRegistrado> usuariosRegistrado)
+            throws ServletException, IOException {
+        usuariosRegistrado = usuarioRepository.findById(id);
+        response.setContentType("image/jpeg,image/jpg,image/png");
+        response.getOutputStream().write(usuariosRegistrado.get().getFoto());
+        response.getOutputStream().close();
+    }
+
+    @GetMapping(value={"/display2"})
+    @ResponseBody
+    void mostrar1(@RequestParam("id") int id, HttpServletResponse response, Optional<Incidencia> incidencia)
+            throws ServletException, IOException {
+        incidencia = incidenciaRepository.findById(id);
+        response.setContentType("image/jpeg,image/jpg,image/png");
+        response.getOutputStream().write(incidencia.get().getFoto());
+        response.getOutputStream().close();
     }
 
 }

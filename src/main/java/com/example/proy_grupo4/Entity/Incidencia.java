@@ -41,14 +41,13 @@ public class Incidencia {
     @JoinColumn(name = "icono")
     private Icono icono;
 
-    @Size(max = 45, message = "El tamaño máximo es 45 caracteres")
+    @Size(max = 100)
     @NotBlank
-    @Column(name = "titulo", length = 45)
+    @Column(name = "titulo", length = 100)
     private String titulo;
 
-    @Size(max = 150, message = "El tamaño máximo es 150 caracteres")
-
-    @Column(name = "descripcion",  length = 150)
+    @Size(max = 500)
+    @Column(name = "descripcion",  length = 500)
     private String descripcion;
 
     @Column(name = "calificacion")
@@ -60,7 +59,6 @@ public class Incidencia {
     private Tipo tipo;
 
     @Size(max = 45)
-
     @Column(name = "nivel", length = 45)
     private String nivel;
 
@@ -68,8 +66,8 @@ public class Incidencia {
     @JoinColumn(name = "zona")
     private Zona zona;
 
-    @Size(max = 80)
-    @Column(name = "zona_detalles", length = 80)
+    @Size(max = 500)
+    @Column(name = "zona_detalles", length = 500)
     private String zonaDetalles;
 
 

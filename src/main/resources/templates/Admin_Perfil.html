@@ -93,7 +93,7 @@
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
                       <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -103,7 +103,7 @@
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
                               <img th:if="${usuario.icono.id == 1}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                              <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -141,7 +141,7 @@
 					<div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img th:if="${usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100" >
-                        <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${usuario.apellido}+'.png'}" alt="user-avatar" class="d-block rounded" height="100" width="100">
+                        <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${usuario.getId()}}" alt="user-avatar" class="d-block rounded" height="100" width="100">
                         <div>
                           <label for="formFile" class="form-label">Cambiar foto de perfil</label>
                           <input accept="image/png,image/jpeg" class="form-control" type="file" id="formFile" name="file">
@@ -167,12 +167,11 @@
                             <label for="organization" class="form-label">DNI</label>
                             <input type="text" class="form-control" id="organization" name="dni" th:value="${usuario.dni}" disabled>
                           </div>
-                          <div class="mb-3 col-md-6">
                             <div class="mb-3 col-md-6">
                               <label class="form-label" for="telefono">Celular</label>
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text">PE (+51)</span>
-                                <input type="number" name="telefono" id="telefono" class="form-control" min="0"
+                                <input type="number" name="telefono" id="telefono" class="form-control" min="900000000"
                                        max="999999999" th:value="${usuario.telefono}">
                               </div>
                             </div>
@@ -186,8 +185,8 @@
                             <a th:href="@{'/admin/usuario'}" class="btn btn-danger">Cancelar</a>
                           </div>
                         </div>
-
-                    </div></form>
+                    </form>
+                    </div>
                   </div>
                 </div>
 

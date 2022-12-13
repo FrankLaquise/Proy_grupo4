@@ -106,7 +106,7 @@
                                        data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
                                             <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                                            <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                                            <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/incidencia/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -116,7 +116,7 @@
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
                                                             <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                                                            <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/incidencia/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -271,7 +271,7 @@
                                                             la situacion</label>
                                                         <textarea class="form-control" id="zonaDetalles"
                                                                   name="ZonaDetalles"
-                                                                  rows="3"></textarea>
+                                                                  rows="3" maxlength=" "></textarea>
                                                     </div>
                                                 <input hidden id="serviceRegion" type="text" size="40" value="brazilsouth">
                                                 <input hidden id="subscriptionKey" type="text" size="40" value="2ae1a24101984131887a21cff59d2583">

@@ -138,7 +138,7 @@
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
                       <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/seguridad/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -148,7 +148,7 @@
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
                               <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                              <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/seguridad/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">

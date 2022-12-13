@@ -91,7 +91,7 @@
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0)" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
                       <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -101,7 +101,7 @@
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
                               <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                              <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -142,7 +142,7 @@
 					<div class="card-body">
                       <div class="d-flex align-items-start align-items-sm-center gap-4">
                         <img th:if="${usuario.icono.id.equals(1)}"  th:src="@{/img/1.png}" alt="user-avatar" class="d-block rounded" height="100" width="100">
-                        <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${usuario.apellido}+'.png'}" alt="user-avatar" class="d-block rounded" height="100" width="100" />
+                        <img th:if="${!usuario.icono.id.equals(1)}" th:src="@{'/admin/display?id='+${usuario.getId()}}" alt="user-avatar" class="d-block rounded" height="100" width="100" />
                         <div>
 							<h5>Cantidad de reportes: <span th:text="${usuario.numeroReportes}"></span></h5>
 							<h5>Estado Actual: <span th:text="${usuario.estado}"></span></h5>

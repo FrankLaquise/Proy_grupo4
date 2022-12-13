@@ -100,7 +100,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0)" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
                                     <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                                    <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                                    <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/incidencia/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -110,7 +110,7 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
                                                     <img th:if="${session.usuario.icono.id.equals(1)}" th:src="@{/img/1.png}" alt class="w-px-40 h-auto rounded-circle" />
-                                                    <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/foto/'+${session.usuario.apellido}+'.png'}" alt class="w-px-40 h-auto rounded-circle" />
+                                                    <img th:if="${!session.usuario.icono.id.equals(1)}" th:src="@{'/incidencia/display?id='+${session.usuario.getId()}}" alt class="w-px-40 h-auto rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
@@ -151,7 +151,7 @@
                                         <div class="mb-3 col-md-5" id="map">
                                         </div>
                                             <div class="mb-3 col-md-5">
-                                                <img th:src="@{'/foto/'+${Incidencia.getImagen()}}" width="350" height="250">
+                                                <img th:src="@{'/incidencia/display2?id='+${Incidencia.getId()}}" width="350" height="250">
                                             </div>
                                         <div class="mb-3 col-md-5">
                                         <dl class="row mt-2">
@@ -226,6 +226,7 @@
                                         <a th:href="@{'/incidencia/list'}">
                                             <button type="button" class="btn btn-danger">Regresar</button></a>
                                                 <a th:if="${Incidencia.getEstado() eq 'atendido'}" th:href="@{'/incidencia/resuelto?id='+${Incidencia.getId()}}"><button type="button" class="btn btn-info">Resuelto</button></a>
+                                            <a th:if="${Incidencia.getEstado() eq 'registrado'}" th:href="@{'/incidencia/eliminar?id='+${Incidencia.getId()}}"><button type="button" class="btn btn-warning">Eliminar</button></a>
                                                 <a th:if="${Incidencia.getEstado() eq 'resuelto'}" ><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#basicModal">Calificar</button></a>
                                         </div></div></form>
                                     <form method="POST" th:action="@{'/incidencia/calificar'+ '?id=' + ${Incidencia.getId()}}">

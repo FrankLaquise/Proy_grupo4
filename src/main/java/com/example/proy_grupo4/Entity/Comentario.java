@@ -13,9 +13,9 @@ public class Comentario {
     @Column(name = "idcomentarios", nullable = false)
     private Integer id;
 
-    @Size(max = 80)
+    @Size(max = 500)
     @NotNull
-    @Column(name = "texto", nullable = false, length = 80)
+    @Column(name = "texto", nullable = false, length = 500)
     private String texto;
 
     @NotNull

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -290,6 +291,7 @@ public class AdminController {
             System.out.println(directorio);
             try {
                 byte[] bytesImg = imagen.getBytes();
+                usuariosRegistrado.setFoto(bytesImg);
                 String strpath = directorio + "//" + usuariosRegistrado.getApellido()+".png";
                 Path rutacompleta = Paths.get(strpath);
                 Files.write(rutacompleta,bytesImg);
@@ -302,5 +304,14 @@ public class AdminController {
         usuarioRepository.actualizar(usuariosRegistrado.getTelefono(),id);
         return "redirect:/admin/incidentes?page=1&buscarx=horaCreacion";}
 
+    @GetMapping(value={"/display"})
+    @ResponseBody
+    void mostrar(@RequestParam("id") String id, HttpServletResponse response, Optional<UsuariosRegistrado> usuariosRegistrado)
+    throws ServletException, IOException {
+        usuariosRegistrado = usuarioRepository.findById(id);
+        response.setContentType("image/jpeg,image/jpg,image/png");
+        response.getOutputStream().write(usuariosRegistrado.get().getFoto());
+        response.getOutputStream().close();
+    }
 }
 
