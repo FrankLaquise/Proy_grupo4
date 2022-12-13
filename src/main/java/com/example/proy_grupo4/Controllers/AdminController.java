@@ -68,7 +68,6 @@ public class AdminController {
     public String usuarios(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
-        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
             Page<UsuariosRegistrado> pageUsuario = newUsuarioService.findProductsWithPaginationAndSorting(page,5,buscarx);
             int totalPage  = pageUsuario.getTotalPages();
@@ -110,12 +109,6 @@ public class AdminController {
         model.addAttribute("searchField",searchField);
         return "Admin_ListaUsuarios";
     }
-    //paginacion_INICIO...
-    @Autowired
-    private IncidenciaServiceAPI incidenciaServiceAPI;
-
-    @Autowired
-    private TodoRepository todoRepository;
 
     @Autowired
     private NewIncidenciaService newIncidenciaService;
@@ -123,7 +116,6 @@ public class AdminController {
     public String findAll(@RequestParam(name="buscarx" , required = false) String buscarx,@RequestParam Map<String,Object> params, Model model){
         int page = params.get("page") != null ?(Integer.valueOf(params.get("page").toString())-1):0;
         PageRequest pageRequest =PageRequest.of(page,3);
-        //Page<Incidencia> pageIncidencia = incidenciaServiceAPI.getAll(pageRequest);
         if (buscarx != null){
             Page<Incidencia> pageIncidencia = newIncidenciaService.findProductsWithPaginationAndSorting(page,6,buscarx);
             int totalPage  = pageIncidencia.getTotalPages();
